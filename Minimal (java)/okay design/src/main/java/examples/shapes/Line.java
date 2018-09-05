@@ -25,8 +25,7 @@ public class Line {
         point1 = new Point(x1, y1);
         point2 = new Point(x2, y2);
 
-        if (computeLength() < 0.00000001)
-            throw new ShapeException("A line must have a length > 0");
+        Validator.validateLength(computeLength());
     }
 
     /**
@@ -42,8 +41,7 @@ public class Line {
         this.point1 = point1;
         this.point2 = point2;
 
-        if (computeLength() < 0.00000001)
-            throw new ShapeException("A line must have a length > 0");
+        Validator.validateLength(computeLength());
     }
 
     /**
@@ -80,6 +78,6 @@ public class Line {
      * @return  The slope of the line
      */
     public double computeSlope() {
-        return (point2.getX() - point1.getX())/(point2.getY() - point1.getY());
+        return (point2.getY() - point1.getY())/(point2.getX() - point1.getX());
     }
 }

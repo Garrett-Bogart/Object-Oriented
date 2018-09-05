@@ -234,8 +234,14 @@ public class CircleTest {
         myCircle = new Circle(1, 2, 4.234);
         assertEquals(56.3185174, myCircle.computeArea(), 0.0001);
 
-        myCircle = new Circle(1, 2, 0);
-        assertEquals(0, myCircle.computeArea(), 0);
+        try {
+            myCircle = new Circle(1, 2, 0);
+            assertEquals(0, myCircle.computeArea(), 0);
+        } catch(ShapeException e)
+        {
+        	//ignore
+        }
+
 
     }
 

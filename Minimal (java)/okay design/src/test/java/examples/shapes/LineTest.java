@@ -137,19 +137,19 @@ public class LineTest {
     @Test
     public void testComputeSlope() throws ShapeException {
         Line myLine = new Line(2, 2, 4, 10);
-        assertEquals(0.25, myLine.computeSlope(), 0.1);
+        assertEquals(4, myLine.computeSlope(), 0.1);
 
         myLine = new Line(2, 2, 4, 10);
-        assertEquals(0.25, myLine.computeSlope(), 0.1);
+        assertEquals(4, myLine.computeSlope(), 0.1);
 
         myLine = new Line(2, 2, 2, 4);
-        assertEquals(0, myLine.computeSlope(), 0.1);
-
-        myLine = new Line(2, 2, 4, 2);
         assertEquals(Double.POSITIVE_INFINITY, myLine.computeSlope(), 0.1);
 
+        myLine = new Line(2, 2, 4, 2);
+        assertEquals(0, myLine.computeSlope(), 0.1);
+
         myLine = new Line(4, 2, 2, 2);
-        assertEquals(Double.NEGATIVE_INFINITY, myLine.computeSlope(), 0.1);
+        assertEquals(0, myLine.computeSlope(), 0.1);
     }
 
 }
