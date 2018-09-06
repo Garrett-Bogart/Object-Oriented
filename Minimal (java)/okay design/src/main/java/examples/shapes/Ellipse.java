@@ -25,7 +25,7 @@ public class Ellipse {
 	 */
 	public Ellipse(Point center, double radius1, double radius2)throws ShapeException
 	{
-		Validator.validateEllipse(center, radius1, radius2);
+		validateEllipse(center, radius1, radius2);
 		this.center = center;
 		this.radius1 = radius1;
 		this.radius2 = radius2;
@@ -42,10 +42,7 @@ public class Ellipse {
 	 */
 	public Ellipse(double x, double y, double radius1, double radius2)throws ShapeException
 	{
-		Validator.validateEllipse(x, y, radius1, radius2);
-		center = new Point(x,y);
-		this.radius1 = radius1;
-		this.radius2 = radius2;
+		this(new Point(x,y), radius1, radius2);
 	}	
 	
 	/**
@@ -94,4 +91,16 @@ public class Ellipse {
         radius1 *= scaleFactor;
         radius2 *= scaleFactor;
     }
+        
+	public static void validateEllipse(Point center, double radius1, double radius2)throws ShapeException
+	{
+		Validator.validateNonNullPoint(center, "Invalid center");
+		Validator.validateDouble(radius1, "The first radius is invalid");
+		Validator.validatePositiveDouble(radius1, "The first radius is negative");
+		Validator.validateLength(radius1);
+		Validator.validateDouble(radius2, "The second radius is invalid");
+		Validator.validatePositiveDouble(radius2, "The second radius is negative");
+		Validator.validateLength(radius2);
+	}
+	
 }

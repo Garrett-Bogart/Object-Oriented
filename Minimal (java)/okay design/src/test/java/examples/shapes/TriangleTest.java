@@ -114,20 +114,13 @@ public class TriangleTest {
         }
         
         try {
-            new Line(p1, p1);
+            new Triangle(1, 2, 1.000000001, 2.000000001, 6, 8);
             fail("Expected exception not thrown");
         } catch (Exception e) {
-            assertEquals(ShapeException.class, e.getClass());
-            assertEquals("A line must have a length > 0", e.getMessage());
+            //ignore
         }
+        
 
-        try {
-            new Line(1,2, 1,2);
-            fail("Expected exception not thrown");
-        } catch (Exception e) {
-            assertEquals(ShapeException.class, e.getClass());
-            assertEquals("A line must have a length > 0", e.getMessage());
-        }
 	}
 
 	@Test
