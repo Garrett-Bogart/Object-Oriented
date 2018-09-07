@@ -35,28 +35,6 @@ public class Point {
     public double getY() { return y; }
 
     /**
-     * Move the point in the x direction
-     *
-     * @param deltaX            The delta amount to move the point -- must be a valid double
-     * @throws ShapeException   Exception thrown if the parameter is invalid
-     */
-    public void moveX(double deltaX) throws ShapeException {
-        Validator.validateDouble(deltaX, "Invalid delta-x value");
-        x += deltaX;
-    }
-
-    /**
-     * Move the point in the y direction
-     *
-     * @param deltaY            The delta amount to move the point -- must be a valid double
-     * @throws ShapeException   Exception thrown if the parameter is invalid
-     */
-    public void moveY(double deltaY) throws ShapeException {
-        Validator.validateDouble(deltaY, "Invalid delta-y value");
-        y += deltaY;
-    }
-
-    /**
      * Move the point
      *
      * @param deltaX            The delta amount to move the point in the x direction -- must be a valid double
@@ -64,8 +42,11 @@ public class Point {
      * @throws ShapeException   Exception throw if any parameter is invalid
      */
     public void move(double deltaX, double deltaY) throws ShapeException {
-        moveX(deltaX);
-        moveY(deltaY);
+        Validator.validateDouble(deltaX, "Invalid delta-x value");
+        Validator.validateDouble(deltaY, "Invalid delta-y value");
+        x += deltaX;
+        y += deltaY;
+
     }
 
     /**
