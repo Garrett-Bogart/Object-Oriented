@@ -15,11 +15,7 @@ public class Rectangle {
 	 */
 	public Rectangle(Point origin, double width, double height) throws ShapeException
 	{
-		Validator.validateNonNullPoint(origin, "Rectangle: The origin can't be null");
-		Validator.validatePositiveDouble(width,"Rectangle: width must greater than 0");
-		Validator.validatePositiveDouble(height,"Rectangle: height must greater than 0");
-		Validator.validateLength(width);
-		Validator.validateLength(height);		
+		validateRectangle(origin, width, height);
 		this.origin = origin;
 		this.width = width;
 		this.height = height;
@@ -86,6 +82,15 @@ public class Rectangle {
 	public void move(double deltaX, double deltaY)throws ShapeException
 	{
 		origin.move(deltaX, deltaY);
+	}
+	
+	public void validateRectangle(Point origin, double width, double height) throws ShapeException
+	{
+		Validator.validateNonNullPoint(origin, "Rectangle: The origin can't be null");
+		Validator.validatePositiveDouble(width,"Rectangle: width must greater than 0");
+		Validator.validatePositiveDouble(height,"Rectangle: height must greater than 0");
+		Validator.validateLength(width);
+		Validator.validateLength(height);
 	}
 
 }

@@ -22,6 +22,5 @@ public class Validator {
     {
         if (length < 0.00000001)
             throw new ShapeException("A line must have a length > 0");
-    }
-	
+    }	
 }

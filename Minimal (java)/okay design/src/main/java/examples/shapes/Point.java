@@ -18,8 +18,8 @@ public class Point {
      * @throws ShapeException   Exception throw if any parameter is invalid
      */
     public Point(double x, double y) throws ShapeException {
-        Validator.validateDouble(x, "Invalid x-location");
-        Validator.validateDouble(y, "Invalid y-location");
+        Validator.validateDouble(x, "Point: Invalid x-location");
+        Validator.validateDouble(y, "Point: Invalid y-location");
         this.x = x;
         this.y = y;
     }

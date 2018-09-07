@@ -22,6 +22,7 @@ public class Line {
      * @throws ShapeException   Exception throw if any parameter is invalid
      */
     public Line(double x1, double y1, double x2, double y2) throws ShapeException {
+    	this(new Point(x1,y1), new Point(x2,y2));
         point1 = new Point(x1, y1);
         point2 = new Point(x2, y2);
 
