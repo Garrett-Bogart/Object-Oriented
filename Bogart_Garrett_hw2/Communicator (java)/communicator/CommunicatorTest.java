@@ -1,3 +1,4 @@
+package communicator;
 import org.junit.Test;
 
 import java.net.DatagramPacket;

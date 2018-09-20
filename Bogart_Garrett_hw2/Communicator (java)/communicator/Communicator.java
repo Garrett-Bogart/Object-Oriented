@@ -1,3 +1,4 @@
+package communicator;
 import java.net.DatagramSocket;
 import java.net.*;
 

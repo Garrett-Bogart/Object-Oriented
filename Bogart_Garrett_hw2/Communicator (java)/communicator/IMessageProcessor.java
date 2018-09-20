@@ -1,3 +1,4 @@
+package communicator;
 import java.net.InetAddress;
 
 public interface IMessageProcessor {
