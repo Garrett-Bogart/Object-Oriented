@@ -1,5 +1,8 @@
-package communicator;
+package test;
 import org.junit.Test;
+
+import communicator.Communicator;
+import communicator.DummyMessageProcessor;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;

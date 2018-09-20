@@ -1,10 +1,5 @@
 package athlete;
 
-enum Status
-{
-	Registered, didNotStart, didNotFinish, Finished;
-}
-
 public class Athlete {
 	private String firstName;
 	private String lastName;

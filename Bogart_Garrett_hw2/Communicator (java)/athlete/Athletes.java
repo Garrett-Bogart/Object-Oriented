@@ -18,7 +18,6 @@ public class Athletes {
 	
 	public Athlete getAthlete(String firstName, String lastName)
 	{
-		Athlete container;
 		for(Athlete athlete : athletes)
 		{
 			if(athlete.getFirstName() == firstName && athlete.getLastName() == lastName)
