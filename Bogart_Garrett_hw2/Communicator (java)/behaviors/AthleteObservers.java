@@ -1,13 +1,15 @@
 package behaviors;
 
-import athlete.RaceTracker;
+import athlete.Athlete;
+import athlete.AthleteTracker;
 
 public class AthleteObservers implements AthleteEvents {
 
 	@Override
-	public void athleteExecute(RaceTracker race, String id, String time, String firstName, String lastName,
-			String gender, String age, String status) {
-		// Athlete athlete = race.getAthlete(firstName, lastName);
+	public void athleteExecute(AthleteTracker race, String id, String time, String firstName, String lastName,
+			String gender, String age, String status, String distance, String endpoint) {
+		 	Athlete athlete = race.getAthlete(id);
+		 	athlete.addObserver(endpoint);
 
 	}
 

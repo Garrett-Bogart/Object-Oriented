@@ -1,6 +1,6 @@
 package communicator;
 
-import athlete.RaceTracker;
+import athlete.AthleteTracker;
 import message.Message;
 import message.RaceMessage;
 import java.net.InetAddress;

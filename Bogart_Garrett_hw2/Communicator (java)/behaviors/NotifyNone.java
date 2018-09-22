@@ -1,10 +1,10 @@
 package behaviors;
 
-import athlete.RaceTracker;
+import athlete.AthleteTracker;
 
 public class NotifyNone implements NotifyEvents {
 
 	@Override
-	public void notifyExecute(RaceTracker r) {}
+	public void notifyExecute(AthleteTracker r) {}
 
 }

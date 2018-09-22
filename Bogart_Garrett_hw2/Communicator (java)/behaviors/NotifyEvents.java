@@ -1,6 +1,6 @@
 package behaviors;
-import athlete.RaceTracker;
+import athlete.AthleteTracker;
 
 public interface NotifyEvents {
-	public void notifyExecute(RaceTracker r); 
+	public void notifyExecute(AthleteTracker r); 
 }

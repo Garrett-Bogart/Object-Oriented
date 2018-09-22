@@ -1,16 +1,16 @@
 package behaviors;
 
-import athlete.RaceTracker;
+import athlete.AthleteTracker;
 import athlete.Athlete;
 
 public class AthleteUpdate implements AthleteEvents {
 
 	@Override
-	public void athleteExecute(RaceTracker race, String id, String time, String firstName, String lastName,
-			String gender, String age, String status) {
-		Athlete athlete = race.getAthlete(firstName, lastName);
+	public void athleteExecute(AthleteTracker race, String id, String time, String firstName, String lastName,
+			String gender, String age, String status, String distance, String endpoint) {
+		Athlete athlete = race.getAthlete(id);
 		athlete.setTime(time);
-		//athlete.setDistamce(distance);
+		athlete.setDistance(distance);
 	}
 
 }

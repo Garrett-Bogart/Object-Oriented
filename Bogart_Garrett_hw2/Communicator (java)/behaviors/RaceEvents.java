@@ -1,7 +1,7 @@
 package behaviors;
-import athlete.RaceTracker;
+import athlete.AthleteTracker;
 
 public interface RaceEvents {
-	public void raceExecute(RaceTracker r, String n, String d);
+	public void raceExecute(AthleteTracker r, String n, String d);
 
 }
