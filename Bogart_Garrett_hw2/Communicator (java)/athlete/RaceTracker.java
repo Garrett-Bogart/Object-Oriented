@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class Athletes {
+public class RaceTracker {
+	private String raceName;
+	private String distance;
 	private Vector <Athlete> athletes;
 	
-	public Athletes() {
+	public RaceTracker() {
 		this.athletes = new Vector<Athlete>();
 	}
 	
-	public void add(Athlete a)
+	public void addAthlete(Athlete a)
 	{
 		athletes.add(a);
 	}
@@ -27,5 +29,12 @@ public class Athletes {
 		}
 		return null;
 	}
+	
+	public String getRaceName() {return raceName;}
+	public String getDistance() {return distance;}
+	
+	public void setDistance(String dis) {distance = dis;}
+	public void setRaceName(String name) {raceName = name;}
+	
 	
 }

@@ -1,6 +1,7 @@
 package communicator;
 import java.net.DatagramSocket;
 import java.net.*;
+import athlete.Athlete;
 
 import static java.nio.charset.StandardCharsets.UTF_16BE;
 
