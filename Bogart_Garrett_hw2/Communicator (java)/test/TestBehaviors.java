@@ -16,6 +16,8 @@ import behaviors.ClientEvents;
 import behaviors.ClientSubscribe;
 import behaviors.ClientUnsubscribe;
 import behaviors.RaceEvents;
+import communicator.Communicator;
+import communicator.RaceTracker;
 import behaviors.RaceChange;
 
 public class TestBehaviors {
@@ -61,10 +63,12 @@ public class TestBehaviors {
 	}
 	
 	@Test
-	public void RaceChange()
+	public void RaceChange()throws Exception
 	{
+		Communicator comm = new Communicator();
+		AthleteTracker athletes = new AthleteTracker();
 		RaceEvents RC = new RaceChange();
-		AthleteTracker race = new AthleteTracker();
+		RaceTracker race = new RaceTracker(comm, athletes);
 		assertEquals(null, race.getRaceName());
 		assertEquals(null, race.getDistance());
 		
