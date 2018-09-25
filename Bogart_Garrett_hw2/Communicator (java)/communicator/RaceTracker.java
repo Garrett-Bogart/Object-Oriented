@@ -21,9 +21,8 @@ public class RaceTracker {
 		race = new Race();
 		this.comm = new Communicator(race);
 		this.athleteTracker = new AthleteTracker();
-		DummyMessageProcessor processor = new DummyMessageProcessor("Reciever");
+		MessageProcessor processor = new MessageProcessor("Reciever");
 		comm.setProcessor(processor);
-		this.athleteTracker = athleteTracker;
 	}
 		
 	public void start()

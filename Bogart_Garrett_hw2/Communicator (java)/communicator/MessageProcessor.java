@@ -3,7 +3,11 @@ package communicator;
 import java.net.InetAddress;
 
 import athlete.Athlete;
+import message.DidNotFinishMessage;
+import message.DidNotStartMessage;
+import message.FinishedMessage;
 import message.Message;
+import message.OnCourseMessage;
 import message.RaceMessage;
 import message.RegisteredMessage;
 
@@ -88,19 +92,31 @@ public class MessageProcessor implements IMessageProcessor {
 		}
 		else if("DidNotFinish".equals(parts[0]))
 		{
-			return new RegisteredMessage();
+			return new DidNotFinishMessage();
 		}
 		else if("DidNotStart".equals(parts[0]))
 		{
-			return new RegisteredMessage();
+			return new DidNotStartMessage();
 		}
 		else if("OnCourse".equals(parts[0]))
 		{
-			return new RegisteredMessage();
+			return new OnCourseMessage();
 		}
 		else if("Finished".equals(parts[0]))
 		{
-			return new RegisteredMessage();
+			return new FinishedMessage();
+		}
+		else if("Hello".equals(parts[0]))
+		{
+			return new FinishedMessage();
+		}
+		else if("Subscribe".equals(parts[0]))
+		{
+			return new FinishedMessage();
+		}
+		else if("Unsubscribe".equals(parts[0]))
+		{
+			return new FinishedMessage();
 		}
 		return null;
 	}

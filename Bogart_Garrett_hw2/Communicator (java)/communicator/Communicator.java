@@ -177,9 +177,12 @@ public class Communicator implements Runnable {
             if (_processor!=null)
             {
                 behavior = _processor.process(message, senderAddress, senderPort);
-                Athlete athlete = _processor.makeAthlete(message);//if !null then the message needs an athlete
-            // need to pass in an Race, an athlete, senderAddress, senderPort
-            	behavior.execute(message,race, athleteTracker, athlete, senderAddress, senderPort);
+                Athlete athlete = _processor.makeAthlete(message);
+            	try {
+					behavior.execute(message,race, athleteTracker, athlete, senderAddress, senderPort);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
             }
 
         }

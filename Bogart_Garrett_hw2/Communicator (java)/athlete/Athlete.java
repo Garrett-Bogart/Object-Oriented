@@ -75,8 +75,12 @@ public class Athlete {
 	
 	public void addObserver(InetAddress ip, int port) 
 	{
-		Client client = new Client(ip,  port);
-		observers.add(client);
+		Observers obs = getObserver(ip, port);
+		if(obs == null)
+		{
+			Client client = new Client(ip,  port);
+			observers.add(client);
+		}
 	}
 	
 	public void removeObserver(InetAddress ip, int port)

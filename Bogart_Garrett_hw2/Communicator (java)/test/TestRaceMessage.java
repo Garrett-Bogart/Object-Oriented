@@ -50,7 +50,7 @@ public class TestRaceMessage {
 		RE.raceExecute(race, msg);
 		AE.athleteExecute(athletes, athlete1, ip, port);
 		CE.clientExecute(athletes, msg, ip, port);
-		NE.notifyExecute(msg, race, ip, port);
+		NE.notifyExecute(msg, race, ip, port,athlete1, athletes);
 		
 		String name = race.getRaceName();
 		String distance = race.getDistance();

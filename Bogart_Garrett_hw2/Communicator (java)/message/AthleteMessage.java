@@ -14,6 +14,7 @@ import behaviors.NotifyAll;
 import behaviors.NotifyEvents;
 import behaviors.RaceEvents;
 import behaviors.RaceNoChanges;
+import communicator.Communicator;
 
 public class AthleteMessage extends Message{
 	public AthleteMessage() 
@@ -24,12 +25,12 @@ public class AthleteMessage extends Message{
 		this.clientEvents = new ClientNone();
 	}
 			
-	public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port) 
+	public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port) throws Exception 
 	{
 		raceEvents.raceExecute(race, message);
 		athleteEvents.athleteExecute(athleteTracker, athlete, ip, port);
 		clientEvents.clientExecute(athleteTracker, message, ip, port);//may need to add client to observer list in athletes
-		notifyEvents.notifyExecute(message, race, ip, port);
+		notifyEvents.notifyExecute(message, race, ip, port, athlete, athleteTracker);
 	}
 	
 	

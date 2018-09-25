@@ -16,7 +16,7 @@ abstract public class Message {
 	protected AthleteEvents athleteEvents;
 	protected ClientEvents clientEvents;
 	
-	abstract public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port);
+	abstract public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port)throws Exception;
 	
 	abstract public RaceEvents getRaceEvents();
 	abstract public NotifyEvents getNotifyEvents();

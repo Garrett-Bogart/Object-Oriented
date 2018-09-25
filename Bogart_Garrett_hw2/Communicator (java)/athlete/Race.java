@@ -1,6 +1,7 @@
 package athlete;
 
 import java.net.InetAddress;
+import java.util.Iterator;
 import java.util.Vector;
 
 import observer.Client;
@@ -16,26 +17,39 @@ public class Race {
 		observers = new Vector<Observers>();
 	}
 	
-	public void addObserver(InetAddress ip, int port)
+	public void addObserver(InetAddress ip, int port) 
 	{
-		Observers client = new Client( ip,  port);
-		int found = findObserver( ip,  port);
-		if(found != 0)
+		Observers obs = getObserver(ip, port);
+		if(obs == null)
 		{
+			Client client = new Client(ip,  port);
 			observers.add(client);
 		}
 	}
 	
-	public int findObserver(InetAddress ip, int port)
+	public void removeObserver(InetAddress ip, int port)
+	{
+		
+		for(Iterator<Observers> i = observers.iterator();i.hasNext();)
+		{
+			Observers obs = i.next();
+			if(obs.getPort() == port && obs.getIP() == ip)
+			{
+				i.remove();
+			}
+		}
+	}
+	
+	public Observers getObserver(InetAddress ip, int port)
 	{
 		for(Observers obs : observers)
 		{
 			if(obs.getPort() == port && obs.getIP() == ip)
 			{
-				return 1;
+				return obs;
 			}
 		}
-		return 0;
+		return null;
 	}
 	
 	public String getRaceName() {return raceName;}
