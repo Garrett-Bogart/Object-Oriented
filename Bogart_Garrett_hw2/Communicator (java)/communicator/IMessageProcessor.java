@@ -1,6 +1,11 @@
 package communicator;
 import java.net.InetAddress;
 
+import athlete.Athlete;
+import message.Message;
+
 public interface IMessageProcessor {
-    void process(String message, InetAddress address, int port);
+    Message process(String message, InetAddress address, int port);
+
+	Athlete makeAthlete(String message);
 }

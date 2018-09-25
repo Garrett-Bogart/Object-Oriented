@@ -27,12 +27,23 @@ public class AthleteTracker {
 	{
 		for(Athlete athlete : athletes)
 		{
-			if(athlete.getID() == id)
+			if(id.equals(athlete.getID()))
 			{
 				return athlete;
 			}
 		}
 		return null;
 	}
+	
+	public void updateAthlete(Athlete athleteBase, Athlete athleteUpdater)
+	{
+		if(athleteUpdater.getTime() != null)
+			athleteBase.setTime(athleteUpdater.getTime());
+		if(athleteUpdater.getStatus() != null)
+			athleteBase.setStatus(athleteUpdater.getStatus());
+		if(athleteUpdater.getDistance() != null)
+			athleteBase.setDistance(athleteUpdater.getDistance());
+	}
 
+	public Vector<Athlete> getAthletes(){return athletes;}
 }

@@ -1,8 +1,14 @@
 package message;
+import java.net.InetAddress;
+
+import athlete.Athlete;
+import athlete.AthleteTracker;
+import athlete.Race;
 import behaviors.AthleteEvents;
 import behaviors.ClientEvents;
 import behaviors.NotifyEvents;
 import behaviors.RaceEvents;
+import communicator.RaceTracker;
 
 abstract public class Message {
 	protected RaceEvents raceEvents;
@@ -10,9 +16,7 @@ abstract public class Message {
 	protected AthleteEvents athleteEvents;
 	protected ClientEvents clientEvents;
 	
-	abstract public void execute(String[] message);
-	abstract public String[] parse(String message);
-	
+	abstract public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port);
 	
 	abstract public RaceEvents getRaceEvents();
 	abstract public NotifyEvents getNotifyEvents();

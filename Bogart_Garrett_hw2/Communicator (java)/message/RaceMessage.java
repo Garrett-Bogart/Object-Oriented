@@ -1,4 +1,9 @@
 package message;
+import java.net.InetAddress;
+
+import athlete.Athlete;
+import athlete.AthleteTracker;
+import athlete.Race;
 import behaviors.AthleteEvents;
 import behaviors.AthleteNone;
 import behaviors.ClientEvents;
@@ -7,6 +12,7 @@ import behaviors.NotifyAll;
 import behaviors.NotifyEvents;
 import behaviors.RaceChange;
 import behaviors.RaceEvents;
+import communicator.RaceTracker;
 
 public class RaceMessage extends Message {
 
@@ -17,15 +23,13 @@ public class RaceMessage extends Message {
 			this.athleteEvents = new AthleteNone();
 			this.clientEvents = new ClientNone();
 		}
-		
-		public String[] parse(String message)
+				
+		public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port) 
 		{
-			String[] parts = message.split(",");
-			return parts;
-		}
-		
-		public void execute(String[] message) 
-		{
+			raceEvents.raceExecute(race, message);
+			athleteEvents.athleteExecute(athleteTracker, athlete, ip, port);
+			clientEvents.clientExecute(athleteTracker, message, ip, port);//may need to add client to observer list in athletes
+			notifyEvents.notifyExecute(message, race, ip, port);
 		}
 		
 		
@@ -44,5 +48,6 @@ public class RaceMessage extends Message {
 		public void setClientEvents(ClientEvents event){this.clientEvents = event;}
 		
 		public void setRaceEvent(RaceEvents event) {raceEvents = event;}
+
 		
 }

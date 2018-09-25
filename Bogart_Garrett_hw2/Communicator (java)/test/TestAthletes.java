@@ -12,11 +12,11 @@ public class TestAthletes {
 	@Test
 	public void testConstruction()
 	{
-		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70", "registered");
-		Athlete athlete2 = new Athlete("11", "14", "b", "b", "m", "70", "registered");
-		Athlete athlete3 = new Athlete("12", "14", "c", "c", "m", "70", "registered");
-		Athlete athlete4 = new Athlete("13", "14", "d", "d", "m", "70", "registered");
-		Athlete athlete5 = new Athlete("14", "14", "e", "e", "m", "70", "registered");
+		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70");
+		Athlete athlete2 = new Athlete("11", "14", "b", "b", "m", "70");
+		Athlete athlete3 = new Athlete("12", "14", "c", "c", "m", "70");
+		Athlete athlete4 = new Athlete("13", "14", "d", "d", "m", "70");
+		Athlete athlete5 = new Athlete("14", "14", "e", "e", "m", "70");
 		AthleteTracker athletes = new AthleteTracker();
 		athletes.addAthlete(athlete1);
 		athletes.addAthlete(athlete2);

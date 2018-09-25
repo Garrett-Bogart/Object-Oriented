@@ -7,19 +7,22 @@ import observer.Observers;
 
 import static org.junit.Assert.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class TestAthlete {
 
 	@Test
 	public void testConstruction()
 	{
-		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70", "registered");
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
 		assertEquals("10", athlete.getID());
 		assertEquals("14", athlete.getTime());
 		assertEquals("cool", athlete.getFirstName());
 		assertEquals("guy", athlete.getLastName());
 		assertEquals("m", athlete.getGender());
 		assertEquals("70", athlete.getAge());
-		assertEquals("registered", athlete.getStatus());
+		assertEquals("Registered", athlete.getStatus());
 		
 		athlete.setID("12");
 		athlete.setTime("12");
@@ -41,19 +44,23 @@ public class TestAthlete {
 	}
 	
 	@Test
-	public void testObservers()
+	public void testObservers() throws UnknownHostException
 	{
-		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70", "registered");
-		athlete.addObserver("123456789");
-		String endpoint = athlete.getObserver("123456789").getEndPoint();
-		assertEquals("123456789", endpoint);
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
+		athlete.addObserver(ip ,port);
+		assertEquals(InetAddress.getLocalHost(), athlete.getObserver(ip, port).getIP());
+		assertEquals(12000, athlete.getObserver(ip, port).getPort());
 		
-		athlete.removeObserver(endpoint);
-		Observers obs = athlete.getObserver("123456789");
+		athlete.removeObserver(ip, port);
+		Observers obs = athlete.getObserver(ip, port);
 		assertEquals(null, obs);
 		
-		athlete.removeObserver("adfasdf");
-		obs = athlete.getObserver("11111");
+		ip = InetAddress.getByName("127.0.0.3");
+		port = 12;
+		athlete.removeObserver(ip,port);
+		obs = athlete.getObserver(ip, port);
 		assertEquals(null, obs);
 	}
 	

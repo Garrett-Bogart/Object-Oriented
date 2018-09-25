@@ -1,9 +1,11 @@
 package communicator;
 
+import java.net.SocketException;
 import java.util.Vector;
 
 import athlete.Athlete;
 import athlete.AthleteTracker;
+import athlete.Race;
 import message.Message;
 import observer.Client;
 import observer.Observers;
@@ -11,19 +13,19 @@ import observer.Observers;
 public class RaceTracker {
 	private Communicator comm;
 	private AthleteTracker athleteTracker;
-	private Vector<Observers> observers;
-	private String raceName;
-	private String distance;
-	Message message;
+	private Race race;
+	private Message message;
 	
-	public RaceTracker(Communicator comm, AthleteTracker athleteTracker)
+	public RaceTracker() throws Exception
 	{
-		this.comm = comm;
+		race = new Race();
+		this.comm = new Communicator(race);
+		this.athleteTracker = new AthleteTracker();
 		DummyMessageProcessor processor = new DummyMessageProcessor("Reciever");
 		comm.setProcessor(processor);
 		this.athleteTracker = athleteTracker;
 	}
-	
+		
 	public void start()
 	{
 		while(true)
@@ -38,36 +40,14 @@ public class RaceTracker {
 		}
 	}
 	
-	public void addObserver(String endpoint)
-	{
-		Observers client = new Client(endpoint);
-		int found = findObserver(endpoint);
-		if(found != 0)
-		{
-			observers.add(client);
-		}
-	}
-	
-	public int findObserver(String endpoint)
-	{
-		for(Observers obs : observers)
-		{
-			if(obs.getEndPoint() == endpoint)
-			{
-				return 1;
-			}
-		}
-		return 0;
-	}
-	
 	public Communicator getCommunicator() {return comm;}
 	public IMessageProcessor getProcessor() {return comm.getProcessor();}
-	public String getRaceName() {return raceName;}
-	public String getDistance() {return distance;}
-	public Vector<Observers> getObservers(){return observers;}
+	public AthleteTracker getAthleteTacker() {return athleteTracker;}
+	public Race getRace() {return race;}
 	
-	public void setDistance(String dis) {distance = dis;}
-	public void setRaceName(String name) {raceName = name;}
+
 	public void setCommunicator(Communicator comm) {comm = comm;}
 	public void setProcessor(DummyMessageProcessor proc) { comm.setProcessor(proc);}
+	public void setRace(Race race) {this.race =race;}
+	public void setMessage(Message message) {this.message = message;}
 }

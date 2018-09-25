@@ -1,12 +1,15 @@
 package behaviors;
 
+import java.net.InetAddress;
+
 import athlete.Athlete;
 import athlete.AthleteTracker;
 
 public class ClientSubscribe implements ClientEvents{
-	public void clientExecute(AthleteTracker race, String id, String endpoint)
+	public void clientExecute(AthleteTracker athleteTracker, String message, InetAddress ip, int port)
 	{
-		Athlete athlete = race.getAthlete(id);
-		athlete.addObserver(endpoint);
+		String[] parts = message.split(",");
+		Athlete athlete = athleteTracker.getAthlete(parts[1].trim());
+		athlete.addObserver(ip, port);
 	}
 }

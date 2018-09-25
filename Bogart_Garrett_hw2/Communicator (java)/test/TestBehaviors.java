@@ -2,9 +2,14 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Vector;
+
 import org.junit.Test;
 
 import athlete.AthleteTracker;
+import athlete.Race;
 import athlete.Athlete;
 import athlete.Status;
 import behaviors.AthleteAdd;
@@ -18,48 +23,58 @@ import behaviors.ClientUnsubscribe;
 import behaviors.RaceEvents;
 import communicator.Communicator;
 import communicator.RaceTracker;
+import observer.Observers;
 import behaviors.RaceChange;
 
 public class TestBehaviors {
 	
 	@Test
-	public void TestAthleteAdd()
+	public void TestAthleteAdd() throws UnknownHostException
 	{
+		InetAddress ip = InetAddress.getByName("127.0.0.1");
+		Race race = new Race();
 		AthleteEvents AE = new AthleteAdd();
-		AthleteTracker race = new AthleteTracker();
-		AE.athleteExecute(race, "10", "900", "Speed", "Racer", "Yes", "time", "all", "time", null);
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("10", "900", "Speed", "Racer", "gender", "time");
+		AE.athleteExecute(athleteTracker, athlete, ip, 12);
 		
-		Athlete athlete = race.getAthlete("10");
-		assertEquals("10", athlete.getID());
+		Athlete temp = athleteTracker.getAthlete("10");
+		assertEquals(0, temp.getObservers().size(), 0);
+		assertEquals("10", temp.getID());
 	}
 	
 	@Test
-	public void TestAthleteUpdate()
+	public void TestAthleteUpdate() throws UnknownHostException
 	{
+		InetAddress ip = InetAddress.getByName("127.0.0.1");
 		AthleteEvents AE = new AthleteUpdate();
-		AthleteTracker race = new AthleteTracker();
-		Athlete athlete = new Athlete("id", "900", "Speed", "Racer", "Yes", "time", "all");
-		race.addAthlete(athlete);
-		AE.athleteExecute(race, "id", "time", null, null, null, null, null, "distance", null);
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athleteBase = new Athlete("id", "900", "Speed", "Racer", "Yes", "time");
+		Athlete athleteUpdater = new Athlete("id", "987654", "distance");
+		athleteTracker.addAthlete(athleteBase);
+		AE.athleteExecute(athleteTracker, athleteUpdater, ip, 12);
 		
-		athlete = race.getAthlete("id");
-		assertEquals("id", athlete.getID());
-		assertEquals("time", athlete.getTime());
-		assertEquals("distance", athlete.getDistance());
+		Athlete temp  = athleteTracker.getAthlete("id");
+		assertEquals("id", temp.getID());
+		assertEquals("987654", temp.getTime());
+		assertEquals("distance", temp.getDistance());
 	}
 	
 	@Test
-	public void TestAthleteObservers()
+	public void TestAthleteObservers() throws UnknownHostException
 	{
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
 		AthleteEvents AE = new AthleteObservers();
-		AthleteTracker race = new AthleteTracker();
-		Athlete athlete = new Athlete("id", "900", "Speed", "Racer", "Yes", "time", "all");
-		race.addAthlete(athlete);
-		AE.athleteExecute(race, "id", null, null, null, null, null, null, null, "127.0.0.1:12000");
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("id", "900", "Speed", "Racer", "Yes", "time");
+		athleteTracker.addAthlete(athlete);
+		AE.athleteExecute(athleteTracker, athlete, ip, port);
 		
-		athlete = race.getAthlete("id");
-		assertEquals("id", athlete.getID());
-		assertEquals("127.0.0.1:12000", athlete.getObserver("127.0.0.1:12000").getEndPoint());
+		Athlete temp = athleteTracker.getAthlete("id");
+		assertEquals("id", temp.getID());
+		assertEquals(ip, temp.getObserver(ip, port).getIP());
+		assertEquals(port, temp.getObserver(ip, port).getPort());
 	}
 	
 	@Test
@@ -68,51 +83,62 @@ public class TestBehaviors {
 		Communicator comm = new Communicator();
 		AthleteTracker athletes = new AthleteTracker();
 		RaceEvents RC = new RaceChange();
-		RaceTracker race = new RaceTracker(comm, athletes);
+		Race race = new Race();
 		assertEquals(null, race.getRaceName());
 		assertEquals(null, race.getDistance());
 		
-		RC.raceExecute(race, "big race", "100 years");
+		RC.raceExecute(race, "Registered, big race, 100 years");
 		assertEquals("big race", race.getRaceName());
 		assertEquals("100 years", race.getDistance());		
 	}
 	
 	@Test
-	public void ClientSubscribe()
+	public void ClientSubscribe() throws UnknownHostException
 	{
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
 		ClientEvents CE = new ClientSubscribe();
-		AthleteTracker race = new AthleteTracker();
-		Athlete athlete = new Athlete("id", "900", "Speed", "Racer", "Yes", "time", "all");
-		race.addAthlete(athlete);
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
+		athleteTracker.addAthlete(athlete);
 		
-		assertEquals(null, athlete.getObserver("123456789"));
+		assertEquals(1, athleteTracker.getAthletes().size(), 0);		
+		assertEquals(null, athlete.getObserver(ip, port));
 		
-		CE.clientExecute(race, "id", "123456789");
-		athlete = race.getAthlete("id");
-		athlete.addObserver("123456789");
+		CE.clientExecute(athleteTracker, "message, 10",ip, port);
+		Athlete temp = athleteTracker.getAthlete("10");
 		
-		assertEquals("123456789", athlete.getObserver("123456789").getEndPoint());
+		assertEquals(1, temp.getObservers().size(),0);
+		Vector<Observers> observers = temp.getObservers();
+		assertEquals(ip, temp.getObserver(ip, port).getIP());
+		assertEquals(port, temp.getObserver(ip, port).getPort());		
 	}
 	
 	@Test
-	public void ClientUnsubscribe()
+	public void ClientUnsubscribe() throws UnknownHostException
 	{
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
 		ClientEvents CE = new ClientSubscribe();
-		AthleteTracker race = new AthleteTracker();
-		Athlete athlete = new Athlete("id", "900", "Speed", "Racer", "Yes", "time", "all");
-		race.addAthlete(athlete);
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
+		athleteTracker.addAthlete(athlete);
 		
-		assertEquals(null, athlete.getObserver("123456789"));
+		assertEquals(1, athleteTracker.getAthletes().size(), 0);		
+		assertEquals(null, athlete.getObserver(ip, port));
 		
-		CE.clientExecute(race, "id", "123456789");
-		athlete = race.getAthlete("id");
-		athlete.addObserver("123456789");
+		CE.clientExecute(athleteTracker, "message, 10",ip, port);
+		Athlete temp = athleteTracker.getAthlete("10");
 		
-		assertEquals("123456789", athlete.getObserver("123456789").getEndPoint());
+		assertEquals(1, temp.getObservers().size(),0);
+		Vector<Observers> observers = temp.getObservers();
+		assertEquals(ip, temp.getObserver(ip, port).getIP());
+		assertEquals(port, temp.getObserver(ip, port).getPort());
 		
 		CE = new ClientUnsubscribe();
-		CE.clientExecute(race, "id", "123456789");
-		assertEquals(null, athlete.getObserver("123456789"));
+		CE.clientExecute(athleteTracker, "message, 10",ip, port);
+		temp = athleteTracker.getAthlete("10");
+		assertEquals(0, temp.getObservers().size());
 	}
 	
 

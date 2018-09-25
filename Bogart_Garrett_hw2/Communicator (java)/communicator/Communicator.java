@@ -2,6 +2,9 @@ package communicator;
 import java.net.DatagramSocket;
 import java.net.*;
 import athlete.Athlete;
+import athlete.AthleteTracker;
+import athlete.Race;
+import message.Message;
 
 import static java.nio.charset.StandardCharsets.UTF_16BE;
 
@@ -10,6 +13,9 @@ public class Communicator implements Runnable {
     private DatagramSocket datagramSocket;
     private boolean _keepGoing;
     private IMessageProcessor _processor;
+    private Message behavior;
+    private Race race;
+    private AthleteTracker athleteTracker;
 
     /**
      * Constructor, which opens an UDP socket on any available port.
@@ -18,6 +24,12 @@ public class Communicator implements Runnable {
      */
     public Communicator() throws SocketException
     {
+        datagramSocket = new DatagramSocket();
+    }
+    
+    public Communicator(Race race) throws SocketException
+    {
+    	this.race = race;
         datagramSocket = new DatagramSocket();
     }
 
@@ -163,7 +175,13 @@ public class Communicator implements Runnable {
             int senderPort = packet.getPort();
 
             if (_processor!=null)
-                _processor.process(message, senderAddress, senderPort);
+            {
+                behavior = _processor.process(message, senderAddress, senderPort);
+                Athlete athlete = _processor.makeAthlete(message);//if !null then the message needs an athlete
+            // need to pass in an Race, an athlete, senderAddress, senderPort
+            	behavior.execute(message,race, athleteTracker, athlete, senderAddress, senderPort);
+            }
+
         }
     }
 

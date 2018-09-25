@@ -1,15 +1,18 @@
 package behaviors;
 
+import java.net.InetAddress;
+
 import athlete.Athlete;
 import athlete.AthleteTracker;
 
 public class ClientUnsubscribe implements ClientEvents {
 
 	@Override
-	public void clientExecute(AthleteTracker race, String id, String endpoint) {
+	public void clientExecute(AthleteTracker race, String message, InetAddress ip, int port) {
 		// TODO Auto-generated method stub
-		Athlete athlete = race.getAthlete(id);
-		athlete.removeObserver(endpoint);
+		String[] parts = message.split(",");
+		Athlete athlete = race.getAthlete(parts[1].trim());
+		athlete.removeObserver(ip, port);
 	}
 
 }

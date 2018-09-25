@@ -1,9 +1,12 @@
 package observer;
 
+import java.net.InetAddress;
+
 public class Client extends Observers {
 	
-	public Client(String endpoint)
+	public Client(InetAddress ip, int port)
 	{
-		this.endpoint = endpoint;
+		this.ip = ip;
+		this.port = port;
 	}
 }

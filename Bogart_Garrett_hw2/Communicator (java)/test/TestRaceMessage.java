@@ -1,6 +1,8 @@
 package test;
 import static org.junit.Assert.assertEquals;
 
+import java.net.InetAddress;
+
 import org.junit.Test;
 import message.RaceMessage;
 import message.Message;
@@ -13,22 +15,26 @@ import communicator.Communicator;
 import communicator.RaceTracker;
 import athlete.Athlete;
 import athlete.AthleteTracker;
+import athlete.Race;
 
 public class TestRaceMessage {
 	
 	@Test
 	public void TestRaceMessageConstructor()throws Exception
 	{
-		
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
+		String msg = "Registered,check, 9001";
 		Message message = new RaceMessage();
 		Communicator comm = new Communicator();
 		AthleteTracker athletes = new AthleteTracker();
-		RaceTracker race = new RaceTracker(comm, athletes);
-		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70", "registered");
-		Athlete athlete2 = new Athlete("10", "14", "b", "b", "m", "70", "registered");
-		Athlete athlete3 = new Athlete("10", "14", "c", "c", "m", "70", "registered");
-		Athlete athlete4 = new Athlete("10", "14", "d", "d", "m", "70", "registered");
-		Athlete athlete5 = new Athlete("10", "14", "e", "e", "m", "70", "registered");
+		RaceTracker raceTracker = new RaceTracker();
+		Race race = raceTracker.getRace();
+		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70");
+		Athlete athlete2 = new Athlete("10", "14", "b", "b", "m", "70");
+		Athlete athlete3 = new Athlete("10", "14", "c", "c", "m", "70");
+		Athlete athlete4 = new Athlete("10", "14", "d", "d", "m", "70");
+		Athlete athlete5 = new Athlete("10", "14", "e", "e", "m", "70");
 		athletes.addAthlete(athlete1);
 		athletes.addAthlete(athlete2);
 		athletes.addAthlete(athlete3);
@@ -41,10 +47,10 @@ public class TestRaceMessage {
 		NotifyEvents NE = message.getNotifyEvents();
 		AthleteEvents AE = message.getAthleteEvents();
 		ClientEvents CE = message.getClientEvents();
-		RE.raceExecute(race, "check", "9001");
-		NE.notifyExecute(athletes);
-		AE.athleteExecute(athletes, null, null, null, null, null, null, null, null, null);
-		CE.clientExecute(athletes, null, null);
+		RE.raceExecute(race, msg);
+		AE.athleteExecute(athletes, athlete1, ip, port);
+		CE.clientExecute(athletes, msg, ip, port);
+		NE.notifyExecute(msg, race, ip, port);
 		
 		String name = race.getRaceName();
 		String distance = race.getDistance();

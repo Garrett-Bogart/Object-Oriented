@@ -1,7 +1,13 @@
 package observer;
 
+import java.net.InetAddress;
+
 abstract public class Observers {
-	protected String endpoint;
-	public String getEndPoint() {return endpoint;}
-	public void setEndPoint(String endpoint) {this.endpoint = endpoint;}
+	protected int port;
+	protected InetAddress ip;
+	public int getPort() {return port;}
+	public InetAddress getIP() {return ip;}
+	
+	public void setPort(int endpoint) {this.port = endpoint;}
+	public void setIP(InetAddress ip) {this.ip = ip;}
 }

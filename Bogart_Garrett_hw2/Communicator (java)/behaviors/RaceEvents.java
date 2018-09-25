@@ -1,8 +1,9 @@
 package behaviors;
 import athlete.AthleteTracker;
+import athlete.Race;
 import communicator.RaceTracker;
 
 public interface RaceEvents {
-	public void raceExecute(RaceTracker r, String n, String d);
+	public void raceExecute(Race race, String message);
 
 }

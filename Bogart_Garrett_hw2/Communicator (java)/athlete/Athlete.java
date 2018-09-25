@@ -2,6 +2,7 @@ package athlete;
 import observer.Client;
 import observer.Observers;
 
+import java.net.InetAddress;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -15,55 +16,87 @@ public class Athlete {
 	private String gender;
 	private String status;
 	private String distance;
+	private String startTime;
+	private String finishedTime;
+	private String lastUpdate;//prolly need this to be an int
 
 	
-	public Athlete(String ID, String time, String firstName, String lastName, String gender, String age, String status ) 
+	public Athlete(String ID, String time, String firstName, String lastName, String gender, String age) 
 	{
 		this.firstName= firstName;
 		this.lastName= lastName;
 		this.time= time;
+		this.startTime = time;
 		this.age= age;
 		this.ID = ID;
 		this.gender= gender;
-		this.status =status;
+		this.status ="Registered";
 		observers = new Vector<Observers>();
 	}
 	
-	public void addObserver(String endpoint) 
+	public Athlete(String ID, String time, String distance) 
 	{
-		Client client = new Client(endpoint);
+		this.firstName= null;
+		this.lastName= null;
+		this.time= time;
+		this.age= null;
+		this.ID = ID;
+		this.gender= null;
+		this.distance =distance;
+		observers = new Vector<Observers>();
+	}
+	
+	public Athlete(String ID, String time) 
+	{
+		this.firstName= null;
+		this.lastName= null;
+		this.time= time;
+		this.age= null;
+		this.ID = ID;
+		this.gender= null;
+		this.distance =null;
+		observers = new Vector<Observers>();
+	}
+	
+	public Athlete(String ID, String status, String distance, String lastUpdate, String finishedTime)
+	{
+		this.firstName= null;
+		this.lastName= null;
+		this.time= time;
+		this.age= null;
+		this.ID = ID;
+		this.gender= null;
+		this.status =status;
+		this.distance = distance;
+		this.lastUpdate = lastUpdate;
+		this.finishedTime = finishedTime;
+		observers = new Vector<Observers>();
+	}
+	
+	public void addObserver(InetAddress ip, int port) 
+	{
+		Client client = new Client(ip,  port);
 		observers.add(client);
 	}
 	
-	public void removeObserver(String endpoint)
+	public void removeObserver(InetAddress ip, int port)
 	{
 		
 		for(Iterator<Observers> i = observers.iterator();i.hasNext();)
 		{
 			Observers obs = i.next();
-			if(obs.getEndPoint() == endpoint)
+			if(obs.getPort() == port && obs.getIP() == ip)
 			{
 				i.remove();
 			}
 		}
-		/*int count = 0;
-		for(Observers obs : observers)
-		{
-			if(obs.getEndPoint() == endpoint)
-			{
-				observers.remove(count);
-				break;
-			}
-			System.out.println("}+++++++++++");
-			count++;
-		}*/
 	}
 	
-	public Observers getObserver(String endpoint)
+	public Observers getObserver(InetAddress ip, int port)
 	{
 		for(Observers obs : observers)
 		{
-			if(obs.getEndPoint() == endpoint)
+			if(obs.getPort() == port && obs.getIP() == ip)
 			{
 				return obs;
 			}
@@ -74,12 +107,15 @@ public class Athlete {
 	public String getDistance() {return distance;}
 	public String getID() {return ID;}
 	public String getTime() {return time;}
+	public String getStartTime() {return startTime;}
+	public String getFinishTime() {return finishedTime;}
 	public String getFirstName() {return firstName;}
 	public String getLastName() {return lastName;}
 	public String getGender() {return gender;}
 	public String getAge() {return age;}
 	public String getStatus() {return status;}
 	public Vector<Observers> getObservers() {return observers;}
+	public String getLastUpdate() {return lastUpdate;}
 	
 	public void setDistance(String distance) {this.distance = distance;}
 	public void setID(String ID) {this.ID = ID;}
@@ -89,4 +125,7 @@ public class Athlete {
 	public void setGender(String gender) {this.gender= gender;}
 	public void setAge(String age) {this.age= age;}
 	public void setStatus(String status) {this.status = status;}
+	public void setFinishTime(String time) {finishedTime = time;}
+	public void setStartTime(String time) {startTime = time;}
+	public void setLastUpdate(String lastUpdate) { this.lastUpdate = lastUpdate;}
 }

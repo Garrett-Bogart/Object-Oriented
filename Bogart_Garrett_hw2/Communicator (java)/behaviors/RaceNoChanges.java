@@ -1,9 +1,10 @@
 package behaviors;
 
 import athlete.AthleteTracker;
+import athlete.Race;
 import communicator.RaceTracker;
 
 public class RaceNoChanges implements RaceEvents {
-	public void raceExecute(RaceTracker race, String name, String distance) {}
+	public void raceExecute(Race race, String message) {}
 
 }
