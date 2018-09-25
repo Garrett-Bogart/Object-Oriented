@@ -21,22 +21,13 @@ public class RaceTracker {
 		race = new Race();
 		this.comm = new Communicator(race);
 		this.athleteTracker = new AthleteTracker();
-		MessageProcessor processor = new MessageProcessor("Reciever");
+		MessageProcessor processor = new MessageProcessor("Race Tracker Reciever");
 		comm.setProcessor(processor);
 	}
 		
 	public void start()
 	{
-		while(true)
-		{
-			/*get message from processor
-			 * inside the processor determine message type
-			 * then return the message type
-			 * message = comm.getProcess.getMessageType()
-			 * message.execute();
-			message = new Message(msg)*/
-			
-		}
+		comm.start();
 	}
 	
 	public Communicator getCommunicator() {return comm;}

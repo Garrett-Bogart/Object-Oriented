@@ -19,6 +19,7 @@ public class NotifySubscribers implements NotifyEvents {
 		for(Observers observer: obs)
 		{
 			comm.send(message, observer.getIP(), observer.getPort());
+	        //System.out.println(String.format("%s received: %s from %s:%d", "Name: ", message, ip.toString(), observer.getPort()));
 		}
 	}
 }

@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Vector;
@@ -20,8 +21,13 @@ import behaviors.AthleteUpdate;
 import behaviors.ClientEvents;
 import behaviors.ClientSubscribe;
 import behaviors.ClientUnsubscribe;
+import behaviors.NotifyEvents;
+import behaviors.NotifySubscribers;
+import behaviors.NotifyOne;
+import behaviors.NotifyAll;
 import behaviors.RaceEvents;
 import communicator.Communicator;
+import communicator.MessageProcessor;
 import communicator.RaceTracker;
 import observer.Observers;
 import behaviors.RaceChange;
@@ -141,5 +147,94 @@ public class TestBehaviors {
 		assertEquals(0, temp.getObservers().size());
 	}
 	
+	@Test
+	public void NotifySubscribers() throws Exception
+	{
+		Communicator comm = new Communicator();
+		MessageProcessor processor = new MessageProcessor("Reciever");
+		comm.setProcessor(processor);
+		comm.start();
+		
+		/*Communicator comm1 = new Communicator();
+		MessageProcessor processor1 = new MessageProcessor("Reciever1");
+		comm.setProcessor(processor1);
+		comm.start();*/
+		
+		/*Communicator comm2 = new Communicator();
+		MessageProcessor processor2 = new MessageProcessor("Reciever2");
+		comm.setProcessor(processor2);
+		comm.start();*/
+		
+		String message ="This is the sent message";
+		Race race = new Race();
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
 
+		NotifyEvents CE = new NotifySubscribers();
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
+		athleteTracker.addAthlete(athlete);
+		//athlete.addObserver(ip, comm2.getLocalPort());
+		athlete.addObserver(ip, comm.getLocalPort());
+		//athlete.addObserver(ip, comm1.getLocalPort());
+		
+		//assertEquals(2,athlete.getObservers().size());
+		
+		CE.notifyExecute(message, race, ip, port, athlete, athleteTracker);
+
+	}
+	
+	@Test
+	public void NotifyOne() throws Exception
+	{
+		Communicator comm = new Communicator();
+		MessageProcessor processor = new MessageProcessor("Reciever");
+		comm.setProcessor(processor);
+		comm.start();
+				
+		String message ="+++This is the sent message+++";
+		Race race = new Race();
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
+
+		NotifyEvents CE = new NotifyOne();
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
+		athleteTracker.addAthlete(athlete);
+		//athlete.addObserver(ip, comm2.getLocalPort());
+		athlete.addObserver(ip, comm.getLocalPort());
+		//athlete.addObserver(ip, comm1.getLocalPort());
+		
+		//assertEquals(2,athlete.getObservers().size());
+		
+		CE.notifyExecute(message, race, ip, comm.getLocalPort(), athlete, athleteTracker);
+
+	}
+	
+	@Test
+	public void NotifyAll() throws Exception
+	{
+		Communicator comm = new Communicator();
+		MessageProcessor processor = new MessageProcessor("Reciever");
+		comm.setProcessor(processor);
+		comm.start();
+				
+		String message ="+++This is the sent message+++";
+		Race race = new Race();
+		InetAddress ip = InetAddress.getLocalHost();
+		int port = 12000;
+
+		NotifyEvents CE = new NotifyAll();
+		AthleteTracker athleteTracker = new AthleteTracker();
+		Athlete athlete = new Athlete("10", "14", "cool", "guy", "m", "70");
+		athleteTracker.addAthlete(athlete);
+		race.addObserver(ip, comm.getLocalPort()+1);
+		race.addObserver(ip, comm.getLocalPort()+2);
+		race.addObserver(ip, comm.getLocalPort()+3);
+		
+		assertEquals(3,race.getObservers().size());
+		
+		CE.notifyExecute(message, race, ip, comm.getLocalPort(), athlete, athleteTracker);
+
+	}
 }

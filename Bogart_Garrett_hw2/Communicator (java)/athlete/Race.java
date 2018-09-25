@@ -14,6 +14,8 @@ public class Race {
 	
 	public Race()
 	{
+		raceName = null;
+		distance = null;
 		observers = new Vector<Observers>();
 	}
 	

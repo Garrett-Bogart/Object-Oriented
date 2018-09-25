@@ -6,14 +6,19 @@ import athlete.Athlete;
 import message.DidNotFinishMessage;
 import message.DidNotStartMessage;
 import message.FinishedMessage;
+import message.HelloMessage;
 import message.Message;
 import message.OnCourseMessage;
 import message.RaceMessage;
 import message.RegisteredMessage;
+import message.SubscribeMessage;
+import message.UnsubscribeMessage;
 
 public class MessageProcessor implements IMessageProcessor {
 	private String name;
 	private Message messageType;
+    private int receiveCount;
+    private String message;
 	
 	public MessageProcessor(String name)
 	{
@@ -31,8 +36,10 @@ public class MessageProcessor implements IMessageProcessor {
         }        
         else
         {
-            //System.out.println(String.format("%s received: %s from :%d", name, message, port));
+            System.out.println(String.format("%s received: %s from :%d", name, message, port));
             String[] parts = message.split(",");
+            receiveCount++;
+            setMessage(message);
             return determineMessageType(parts);
         }
         return null;
@@ -61,6 +68,14 @@ public class MessageProcessor implements IMessageProcessor {
 		}
 		else if("Finished".equals(parts[0].trim()))// "Finished,<id>,<time>"
 		{
+			System.out.println("Making finish message");
+			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
+			athlete.setStatus(parts[0]);
+			return athlete;
+		}
+		else if("DidNotFinish".equals(parts[0].trim()))// "Finished,<id>,<time>"
+		{
+			System.out.println("Making a Did not finish message");
 			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
 			athlete.setStatus(parts[0]);
 			return athlete;
@@ -108,16 +123,20 @@ public class MessageProcessor implements IMessageProcessor {
 		}
 		else if("Hello".equals(parts[0]))
 		{
-			return new FinishedMessage();
+			return new HelloMessage();
 		}
 		else if("Subscribe".equals(parts[0]))
 		{
-			return new FinishedMessage();
+			return new SubscribeMessage();
 		}
 		else if("Unsubscribe".equals(parts[0]))
 		{
-			return new FinishedMessage();
+			return new UnsubscribeMessage();
 		}
 		return null;
 	}
+	public String getMessage() {return message;}
+    public int ReceiveCount() { return receiveCount; }
+    
+    public void setMessage(String message) {this.message = message;}
 }

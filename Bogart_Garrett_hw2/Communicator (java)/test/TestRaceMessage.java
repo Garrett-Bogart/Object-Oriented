@@ -12,6 +12,7 @@ import behaviors.NotifyEvents;
 import behaviors.RaceChange;
 import behaviors.RaceEvents;
 import communicator.Communicator;
+import communicator.MessageProcessor;
 import communicator.RaceTracker;
 import athlete.Athlete;
 import athlete.AthleteTracker;
@@ -21,15 +22,21 @@ public class TestRaceMessage {
 	
 	@Test
 	public void TestRaceMessageConstructor()throws Exception
-	{
+	{	Race comm_race = new Race();
+		Communicator comm1 = new Communicator();
+		
+		Communicator comm = new Communicator(comm_race);
+		MessageProcessor processor = new MessageProcessor("Reciever");
+		comm.setProcessor(processor);
+		comm.start();
+		
 		InetAddress ip = InetAddress.getLocalHost();
 		int port = 12000;
 		String msg = "Registered,check, 9001";
 		Message message = new RaceMessage();
-		Communicator comm = new Communicator();
 		AthleteTracker athletes = new AthleteTracker();
 		RaceTracker raceTracker = new RaceTracker();
-		Race race = raceTracker.getRace();
+		//Race race = raceTracker.getRace();
 		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70");
 		Athlete athlete2 = new Athlete("10", "14", "b", "b", "m", "70");
 		Athlete athlete3 = new Athlete("10", "14", "c", "c", "m", "70");
@@ -41,25 +48,18 @@ public class TestRaceMessage {
 		athletes.addAthlete(athlete4);
 		athletes.addAthlete(athlete5);
 		
-		race.setRaceName("best race");
-		race.setDistance("1000");
+		raceTracker.getRace().setRaceName("best race");
+		raceTracker.getRace().setDistance("1000");
 		RaceEvents RE = message.getRaceEvents();
 		NotifyEvents NE = message.getNotifyEvents();
 		AthleteEvents AE = message.getAthleteEvents();
 		ClientEvents CE = message.getClientEvents();
-		RE.raceExecute(race, msg);
+		RE.raceExecute(raceTracker.getRace(), msg);
 		AE.athleteExecute(athletes, athlete1, ip, port);
 		CE.clientExecute(athletes, msg, ip, port);
-		NE.notifyExecute(msg, race, ip, port,athlete1, athletes);
-		
-		String name = race.getRaceName();
-		String distance = race.getDistance();
-		assertEquals("check", name);
-		assertEquals("9001", distance);
-		
-		
-		
-		
+		NE.notifyExecute(msg, raceTracker.getRace(), ip, port,athlete1, athletes);
+/****************** Part two sending the message from a communicator**/		
+		comm1.send("Race,coolest Race, 900m", ip, comm.getLocalPort());	
 	}
 
 	
