@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import athlete.Athlete;
 import message.Message;
 import message.RaceMessage;
+import message.RegisteredMessage;
 
 public class MessageProcessor implements IMessageProcessor {
 	private String name;
@@ -83,7 +84,23 @@ public class MessageProcessor implements IMessageProcessor {
 		}
 		else if("Registered".equals(parts[0]))
 		{
-			
+			return new RegisteredMessage();
+		}
+		else if("DidNotFinish".equals(parts[0]))
+		{
+			return new RegisteredMessage();
+		}
+		else if("DidNotStart".equals(parts[0]))
+		{
+			return new RegisteredMessage();
+		}
+		else if("OnCourse".equals(parts[0]))
+		{
+			return new RegisteredMessage();
+		}
+		else if("Finished".equals(parts[0]))
+		{
+			return new RegisteredMessage();
 		}
 		return null;
 	}
