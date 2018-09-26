@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import athlete.Athlete;
 import athlete.AthleteTracker;
 import athlete.Race;
+import behaviors.AthleteAdd;
 import behaviors.AthleteEvents;
 import behaviors.AthleteNone;
 import behaviors.ClientEvents;
@@ -20,7 +21,7 @@ public class RegisteredMessage extends Message {
 	{
 		this.raceEvents = new RaceNoChanges();
 		this.notifyEvents = new NotifyAll();
-		this.athleteEvents = new AthleteNone();
+		this.athleteEvents = new AthleteAdd();
 		this.clientEvents = new ClientNone();
 	}
 			

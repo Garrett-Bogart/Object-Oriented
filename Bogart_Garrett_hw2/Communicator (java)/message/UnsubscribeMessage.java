@@ -6,6 +6,7 @@ import athlete.Athlete;
 import athlete.AthleteTracker;
 import athlete.Race;
 import behaviors.AthleteEvents;
+import behaviors.AthleteUnsubscribe;
 import behaviors.AthleteUpdate;
 import behaviors.ClientEvents;
 import behaviors.ClientNone;
@@ -21,7 +22,7 @@ public class UnsubscribeMessage extends Message{
 	{
 		this.raceEvents = new RaceNoChanges();
 		this.notifyEvents = new NotifyNone();
-		this.athleteEvents = new AthleteUpdate();//may need a remove obs behavior
+		this.athleteEvents = new AthleteUnsubscribe();//may need a remove obs behavior
 		this.clientEvents = new ClientUnsubscribe();
 	}
 			

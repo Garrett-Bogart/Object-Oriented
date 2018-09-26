@@ -49,4 +49,19 @@ public class TestAthletes {
 
 
 	}
+	
+	@Test
+	public void TestUpdateAthlete()
+	{
+		AthleteTracker at = new AthleteTracker();
+		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70");
+		Athlete athlete2 = new Athlete("11", "7:43", "b", "b", "m", "70");
+		athlete2.setStatus("jgaksda");
+		at.addAthlete(athlete1);
+		at.updateAthlete(athlete1, athlete2);
+		assertEquals("jgaksda",athlete1.getStatus());
+
+		
+		
+	}
 }

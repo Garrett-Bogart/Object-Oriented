@@ -35,14 +35,29 @@ public class AthleteTracker {
 		return null;
 	}
 	
-	public void updateAthlete(Athlete athleteBase, Athlete athleteUpdater)
+	public Athlete updateAthlete(Athlete realAthlete, Athlete athleteUpdater)
 	{
+		if(realAthlete == null)return null;
 		if(athleteUpdater.getTime() != null)
-			athleteBase.setTime(athleteUpdater.getTime());
+		{
+			realAthlete.setTime(athleteUpdater.getTime());
+		}
+			
 		if(athleteUpdater.getStatus() != null)
-			athleteBase.setStatus(athleteUpdater.getStatus());
+		{
+			//System.out.println("Athlete Update: "+athleteUpdater.getStatus() );
+			//System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
+			realAthlete.setStatus(athleteUpdater.getStatus());
+			System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
+		}
 		if(athleteUpdater.getDistance() != null)
-			athleteBase.setDistance(athleteUpdater.getDistance());
+		{
+			realAthlete.setDistance(athleteUpdater.getDistance());
+		}
+		
+		//System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
+		return realAthlete;
+	
 	}
 	
 	public void addObserver(InetAddress ip, int port) 

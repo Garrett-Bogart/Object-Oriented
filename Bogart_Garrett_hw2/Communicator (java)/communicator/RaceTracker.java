@@ -19,8 +19,8 @@ public class RaceTracker {
 	public RaceTracker() throws Exception
 	{
 		race = new Race();
-		this.comm = new Communicator(race);
 		this.athleteTracker = new AthleteTracker();
+		this.comm = new Communicator(this.race, this.athleteTracker);
 		MessageProcessor processor = new MessageProcessor("Race Tracker Reciever");
 		comm.setProcessor(processor);
 	}

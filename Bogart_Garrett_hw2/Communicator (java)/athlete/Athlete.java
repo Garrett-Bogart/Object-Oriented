@@ -3,6 +3,7 @@ import observer.Client;
 import observer.Observers;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -79,16 +80,19 @@ public class Athlete {
 		if(obs == null)
 		{
 			Client client = new Client(ip,  port);
+			System.out.println(ip+"hjkhfadjksfhajkshuirewtuiserghjsdgfsadf");
 			observers.add(client);
 		}
 	}
 	
 	public void removeObserver(InetAddress ip, int port)
-	{
-		
+	{		
+		System.out.println("Removing: "+ip+" "+port+"+++++++++");
+
 		for(Iterator<Observers> i = observers.iterator();i.hasNext();)
 		{
 			Observers obs = i.next();
+			System.out.println(obs.getIP()+" "+obs.getPort()+"+++++++++");
 			if(obs.getPort() == port && obs.getIP() == ip)
 			{
 				i.remove();

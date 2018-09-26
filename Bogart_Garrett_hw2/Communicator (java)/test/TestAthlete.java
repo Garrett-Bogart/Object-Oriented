@@ -52,6 +52,7 @@ public class TestAthlete {
 		athlete.addObserver(ip ,port);
 		assertEquals(InetAddress.getLocalHost(), athlete.getObserver(ip, port).getIP());
 		assertEquals(12000, athlete.getObserver(ip, port).getPort());
+		assertEquals(1, athlete.getObservers().size());
 		
 		athlete.removeObserver(ip, port);
 		Observers obs = athlete.getObserver(ip, port);

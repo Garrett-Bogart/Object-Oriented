@@ -10,8 +10,9 @@ public class AthleteUpdate implements AthleteEvents {
 
 	@Override
 	public void athleteExecute(AthleteTracker athletes, Athlete athlete, InetAddress ip, int port) {
-		Athlete temp = athletes.getAthlete(athlete.getID());
-		athletes.updateAthlete(temp, athlete);
+		Athlete realAthlete = athletes.getAthlete(athlete.getID());
+		athletes.getAthlete(athlete.getID());
+		athletes.updateAthlete(realAthlete, athlete);
 	}
 
 }

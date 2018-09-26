@@ -1,9 +1,10 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.InetAddress;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import athlete.Athlete;
 import athlete.AthleteTracker;
@@ -17,11 +18,12 @@ import communicator.MessageProcessor;
 import communicator.RaceTracker;
 import message.DidNotFinishMessage;
 import message.Message;
-import message.RaceMessage;
+import message.SubscribeMessage;
+import observer.Observers;
 
-public class TestDidNotFinishMessage {
+public class TestSubscribeMessage {
 	@Test
-	public void TestDidNotFinish()throws Exception
+	public void TestSubscribe()throws Exception
 	{	
 		RaceTracker raceTracker = new RaceTracker();
 		raceTracker.start();
@@ -35,8 +37,8 @@ public class TestDidNotFinishMessage {
 		
 		InetAddress ip = InetAddress.getLocalHost();
 		int port = 12000;
-		String msg = "DidNotFinish, 10, 6:53";
-		Message message = new DidNotFinishMessage();
+		String msg = "Finished, 10, 6:53";
+		Message message = new SubscribeMessage();
 
 		//Race race = raceTracker.getRace();
 		AthleteTracker athleteTracker = raceTracker.getAthleteTacker();
@@ -50,14 +52,11 @@ public class TestDidNotFinishMessage {
 		athleteTracker.addAthlete(athlete3);
 		athleteTracker.addAthlete(athlete4);
 		athleteTracker.addAthlete(athlete5);
-		raceTracker.getAthleteTacker().addAthlete(athlete1);
-		raceTracker.getAthleteTacker().addAthlete(athlete2);
-		raceTracker.getAthleteTacker().addAthlete(athlete3);
-		raceTracker.getAthleteTacker().addAthlete(athlete4);
-		raceTracker.getAthleteTacker().addAthlete(athlete5);
+		
+		assertEquals(athleteTracker.getAthletes().size(), raceTracker.getAthleteTacker().getAthletes().size());
 		
 		Athlete temp = new Athlete("10","6:53");
-		temp.setStatus("DidNotFinish");
+		temp.setStatus("Finished");
 		
 		raceTracker.getRace().setRaceName("best race");
 		raceTracker.getRace().setDistance("1000");
@@ -66,25 +65,25 @@ public class TestDidNotFinishMessage {
 		AthleteEvents AE = message.getAthleteEvents();
 		ClientEvents CE = message.getClientEvents();
 		RE.raceExecute(raceTracker.getRace(), msg);
-		AE.athleteExecute(athleteTracker, temp, ip, port);
+		AE.athleteExecute(athleteTracker, athlete1, ip, port);
 		CE.clientExecute(athleteTracker, msg, ip, port);
 		NE.notifyExecute(msg, raceTracker.getRace(), ip, port,athlete1, athleteTracker);
-		assertEquals("DidNotFinish", athlete1.getStatus());
-		assertEquals("6:53", athlete1.getTime());
+		
+		Observers obs = athlete1.getObserver(ip, port);
+		
+		assertEquals(ip, obs.getIP());
+		assertEquals(port, obs.getPort());
+		
+		athlete3.addObserver(ip, comm1.getLocalPort());
 		
 /****************** Part two sending the message from a communicator**/	
-		//should fail because there is no way to give an active athletes list to a test.
-		comm1.send("DidNotFinish, 12, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
-		Thread.sleep(50);
-		assertEquals("DidNotFinish", athlete3.getStatus());
-		assertEquals("6:53", athlete1.getTime());
+		comm1.send("Subscribe, 12", ip, raceTracker.getCommunicator().getLocalPort());	
+		obs = athlete3.getObserver(ip, comm1.getLocalPort());
 		
-		comm1.send("DidNotFinish, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
+		assertEquals(ip, obs.getIP());
+		assertEquals(comm1.getLocalPort(), obs.getPort());
 		
-		comm1.close();
-		comm.close();
-		raceTracker.getCommunicator().close();
+		comm1.send("Subscribe, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
 
 	}
-
 }

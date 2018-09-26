@@ -1,5 +1,6 @@
 package test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.net.InetAddress;
 
@@ -22,44 +23,39 @@ public class TestRaceMessage {
 	
 	@Test
 	public void TestRaceMessageConstructor()throws Exception
-	{	Race comm_race = new Race();
+	{	
+		RaceTracker raceTracker = new RaceTracker();
+		raceTracker.start();
+		
 		Communicator comm1 = new Communicator();
 		
-		Communicator comm = new Communicator(comm_race);
+		Communicator comm = new Communicator();
 		MessageProcessor processor = new MessageProcessor("Reciever");
 		comm.setProcessor(processor);
 		comm.start();
 		
 		InetAddress ip = InetAddress.getLocalHost();
-		int port = 12000;
-		String msg = "Registered,check, 9001";
-		Message message = new RaceMessage();
-		AthleteTracker athletes = new AthleteTracker();
-		RaceTracker raceTracker = new RaceTracker();
-		//Race race = raceTracker.getRace();
-		Athlete athlete1 = new Athlete("10", "14", "a", "a", "m", "70");
-		Athlete athlete2 = new Athlete("10", "14", "b", "b", "m", "70");
-		Athlete athlete3 = new Athlete("10", "14", "c", "c", "m", "70");
-		Athlete athlete4 = new Athlete("10", "14", "d", "d", "m", "70");
-		Athlete athlete5 = new Athlete("10", "14", "e", "e", "m", "70");
-		athletes.addAthlete(athlete1);
-		athletes.addAthlete(athlete2);
-		athletes.addAthlete(athlete3);
-		athletes.addAthlete(athlete4);
-		athletes.addAthlete(athlete5);
+		
+		AthleteTracker athletes = raceTracker.getAthleteTacker();
 		
 		raceTracker.getRace().setRaceName("best race");
 		raceTracker.getRace().setDistance("1000");
-		RaceEvents RE = message.getRaceEvents();
-		NotifyEvents NE = message.getNotifyEvents();
-		AthleteEvents AE = message.getAthleteEvents();
-		ClientEvents CE = message.getClientEvents();
-		RE.raceExecute(raceTracker.getRace(), msg);
-		AE.athleteExecute(athletes, athlete1, ip, port);
-		CE.clientExecute(athletes, msg, ip, port);
-		NE.notifyExecute(msg, raceTracker.getRace(), ip, port,athlete1, athletes);
-/****************** Part two sending the message from a communicator**/		
-		comm1.send("Race,coolest Race, 900m", ip, comm.getLocalPort());	
+		assertEquals("best race", raceTracker.getCommunicator().getRace().getRaceName());
+		assertEquals("1000", raceTracker.getCommunicator().getRace().getDistance());
+
+
+/****************** Part two sending the message from a communicator**/	
+		assertNotNull(raceTracker.getRace());
+		assertNotNull(raceTracker.getCommunicator().getRace());
+		comm1.send("Race,coolest Race, 900m", ip, raceTracker.getCommunicator().getLocalPort());	
+		Thread.sleep(50);
+		assertEquals("coolest Race", raceTracker.getRace().getRaceName());
+		assertEquals("900m", raceTracker.getRace().getDistance());
+		
+		
+		comm.close();
+		comm1.close();
+		raceTracker.getCommunicator().close();
 	}
 
 	

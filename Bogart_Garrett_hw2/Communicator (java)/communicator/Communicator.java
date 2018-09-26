@@ -32,6 +32,13 @@ public class Communicator implements Runnable {
     	this.race = race;
         datagramSocket = new DatagramSocket();
     }
+    
+    public Communicator(Race race, AthleteTracker athleteTracker) throws SocketException
+    {
+    	this.race = race;
+    	this.athleteTracker = athleteTracker;
+        datagramSocket = new DatagramSocket();
+    }
 
     /**
      * Constructor, which opens an UDP socket on a given port.  If that port is being used by another process
@@ -147,6 +154,11 @@ public class Communicator implements Runnable {
     public void stop() {
         _keepGoing = false;
     }
+    
+    public Race getRace()
+    {
+    	return race;
+    }
 
     /**
      * Close any resources used by this communicator, namely the UDP socket.  After this method is called, the
@@ -178,8 +190,16 @@ public class Communicator implements Runnable {
             {
                 behavior = _processor.process(message, senderAddress, senderPort);
                 Athlete athlete = _processor.makeAthlete(message);
+                if(athlete == null)
+                {
+                	System.out.println("athete is null");
+                }
             	try {
-					behavior.execute(message,race, athleteTracker, athlete, senderAddress, senderPort);
+                    if(race == null)
+                    {
+                    	System.out.println("race is null");
+                    }
+					behavior.execute(message, race, athleteTracker, athlete, senderAddress, senderPort);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

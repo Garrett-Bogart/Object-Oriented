@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.net.InetAddress;
 
@@ -17,13 +18,14 @@ import communicator.Communicator;
 import communicator.DummyMessageProcessor;
 import communicator.MessageProcessor;
 import communicator.RaceTracker;
-import message.DidNotFinishMessage;
+import message.AthleteMessage;
+import message.DidNotStartMessage;
 import message.Message;
 
-public class TestFinishedMessage {
+public class TestDidNotStart {
 	@Test
-	public void TestFinished()throws Exception
-	{	
+	public void testDidNotStartMessage() throws Exception
+	{
 		RaceTracker raceTracker = new RaceTracker();
 		raceTracker.start();
 		Race comm_race = new Race();
@@ -53,13 +55,13 @@ public class TestFinishedMessage {
 /****************** Part two sending the message from a communicator**/	
 		//should fail because there is no way to give an active athletes list to a test.
 
-		comm1.send("Finished, 12, 6:53", InetAddress.getLocalHost(), raceTracker.getCommunicator().getLocalPort());
+		comm1.send("DidNotStart, 12, 6:53", InetAddress.getLocalHost(), raceTracker.getCommunicator().getLocalPort());
 		Thread.sleep(50);
 		Athlete beforeUpdate = raceTracker.getAthleteTacker().getAthlete("12");
-		assertEquals("Finished",beforeUpdate.getStatus() );
+		assertEquals("DidNotStart",beforeUpdate.getStatus() );
 		assertEquals("6:53", athlete3.getTime());
 		
-		comm1.send("Finished, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
+		comm1.send("DidNotStart, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
 		comm1.close();
 		comm.close();
 		raceTracker.getCommunicator().close();

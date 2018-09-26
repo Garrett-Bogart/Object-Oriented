@@ -1,9 +1,10 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.InetAddress;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import athlete.Athlete;
 import athlete.AthleteTracker;
@@ -15,16 +16,14 @@ import behaviors.RaceEvents;
 import communicator.Communicator;
 import communicator.MessageProcessor;
 import communicator.RaceTracker;
-import message.DidNotFinishMessage;
+import message.DidNotStartMessage;
 import message.Message;
-import message.RaceMessage;
 
-public class TestDidNotFinishMessage {
+public class TestOnCourse {
 	@Test
-	public void TestDidNotFinish()throws Exception
-	{	
+	public void testOnCourseMessage() throws Exception
+	{
 		RaceTracker raceTracker = new RaceTracker();
-		raceTracker.start();
 		Race comm_race = new Race();
 		Communicator comm1 = new Communicator();
 		
@@ -35,8 +34,8 @@ public class TestDidNotFinishMessage {
 		
 		InetAddress ip = InetAddress.getLocalHost();
 		int port = 12000;
-		String msg = "DidNotFinish, 10, 6:53";
-		Message message = new DidNotFinishMessage();
+		String msg = "OnCourse, 10, 6:53";
+		Message message = new DidNotStartMessage();
 
 		//Race race = raceTracker.getRace();
 		AthleteTracker athleteTracker = raceTracker.getAthleteTacker();
@@ -57,7 +56,7 @@ public class TestDidNotFinishMessage {
 		raceTracker.getAthleteTacker().addAthlete(athlete5);
 		
 		Athlete temp = new Athlete("10","6:53");
-		temp.setStatus("DidNotFinish");
+		temp.setStatus("OnCourse");
 		
 		raceTracker.getRace().setRaceName("best race");
 		raceTracker.getRace().setDistance("1000");
@@ -69,22 +68,16 @@ public class TestDidNotFinishMessage {
 		AE.athleteExecute(athleteTracker, temp, ip, port);
 		CE.clientExecute(athleteTracker, msg, ip, port);
 		NE.notifyExecute(msg, raceTracker.getRace(), ip, port,athlete1, athleteTracker);
-		assertEquals("DidNotFinish", athlete1.getStatus());
+		assertEquals("OnCourse", athlete1.getStatus());
 		assertEquals("6:53", athlete1.getTime());
 		
 /****************** Part two sending the message from a communicator**/	
 		//should fail because there is no way to give an active athletes list to a test.
-		comm1.send("DidNotFinish, 12, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
+		comm1.send("OnCourse, 12, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
 		Thread.sleep(50);
-		assertEquals("DidNotFinish", athlete3.getStatus());
+		assertEquals("OnCourse", athlete1.getStatus());
 		assertEquals("6:53", athlete1.getTime());
 		
-		comm1.send("DidNotFinish, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
-		
-		comm1.close();
-		comm.close();
-		raceTracker.getCommunicator().close();
-
+		comm1.send("OnCourse, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
 	}
-
 }
