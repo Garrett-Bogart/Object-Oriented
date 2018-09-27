@@ -27,6 +27,7 @@ public class RaceTracker {
 		
 	public void start()
 	{
+		//System.out.println(comm.getLocalPort());
 		comm.start();
 	}
 	

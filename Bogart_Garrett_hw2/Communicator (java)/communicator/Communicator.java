@@ -37,7 +37,7 @@ public class Communicator implements Runnable {
     {
     	this.race = race;
     	this.athleteTracker = athleteTracker;
-        datagramSocket = new DatagramSocket();
+        datagramSocket = new DatagramSocket(12000);
     }
 
     /**
@@ -190,16 +190,20 @@ public class Communicator implements Runnable {
             {
                 behavior = _processor.process(message, senderAddress, senderPort);
                 Athlete athlete = _processor.makeAthlete(message);
-                if(athlete == null)
+                /*if(athlete == null)
                 {
                 	System.out.println("athete is null");
-                }
+                }*/
             	try {
-                    if(race == null)
+                    /*if(race == null)
                     {
                     	System.out.println("race is null");
+                    }*/
+                    if(behavior != null)
+                    {
+                    	behavior.execute(message, race, athleteTracker, athlete, senderAddress, senderPort);
                     }
-					behavior.execute(message, race, athleteTracker, athlete, senderAddress, senderPort);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

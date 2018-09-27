@@ -23,7 +23,7 @@ public class UnsubscribeMessage extends Message{
 		this.raceEvents = new RaceNoChanges();
 		this.notifyEvents = new NotifyNone();
 		this.athleteEvents = new AthleteUnsubscribe();//may need a remove obs behavior
-		this.clientEvents = new ClientUnsubscribe();
+		this.clientEvents = new ClientNone();
 	}
 			
 	public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port) throws Exception 

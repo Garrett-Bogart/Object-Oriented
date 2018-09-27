@@ -84,6 +84,8 @@ public class TestSubscribeMessage {
 		assertEquals(comm1.getLocalPort(), obs.getPort());
 		
 		comm1.send("Subscribe, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
-
+		comm1.close();
+		comm.close();
+		raceTracker.getCommunicator().close();
 	}
 }

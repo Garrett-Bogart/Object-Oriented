@@ -17,11 +17,14 @@ public class NotifyOne implements NotifyEvents {
 		// TODO Auto-generated method stub
 		Vector<Observers> obs = race.getObservers();
 		Communicator comm = new Communicator();
-        DummyMessageProcessor processor1 = new DummyMessageProcessor("A");
-        comm.setProcessor(processor1);
+		if(race.getStartStatus() == true)
+		{
+			comm.send("Race,"+race.getRaceName()+","+race.getDistance(), ip, port);
+		}
+        
 		for(Athlete ath: athleteTracker.getAthletes())
 		{
-			String mesg = ath.getID()+","+ ath.getFirstName()+","+ ath.getLastName()+","+ ath.getGender()+","+ ath.getAge();
+			String mesg ="Athlete," +ath.getID()+","+ ath.getFirstName()+","+ ath.getLastName()+","+ ath.getGender()+","+ ath.getAge();
 			comm.send(mesg, ip, port);
 		}
 	}

@@ -48,13 +48,16 @@ public class AthleteTracker {
 			//System.out.println("Athlete Update: "+athleteUpdater.getStatus() );
 			//System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
 			realAthlete.setStatus(athleteUpdater.getStatus());
-			System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
+			//System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
 		}
 		if(athleteUpdater.getDistance() != null)
 		{
 			realAthlete.setDistance(athleteUpdater.getDistance());
 		}
-		
+		if(athleteUpdater.getFinishTime() != null)
+		{
+			realAthlete.setFinishTime(athleteUpdater.getTime());
+		}
 		//System.out.println("Athlete Update1231: "+realAthlete.getStatus() );
 		return realAthlete;
 	
@@ -66,6 +69,7 @@ public class AthleteTracker {
 		if(obs == null)
 		{
 			Client client = new Client(ip,  port);
+			//System.out.println("adding client to athleteTracker: "+ip+" : "+port);
 			observers.add(client);
 		}
 	}
@@ -87,7 +91,7 @@ public class AthleteTracker {
 	{
 		for(Observers obs : observers)
 		{
-			if(obs.getPort() == port && obs.getIP() == ip)
+			if(obs.getPort() == port && obs.getIP().equals(ip))
 			{
 				return obs;
 			}
@@ -96,4 +100,5 @@ public class AthleteTracker {
 	}
 
 	public Vector<Athlete> getAthletes(){return athletes;}
+	public Vector<Observers> getObservers(){return observers;}
 }

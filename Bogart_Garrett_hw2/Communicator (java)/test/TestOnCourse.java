@@ -78,6 +78,9 @@ public class TestOnCourse {
 		assertEquals("OnCourse", athlete1.getStatus());
 		assertEquals("6:53", athlete1.getTime());
 		
-		comm1.send("OnCourse, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());	
+		comm1.send("OnCourse, 15, 6:53", ip, raceTracker.getCommunicator().getLocalPort());
+		comm1.close();
+		comm.close();
+		raceTracker.getCommunicator().close();
 	}
 }

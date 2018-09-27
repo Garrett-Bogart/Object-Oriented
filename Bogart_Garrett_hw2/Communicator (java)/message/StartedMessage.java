@@ -9,14 +9,13 @@ import behaviors.AthleteEvents;
 import behaviors.AthleteUpdate;
 import behaviors.ClientEvents;
 import behaviors.ClientNone;
-import behaviors.NotifyAll;
 import behaviors.NotifyEvents;
 import behaviors.NotifySubscribers;
 import behaviors.RaceEvents;
 import behaviors.RaceNoChanges;
 
-public class FinishedMessage extends Message {
-	public FinishedMessage() 
+public class StartedMessage extends Message {
+	public StartedMessage() 
 	{
 		this.raceEvents = new RaceNoChanges();
 		this.notifyEvents = new NotifySubscribers();
@@ -49,3 +48,4 @@ public class FinishedMessage extends Message {
 	
 	public void setRaceEvent(RaceEvents event) {raceEvents = event;}
 }
+

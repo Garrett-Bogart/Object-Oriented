@@ -10,9 +10,11 @@ import behaviors.AthleteNone;
 import behaviors.AthleteUpdate;
 import behaviors.ClientEvents;
 import behaviors.ClientNone;
+import behaviors.ClientSubscribe;
 import behaviors.NotifyAll;
 import behaviors.NotifyEvents;
 import behaviors.NotifyNone;
+import behaviors.NotifyOne;
 import behaviors.RaceEvents;
 import behaviors.RaceNoChanges;
 
@@ -20,9 +22,9 @@ public class HelloMessage extends Message{
 	public HelloMessage() 
 	{
 		this.raceEvents = new RaceNoChanges();
-		this.notifyEvents = new NotifyNone();//needs to be send one
+		this.notifyEvents = new NotifyOne();//needs to be send one
 		this.athleteEvents = new AthleteNone();
-		this.clientEvents = new ClientNone();//sends entire list of athletes
+		this.clientEvents = new ClientSubscribe();//sends entire list of athletes
 	}
 			
 	public void execute(String message, Race race, AthleteTracker athleteTracker, Athlete athlete, InetAddress ip, int port) throws Exception 

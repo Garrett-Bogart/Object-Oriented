@@ -70,6 +70,8 @@ public class TestUnsubscribeMessage {
 		Observers obs = athlete1.getObserver(ip, port);
 		
 		assertNull(obs);
+		comm1.close();
+		raceTracker.getCommunicator().close();
 	}
 	
 	@Test
@@ -107,6 +109,7 @@ public class TestUnsubscribeMessage {
 			assertNull(obs);
 			comm1.close();
 			raceTracker.getCommunicator().close();
+			
 
 	}	
 }

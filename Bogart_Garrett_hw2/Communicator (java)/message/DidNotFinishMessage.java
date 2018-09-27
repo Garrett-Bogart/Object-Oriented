@@ -12,6 +12,7 @@ import behaviors.ClientEvents;
 import behaviors.ClientNone;
 import behaviors.NotifyAll;
 import behaviors.NotifyEvents;
+import behaviors.NotifySubscribers;
 import behaviors.RaceEvents;
 import behaviors.RaceNoChanges;
 
@@ -19,7 +20,7 @@ public class DidNotFinishMessage extends Message{
 	public DidNotFinishMessage() 
 	{
 		this.raceEvents = new RaceNoChanges();
-		this.notifyEvents = new NotifyAll();
+		this.notifyEvents = new NotifySubscribers();
 		this.athleteEvents = new AthleteUpdate();
 		this.clientEvents = new ClientNone();
 	}

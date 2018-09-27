@@ -1,12 +1,18 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import java.net.InetAddress;
+import java.net.SocketException;
 
 import org.junit.Test;
 
 import athlete.AthleteTracker;
 import athlete.Athlete;
 import athlete.Status;
+import communicator.Communicator;
+import observer.Observers;
 
 public class TestAthletes {
 	@Test
@@ -61,7 +67,28 @@ public class TestAthletes {
 		at.updateAthlete(athlete1, athlete2);
 		assertEquals("jgaksda",athlete1.getStatus());
 
+	}
+	
+	@Test
+	public void TestAddSubscriber() throws Exception
+	{
+		AthleteTracker at = new AthleteTracker();
+		Communicator comm = new Communicator();
+		InetAddress ip = InetAddress.getLocalHost();
 		
+		assertEquals(0, at.getObservers().size());
+		at.addObserver(ip, comm.getLocalPort());
+		assertEquals(1, at.getObservers().size());
+		Observers obs= at.getObserver(ip, comm.getLocalPort());
+		assertEquals(ip, obs.getIP());
+		assertEquals(comm.getLocalPort(), obs.getPort());
 		
+		at.removeObserver(ip, comm.getLocalPort());
+		
+		obs= at.getObserver(ip, comm.getLocalPort());
+		assertNull(obs);
+		assertEquals(0, at.getObservers().size());
+		
+		comm.close();
 	}
 }

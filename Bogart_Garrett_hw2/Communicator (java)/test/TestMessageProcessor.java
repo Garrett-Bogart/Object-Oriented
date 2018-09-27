@@ -38,7 +38,6 @@ public class TestMessageProcessor {
 
 		mesg = process.process(message, ip, port);
 		
-		mesg.execute(message, race, athleteTracker, athlete, ip, port);
 	}
 	
 	@Test
@@ -77,5 +76,6 @@ public class TestMessageProcessor {
 		assertEquals("<distance covered in meters>", athlete.getDistance());
 		assertEquals("<last updated time>", athlete.getLastUpdate());
 		assertEquals("<finished time>", athlete.getFinishTime());
+		
 	}
 }

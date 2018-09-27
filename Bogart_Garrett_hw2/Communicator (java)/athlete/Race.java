@@ -11,11 +11,13 @@ public class Race {
 	private Vector<Observers> observers;
 	private String raceName;
 	private String distance;
+	private boolean started;
 	
 	public Race()
 	{
 		raceName = "";
 		distance = "";
+		started = false;
 		observers = new Vector<Observers>();
 	}
 	
@@ -57,8 +59,10 @@ public class Race {
 	public String getRaceName() {return raceName;}
 	public String getDistance() {return distance;}
 	public Vector<Observers> getObservers(){return observers;}
+	public boolean getStartStatus() {return started;}
 	
 	public void setDistance(String dis) {distance = dis;}
 	public void setRaceName(String name) {raceName = name;}
 	public void setObservers(Vector<Observers> obs) {observers = obs;}
+	public void setStarted(boolean start) {started = start;}
 }

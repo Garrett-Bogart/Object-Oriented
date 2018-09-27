@@ -11,6 +11,7 @@ import message.Message;
 import message.OnCourseMessage;
 import message.RaceMessage;
 import message.RegisteredMessage;
+import message.StartedMessage;
 import message.SubscribeMessage;
 import message.UnsubscribeMessage;
 
@@ -29,14 +30,14 @@ public class MessageProcessor implements IMessageProcessor {
 	public Message process(String message, InetAddress address, int port)
 	{
         if (message==null) {
-            System.out.println("Null string");
+            //System.out.println("Null string");
         }
         else if (address==null) {
-            System.out.println("Null address");
+            //System.out.println("Null address");
         }        
         else
         {
-            System.out.println(String.format("%s received: %s from :%d", name, message, port));
+            //System.out.println(String.format("%s received: %s from :%d", name, message, port));
             String[] parts = message.split(",");
             receiveCount++;
             setMessage(message);
@@ -51,12 +52,12 @@ public class MessageProcessor implements IMessageProcessor {
 		if("Registered".equals(parts[0].trim()))/*"Registered,<bib number>,<time>,<first name>, <last
 			name>,<gender>,<age>"*/
 		{
-			System.out.println("Making a Registered athlete");
+			//System.out.println("Making a Registered athlete");
 			return new Athlete(parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim(), parts[5].trim(), parts[6].trim() );
 		}
 		else if("DidNotStart".equals(parts[0].trim()))// "DidNotStart,<id>,<time>"
 		{
-			System.out.println("Making a DidNotStart athlete");
+			//System.out.println("Making a DidNotStart athlete");
 			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
 			athlete.setStatus(parts[0]);
 			return athlete;
@@ -64,34 +65,44 @@ public class MessageProcessor implements IMessageProcessor {
 		}
 		else if("Started".equals(parts[0].trim()))// "Started,<id>,<time>"
 		{
-			System.out.println("Making a Started athlete");
+			//System.out.println("Making a Started athlete");
 			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
 			athlete.setStatus(parts[0]);
 			return athlete;
 		}
 		else if("Finished".equals(parts[0].trim()))// "Finished,<id>,<time>"
 		{
-			System.out.println("Making finish athlete");
+			//System.out.println("Making finish athlete");
+			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
+			athlete.setFinishTime(parts[2].trim());
+			athlete.setStatus(parts[0]);
+			return athlete;
+		}
+		else if("OnCourse".equals(parts[0].trim()))// "Finished,<id>,<time>"
+		{
+			//System.out.println("Making OnCourse athlete");
 			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
 			athlete.setStatus(parts[0]);
+			athlete.setDistance(parts[3].trim());
 			return athlete;
 		}
 		else if("DidNotFinish".equals(parts[0].trim()))// "Finished,<id>,<time>"
 		{
-			System.out.println("Making a Did not finish athlete");
+			//System.out.println("Making a Did not finish athlete");
 			Athlete athlete = new Athlete(parts[1].trim(), parts[2].trim());
 			athlete.setStatus(parts[0]);
 			return athlete;
 		}
+
 		else if("Subscribe".equals(parts[0].trim()))// "Finished,<id>,<time>"
 		{
-			System.out.println("Making a subscribe athlete");
+			//System.out.println("Making a subscribe athlete");
 			Athlete athlete = new Athlete(parts[1].trim(), null);
 			return athlete;
 		}
 		else if("Unsubscribe".equals(parts[0].trim()))// "Finished,<id>,<time>"
 		{
-			System.out.println("Making a Unsubscribe athlete");
+			//System.out.println("Making a Unsubscribe athlete");
 			Athlete athlete = new Athlete(parts[1].trim(), null);
 			return athlete;
 		}
@@ -107,7 +118,7 @@ public class MessageProcessor implements IMessageProcessor {
 			athlete.setDistance(parts[4].trim());
 			return athlete;
 		}
-		System.out.println("Making a null athlete");
+		//System.out.println("Making a null athlete");
 
 		return null;
 	}
@@ -128,7 +139,7 @@ public class MessageProcessor implements IMessageProcessor {
 		}
 		else if("DidNotStart".equals(parts[0]))
 		{
-			System.out.println("DNS MESSAGE");
+			//System.out.println("DNS MESSAGE");
 			return new DidNotStartMessage();
 		}
 		else if("OnCourse".equals(parts[0]))
@@ -151,6 +162,14 @@ public class MessageProcessor implements IMessageProcessor {
 		else if("Unsubscribe".equals(parts[0]))
 		{
 			return new UnsubscribeMessage();
+		}
+		else if("Started".equals(parts[0]))
+		{
+			return new StartedMessage();
+		}
+		else if("Hello".equals(parts[0]))
+		{
+			return new HelloMessage();
 		}
 		return null;
 	}

@@ -32,6 +32,9 @@ public class Athlete {
 		this.ID = ID;
 		this.gender= gender;
 		this.status ="Registered";
+		this.startTime = time;
+		this.finishedTime="0";
+		//this.lastUpdate = time;
 		observers = new Vector<Observers>();
 	}
 	
@@ -80,19 +83,19 @@ public class Athlete {
 		if(obs == null)
 		{
 			Client client = new Client(ip,  port);
-			System.out.println(ip+"hjkhfadjksfhajkshuirewtuiserghjsdgfsadf");
+			//System.out.println(ip+"hjkhfadjksfhajkshuirewtuiserghjsdgfsadf");
 			observers.add(client);
 		}
 	}
 	
 	public void removeObserver(InetAddress ip, int port)
 	{		
-		System.out.println("Removing: "+ip+" "+port+"+++++++++");
+		//System.out.println("Removing: "+ip+" "+port+"+++++++++");
 
 		for(Iterator<Observers> i = observers.iterator();i.hasNext();)
 		{
 			Observers obs = i.next();
-			System.out.println(obs.getIP()+" "+obs.getPort()+"+++++++++");
+			//System.out.println(obs.getIP()+" "+obs.getPort()+"+++++++++");
 			if(obs.getPort() == port && obs.getIP() == ip)
 			{
 				i.remove();
