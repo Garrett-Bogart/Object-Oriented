@@ -2,10 +2,7 @@ package examples.shapes;
 
 @SuppressWarnings("WeakerAccess")
 public class Square extends Rectangle
-{
-	private Point origin;
-	private double width;
-	
+{	
 	/**
 	 * 
 	 * constructor
@@ -30,5 +27,10 @@ public class Square extends Rectangle
 	public Square(double x, double y, double width)throws ShapeException
 	{
 		super(x,y,width, width);
+	}
+	public String toString()
+	{
+		String origin = this.points.get(0).toString();
+		return "Square,"+origin+","+this.width;
 	}
 }

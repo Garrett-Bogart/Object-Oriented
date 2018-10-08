@@ -1,7 +1,7 @@
 package examples.shapes;
 
 public class Rectangle extends Shape {
-	private double width;
+	protected double width;
 	private double height;
 	/**
 	 * constructor
@@ -96,5 +96,32 @@ public class Rectangle extends Shape {
 		width*=scalingFactor;
 		height*= scalingFactor;
 	}
+	
+	public String toString()
+	{
+		String origin = this.points.get(0).toString();
+		return "Rectangle,"+origin+","+width+","+height;
+	}
+	
+	public boolean equals(Shape rect) throws ShapeException
+    {   	
+    	if(!(rect instanceof Rectangle))
+    	{
+    		return false;
+    	}
+    	
+    	if(rect == this)
+    	{
+    		return true;
+    	}
+    	Rectangle r1 = (Rectangle) rect;
+    	boolean t1 = this.getPoint1().equals(r1.getPoint1());
+    	boolean t2 = Double.compare(r1.getWidth(), this.width)==0;
+    	boolean t3 = Double.compare(r1.getHeight(), this.height)==0;
+    	
+    	return this.getPoint1().equals(r1.getPoint1()) && Double.compare(r1.getWidth(), this.width)==0 && Double.compare(r1.getHeight(), this.height)==0;
+    }
+
+
 
 }

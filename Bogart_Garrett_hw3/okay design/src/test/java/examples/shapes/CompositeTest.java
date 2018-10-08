@@ -191,4 +191,24 @@ public class CompositeTest {
 		assertEquals(25, comp.getShape(sq).computeArea(),0);
 
 	}
+	
+	@Test
+	public void testToString() throws NumberFormatException, ShapeException
+	{
+		ShapeFactory sf = new ShapeFactory();
+		Shape shape;
+		Composite comp;
+		String input = "composite,4;"
+				+ "line,0.0,0.0,1.0,1.0;"
+				+ "circle,0.0,0.0,1.0;"
+				+ "composite,2;"
+					+ "composite,1;"
+						+ "line,0.0,0.0,5.0,5.0;"
+					+ "line,0.0,0.0,1.0,5.0;"
+				+ "circle,0.0,0.0,2.7";
+		
+		shape = sf.makeShape(input);
+		comp = (Composite) shape;
+		assertEquals(input, comp.toString().toLowerCase());
+	}
 }

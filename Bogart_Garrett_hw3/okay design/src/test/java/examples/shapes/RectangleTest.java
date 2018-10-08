@@ -1,6 +1,8 @@
 package examples.shapes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -251,5 +253,24 @@ public class RectangleTest {
 	        }
 
 	    }
-	
+	 
+	 @Test
+	 public void testToString() throws ShapeException
+	 {
+	     Rectangle rectangle = new Rectangle(1, 2, 5, 6);
+	     assertEquals("Rectangle,1.0,2.0,5.0,6.0", rectangle.toString());
+	 }
+
+	 @Test
+	 public void testEquals() throws ShapeException
+	 {
+	    Rectangle l1 = new Rectangle(1, 2, 4, 4);
+	    Rectangle l2 = new Rectangle(1, 5, 4, 5);
+	    Rectangle l3 = new Rectangle(1, 2, 4, 4);
+	    	
+	    assertTrue(l1.equals(l1));
+	    assertFalse(l1.equals(l2));
+	    assertFalse(l1.equals(null));
+	    assertTrue(l1.equals(l3));
+	   }
 }

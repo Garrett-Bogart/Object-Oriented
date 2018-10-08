@@ -57,14 +57,24 @@ public class Point {
     public Point copy() throws ShapeException {
         return new Point(x, y);
     }
-    
-    public boolean equals(Point p)
+        
+    public String toString()
     {
-    	boolean same = true;
-    	if(p.getX() != getX())
-    		same = false;
-    	if(p.getY() != getY())
-    		same = false;
-    	return same;
+    	return ""+x+"," + y;  	
+    }
+    
+    public boolean equals(Point point)
+    {   	
+    	if(!(point instanceof Point))
+    	{
+    		return false;
+    	}
+    	
+    	if(point == this)
+    	{
+    		return true;
+    	}
+    	Point p1 = (Point) point;
+    	return Double.compare(p1.getX(), x) == 0 && Double.compare(p1.getY(), y)==0;
     }
 }

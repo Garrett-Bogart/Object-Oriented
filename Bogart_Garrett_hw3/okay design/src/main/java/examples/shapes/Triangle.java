@@ -124,5 +124,25 @@ public class Triangle extends Shape{
 		this.scalingFactor=scalingFactor;
 		
 	}
+	
+	public String toString()
+	{
+		return "Triangle,"+points.get(0)+","+points.get(1)+","+points.get(2);
+	}
+	
+	public boolean equals(Shape tri) throws ShapeException
+    {   	
+    	if(!(tri instanceof Triangle))
+    	{
+    		return false;
+    	}
+    	
+    	if(tri == this)
+    	{
+    		return true;
+    	}
+    	Triangle t1 = (Triangle) tri;
 
+    	return this.getPoint1().equals(t1.getPoint1()) && this.getPoint2().equals(t1.getPoint2()) && this.getPoint3().equals(t1.getPoint3());
+    }
 }

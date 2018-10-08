@@ -225,4 +225,26 @@ public class PointTest {
         assertEquals(p1.getX(), p2.getX(), 0);
         assertEquals(p1.getY(), p2.getY(), 0);
     }
+    
+    @Test
+    public void testToString() throws Exception {
+        Point p1 = new Point(-123.45,-23.45);
+        String point = p1.toString();
+        assertEquals("-123.45,-23.45", point);
+        
+    }
+    
+    @Test
+    public void testEquals() throws ShapeException
+    {
+    	Point p1 = new Point(0,0);
+    	Point p2 = new Point(1,1);
+    	Point p3 = new Point(2,2);
+    	Point p4 = new Point(0,0);
+    	
+    	assertTrue(p1.equals(p1));
+    	assertFalse(p1.equals(p2));
+    	assertFalse(p1.equals(null));
+    	assertTrue(p1.equals(p4));
+    }
 }

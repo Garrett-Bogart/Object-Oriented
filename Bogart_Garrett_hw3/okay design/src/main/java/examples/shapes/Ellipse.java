@@ -10,7 +10,7 @@ package examples.shapes;
  */
 @SuppressWarnings("WeakerAccess")
 public class Ellipse extends Shape {
-	private double radius1;
+	protected double radius1;
 	private double radius2;
 	
 	/**
@@ -68,7 +68,7 @@ public class Ellipse extends Shape {
 	 */
 	public double computeArea()
 	{
-		return (radius1*this.scalingFactor)*(radius2*this.scalingFactor)*Math.PI;
+		return radius1*radius2*Math.PI;
 	}
         
 	public static void validateEllipse(Point center, double radius1, double radius2)throws ShapeException
@@ -84,6 +84,32 @@ public class Ellipse extends Shape {
 		// TODO Auto-generated method stub
 		Validator.validateDouble(scalingFactor, "Ellipse: scaling factor not valid");
 		this.scalingFactor = scalingFactor;
+		radius1*=this.scalingFactor;
+		radius2*=this.scalingFactor;
 	}
 	
+	public String toString()
+	{
+		String center = this.points.get(0).toString();
+		return "Ellipse,"+center+","+this.radius1+","+this.radius2;
+	}
+	
+	public boolean equals(Shape ellipse) throws ShapeException
+    {   	
+    	if(!(ellipse instanceof Ellipse))
+    	{
+    		return false;
+    	}
+    	
+    	if(ellipse == this)
+    	{
+    		return true;
+    	}
+    	Ellipse c1 = (Ellipse) ellipse;
+    	boolean t1 = this.getPoint1().equals(c1.getPoint1());
+    	boolean t2 = Double.compare(c1.getRadius(), this.radius1)==0;
+    	boolean t3 = Double.compare(c1.getRadius2(), this.radius2)==0;
+    	
+    	return this.getPoint1().equals(c1.getPoint1()) && Double.compare(c1.getRadius(), this.radius1)==0 && Double.compare(c1.getRadius2(), this.radius2)==0;
+    }
 }

@@ -161,4 +161,27 @@ public class LineTest {
         assertEquals(0, myLine.computeSlope(), 0.1);
     }
 
+    @Test
+    public void testToString() throws ShapeException {
+
+        Line myLine = new Line(1, 2, 4, 10);
+        assertEquals(8.544, myLine.computeLength(), 0.001);
+        assertEquals("1.0,2.0", myLine.getPoint1().toString());
+        assertEquals("4.0,10.0", myLine.getPoint2().toString());
+        assertEquals("Line,1.0,2.0,4.0,10.0", myLine.toString());
+
+    }
+    
+    @Test
+    public void testEquals() throws ShapeException
+    {
+    	Line l1 = new Line(1, 2, 4, 10);
+    	Line l2 = new Line(1, 5, 4, 10);
+    	Line l3 = new Line(1, 2, 4, 10);
+    	
+    	assertTrue(l1.equals(l1));
+    	assertFalse(l1.equals(l2));
+    	assertFalse(l1.equals(null));
+    	assertTrue(l1.equals(l3));
+    }
 }

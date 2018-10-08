@@ -244,5 +244,23 @@ public class CircleTest {
 
 
     }
-
+    @Test
+    public void testToString() throws ShapeException
+    {
+        Circle ellipse = new Circle(1, 2, 5);
+        assertEquals("Circle,1.0,2.0,5.0", ellipse.toString());
+    }
+    
+    @Test
+    public void testEquals() throws ShapeException
+    {
+    	Circle l1 = new Circle(1, 2, 4);
+    	Circle l2 = new Circle(1, 5, 4);
+    	Circle l3 = new Circle(1, 2, 4);
+    	
+    	assertTrue(l1.equals(l1));
+    	assertFalse(l1.equals(l2));
+    	assertFalse(l1.equals(null));
+    	assertTrue(l1.equals(l3));
+    }
 }

@@ -165,4 +165,24 @@ public class TriangleTest {
 
     }
 	
+	@Test
+    public void testToString() throws ShapeException {
+
+        Triangle triangle = new Triangle(1, 1, 5, 1, 10, 10);
+        assertEquals("Triangle,1.0,1.0,5.0,1.0,10.0,10.0", triangle.toString());
+
+    }
+	
+	 @Test
+	 public void testEquals() throws ShapeException
+	 {
+	    Triangle l1 = new Triangle(1, 2, 4, 4, 6, 6);
+	    Triangle l2 = new Triangle(1, 5, 4, 5, 7, 8);
+	    Triangle l3 = new Triangle(1, 2, 4, 4, 6, 6);
+	    	
+	    assertTrue(l1.equals(l1));
+	    assertFalse(l1.equals(l2));
+	    assertFalse(l1.equals(null));
+	    assertTrue(l1.equals(l3));
+	   }
 }

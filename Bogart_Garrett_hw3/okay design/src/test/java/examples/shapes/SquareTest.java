@@ -216,4 +216,11 @@ public class SquareTest {
         	//ignore
         }
     }
+	
+	 @Test
+	 public void testToString() throws ShapeException
+	 {
+	     Square rectangle = new Square(1, 2, 5);
+	     assertEquals("Square,1.0,2.0,5.0", rectangle.toString());
+	 }
 }

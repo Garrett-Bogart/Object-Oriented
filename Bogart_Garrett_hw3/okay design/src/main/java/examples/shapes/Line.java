@@ -66,19 +66,28 @@ public class Line extends Shape {
 	public void scale(double scalingFactor) {		
 	}
 	
-	public boolean equals(Line line) throws ShapeException
+	public String toString()
 	{
-		boolean same = true;
-		if(!(line.getPoint1().equals(getPoint1())))
-		{
-			same = false;
-		}
-		if(!(line.getPoint2().equals(getPoint2())))
-		{
-			same = false;
-		}
-		return same;
+		String point1 = this.point1.toString();
+		String point2 = this.point2.toString();
+		String Line = "Line,"+point1+","+point2;
+		return "Line,"+point1.toString()+","+point2.toString();
 	}
     
+	public boolean equals(Shape line) throws ShapeException
+    {   	
+    	if(!(line instanceof Line))
+    	{
+    		return false;
+    	}
+    	
+    	if(line == this)
+    	{
+    		return true;
+    	}
+    	Line l1 = (Line) line;
+
+    	return this.getPoint1().equals(l1.getPoint1()) && this.getPoint2().equals(l1.getPoint2());
+    }
 
 }

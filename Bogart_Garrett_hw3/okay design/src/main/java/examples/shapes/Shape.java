@@ -28,6 +28,9 @@ abstract public class Shape {
 	public Point getPoint2() throws ShapeException  {return this.points.get(1);}
 	public Point getPoint3() throws ShapeException  {return this.points.get(2);}
 	public Point getPoint4() throws ShapeException {return this.points.get(3);}
+	abstract public String toString();
+	abstract public boolean equals(Shape shape) throws ShapeException;
+
 	
 	
 }

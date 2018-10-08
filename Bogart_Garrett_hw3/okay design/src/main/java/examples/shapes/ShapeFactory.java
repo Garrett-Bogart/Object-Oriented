@@ -1,5 +1,10 @@
 package examples.shapes;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -9,16 +14,6 @@ import javafx.util.Pair;
 public class ShapeFactory {
 	ArrayList<String> shapeList;
 	
-	public ShapeFactory()
-	{
-		shapeList = new ArrayList<String>();
-		shapeList.add("line");
-		shapeList.add("triangle");
-		shapeList.add("rectangle");
-		shapeList.add("square");
-		shapeList.add("ellipse");
-		shapeList.add("circle");
-	}
 	
 	public double convertString(String part)throws NumberFormatException
 	{
@@ -27,6 +22,8 @@ public class ShapeFactory {
 	
 	public Shape makeShape(String in) throws NumberFormatException, ShapeException //shape,x1,y1,x2,y2,x3,y3
 	{
+		InputStream inputStream = new ByteArrayInputStream(in.getBytes());
+		BufferedReader buff = new BufferedReader(new InputStreamReader(inputStream));
 		String input = in.toLowerCase();
 		String[] parts = input.split(",");
 		Shape shape = null;
@@ -97,6 +94,21 @@ public class ShapeFactory {
 		}
 		
 		return shape;
-	}	
+	}
 	
+	
+	public Shape makeShape(InputStream iStream) throws NumberFormatException, ShapeException //shape,x1,y1,x2,y2,x3,y3
+, IOException
+	{
+		Shape shape = null;
+		BufferedReader buff = new BufferedReader(new InputStreamReader(iStream));
+		String temp = buff.readLine();
+		if(temp != null)
+		{
+			String input = temp;			
+			shape = makeShape(input);
+		}
+
+		return shape;
+	}	
 }

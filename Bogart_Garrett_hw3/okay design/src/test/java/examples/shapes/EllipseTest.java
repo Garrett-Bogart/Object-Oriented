@@ -1,7 +1,9 @@
 package examples.shapes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -400,6 +402,26 @@ public class EllipseTest {
         } catch (Exception e) {
             // ignore
         }
+    }
+    
+    @Test
+    public void testToString() throws ShapeException
+    {
+        Ellipse ellipse = new Ellipse(1, 2, 5, 6);
+        assertEquals("Ellipse,1.0,2.0,5.0,6.0", ellipse.toString());
+    }
+    
+    @Test
+    public void testEquals() throws ShapeException
+    {
+    	Ellipse l1 = new Ellipse(1, 2, 4, 10);
+    	Ellipse l2 = new Ellipse(1, 5, 4, 10);
+    	Ellipse l3 = new Ellipse(1, 2, 4, 10);
+    	
+    	assertTrue(l1.equals(l1));
+    	assertFalse(l1.equals(l2));
+    	assertFalse(l1.equals(null));
+    	assertTrue(l1.equals(l3));
     }
     
 }

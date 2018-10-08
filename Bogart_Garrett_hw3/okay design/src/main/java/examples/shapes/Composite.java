@@ -63,30 +63,18 @@ public class Composite extends Shape {
 		shapes.remove(found);
 	}
 	
-	public Shape getShape(Shape shape)
+	public Shape getShape(Shape shape) throws ShapeException
 	{
 		Shape temp = null;
 		for(Shape s : shapes)
 		{	
-			//System.out.println(s);
-
 			if(s instanceof Composite)
 			{
-				Shape t =((Composite) s).getShape(shape);	
-				if(t != null)
-				{
-					temp = t;
-					break;
-				}
-
-			}
-			else if(shape.getClass().equals(s.getClass()))
+				temp = ((Composite) s).getShape(shape);
+			}			
+			else if(s.equals(shape))
 			{
-
-				if(shape.equals(s));
-				{
-					temp =s;					
-				}
+				temp = s;
 			}
 		}
 		return temp;
@@ -111,5 +99,31 @@ public class Composite extends Shape {
 	public ArrayList<Shape> getShapes()
 	{
 		return shapes;
+	}
+	
+	public String toString()
+	{
+		String comp = "Composite"+","+shapes.size();
+		for(Shape s : shapes)
+		{
+			comp+=";"+s.toString();
+		}
+		return comp;
+	}
+
+	@Override
+	public boolean equals(Shape shape) throws ShapeException 
+	{
+		boolean same = true;
+    	if(!(shape instanceof Composite))
+    	{
+    		return false;
+    	}
+    	
+    	if(shape == this)
+    	{
+    		return true;
+    	}
+    	return this.toString().equals(shape.toString());
 	}
 }

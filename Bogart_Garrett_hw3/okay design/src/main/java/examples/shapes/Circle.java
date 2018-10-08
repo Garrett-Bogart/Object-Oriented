@@ -9,7 +9,6 @@ package examples.shapes;
 @SuppressWarnings("WeakerAccess")
 public class Circle extends Ellipse
 {
-    private Point center;
     private double radius;
 
     /**
@@ -34,5 +33,10 @@ public class Circle extends Ellipse
     public Circle(Point center, double radius) throws ShapeException {
         super(center,radius, radius);
     }
-
+    
+	public String toString()
+	{
+		String center = this.points.get(0).toString();
+		return "Circle,"+center+","+this.radius1;
+	}
 }
