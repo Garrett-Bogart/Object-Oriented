@@ -1,5 +1,8 @@
 package examples.shapes;
 
+import java.io.FileWriter;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 abstract public class Shape {
@@ -30,6 +33,12 @@ abstract public class Shape {
 	public Point getPoint4() throws ShapeException {return this.points.get(3);}
 	abstract public String toString();
 	abstract public boolean equals(Shape shape) throws ShapeException;
+	public void saveShape(OutputStream output)
+	{
+		PrintWriter out = new PrintWriter(output);
+		out.print(this.toString());
+		out.close();	
+	}
 
 	
 	

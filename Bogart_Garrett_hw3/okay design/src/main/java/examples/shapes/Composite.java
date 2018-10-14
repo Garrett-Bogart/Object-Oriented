@@ -70,7 +70,14 @@ public class Composite extends Shape {
 		{	
 			if(s instanceof Composite)
 			{
-				temp = ((Composite) s).getShape(shape);
+				if(s.equals(shape))
+				{
+					temp = s;
+				}
+				else
+				{
+					temp = ((Composite) s).getShape(shape);
+				}				
 			}			
 			else if(s.equals(shape))
 			{

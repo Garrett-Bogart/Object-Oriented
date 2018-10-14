@@ -2,7 +2,7 @@ package examples.shapes;
 
 public class Rectangle extends Shape {
 	protected double width;
-	private double height;
+	protected double height;
 	/**
 	 * constructor
 	 * 

@@ -62,9 +62,7 @@ public class Line extends Shape {
 	@Override
 	public double computeArea() {return 0;}
 
-	@Override
-	public void scale(double scalingFactor) {		
-	}
+
 	
 	public String toString()
 	{
@@ -89,5 +87,8 @@ public class Line extends Shape {
 
     	return this.getPoint1().equals(l1.getPoint1()) && this.getPoint2().equals(l1.getPoint2());
     }
+
+	@Override
+	public void scale(double scalingFactor) throws ShapeException {}
 
 }

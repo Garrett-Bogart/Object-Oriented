@@ -4,6 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStream;
+
 public class LineTest {
 
     @Test
@@ -183,5 +188,21 @@ public class LineTest {
     	assertFalse(l1.equals(l2));
     	assertFalse(l1.equals(null));
     	assertTrue(l1.equals(l3));
+    }
+    
+    @Test
+    public void testSaveShape() throws ShapeException, FileNotFoundException
+    {
+    	Line l1 = new Line(1, 2, 4, 10);
+    	OutputStream out = new FileOutputStream("line.txt");
+    	l1.saveShape(out);
+    }
+    
+    @Test
+    public void testGetArea() throws ShapeException, FileNotFoundException
+    {
+    	Line l1 = new Line(1, 2, 4, 10);
+    	assertEquals(0, l1.computeArea(),0);
+    	l1.scale(1.0);
     }
 }

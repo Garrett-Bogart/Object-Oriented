@@ -3,6 +3,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -211,4 +214,48 @@ public class CompositeTest {
 		comp = (Composite) shape;
 		assertEquals(input, comp.toString().toLowerCase());
 	}
+	
+	@Test
+	public void testEquals() throws NumberFormatException, ShapeException
+	{
+		ShapeFactory sf = new ShapeFactory();
+		Shape shape;
+		Composite comp;
+		String input = "composite,4;"
+				+ "line,0.0,0.0,1.0,1.0;"
+				+ "circle,0.0,0.0,1.0;"
+				+ "composite,2;"
+					+ "composite,1;"
+						+ "line,0.0,0.0,5.0,5.0;"
+					+ "line,0.0,0.0,1.0,5.0;"
+				+ "circle,0.0,0.0,2.7";
+		
+		shape = sf.makeShape(input);
+		comp = (Composite) shape;
+		Shape shape1 = sf.makeShape(input);
+		Composite comp1 = (Composite) shape1;
+		assertTrue(comp1.equals(comp));
+	}
+	
+    @Test
+    public void testSaveShape() throws ShapeException, FileNotFoundException
+    {
+		ShapeFactory sf = new ShapeFactory();
+		Shape shape;
+		Composite comp;
+		String input = "composite,4;"
+				+ "line,0.0,0.0,1.0,1.0;"
+				+ "circle,0.0,0.0,1.0;"
+				+ "composite,2;"
+					+ "composite,1;"
+						+ "line,0.0,0.0,5.0,5.0;"
+					+ "line,0.0,0.0,1.0,5.0;"
+				+ "circle,0.0,0.0,2.7";
+		
+		shape = sf.makeShape(input);
+		comp = (Composite) shape;
+		assertEquals(input, comp.toString().toLowerCase());
+    	OutputStream out = new FileOutputStream("composite.txt");
+    	comp.saveShape(out);
+    }
 }
