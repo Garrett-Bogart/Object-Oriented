@@ -170,8 +170,6 @@ public class TestShapeFactory {
 		subComp = (Composite) test1.get(0);
 		test1 = subComp.getShapes();
 		assertTrue(test1.get(0) instanceof Line);
-		
-
 	}
 	
 

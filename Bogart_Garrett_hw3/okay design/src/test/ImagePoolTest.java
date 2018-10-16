@@ -15,8 +15,10 @@ import javax.imageio.ImageIO;
 
 import org.junit.Test;
 
+import shapes.EmbeddedImage;
 import shapes.FlyImage;
 import shapes.ImagePool;
+import shapes.ShapeException;
 
 public class ImagePoolTest {
 
@@ -64,5 +66,36 @@ public class ImagePoolTest {
 			image = ImageIO.read(new File("okay design/src/resources/image0.jpg"));
 			temp = pool.getImage("okay design/src/resources/image0.jpg");
 			assertTrue(pool.compareImages(temp.getImage(), image));
+		}
+		
+		@Test
+		public void testEmbeddedImageLinkage() throws IOException, ShapeException
+		{
+			String filePath = "okay design/src/resources/zzaKt.jpg";
+			FileInputStream file = new FileInputStream("okay design/src/resources/fancy_bulbasir.jpg");
+			BufferedImage image = ImageIO.read(file);
+			ImagePool pool = new ImagePool(image);
+			BufferedImage img = ImageIO.read(new File("okay design/src/resources/fancy_squirtle.jpg"));
+			BufferedImage img1 = ImageIO.read(new File("okay design/src/resources/fancy_charmander.jpg"));		
+			pool.addImage(img);
+			pool.addImage(img1);
+			
+			
+			FlyImage bulb = pool.getImage("okay design/src/resources/image0.jpg");
+			FlyImage bulb1 = pool.getImage("okay design/src/resources/image0.jpg");
+			FlyImage bulb2 = pool.getImage("okay design/src/resources/image0.jpg");
+
+			
+			EmbeddedImage e1 = new EmbeddedImage(0,0,5,5,bulb);
+			EmbeddedImage e2 = new EmbeddedImage(0,0,5,5,bulb1);
+			EmbeddedImage e3 = new EmbeddedImage(0,0,5,5,bulb2);
+			
+			e1.getImage().setImagePath("sup");
+			assertEquals(e1.getImage().getImagePath(), e2.getImage().getImagePath());
+			
+			
+			
+
+
 		}
 }

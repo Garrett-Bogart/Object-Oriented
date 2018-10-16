@@ -15,6 +15,8 @@ public class EmbeddedImage extends Rectangle {
 		this.image = image;
 	}
 	
+	public FlyImage getImage() {return image;}
+	
 	public void setImage(FlyImage image) {this.image = image;}
 	
 	public void render() {}
