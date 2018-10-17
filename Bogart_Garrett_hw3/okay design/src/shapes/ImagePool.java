@@ -34,7 +34,7 @@ public class ImagePool {
 		count++;
 	}
 	
-	public ImagePool(FlyImage image)
+	/*public ImagePool(FlyImage image)
 	{
 		images = new ArrayList<FlyImage>();
 		this.images.add(image);
@@ -43,7 +43,7 @@ public class ImagePool {
 	public ImagePool(ArrayList<FlyImage> images)
 	{
 		this.images = images;
-	}
+	}*/
 	
 	public ArrayList<FlyImage> getImages(){return images;}
 	
@@ -92,10 +92,9 @@ public class ImagePool {
 		return img;
 	}
 	
-	public FlyImage addImage(String path) throws IOException
+	public FlyImage addImage(String path) throws IOException, ShapeException
 	{
-		FileInputStream input = new FileInputStream(path);
-		BufferedImage buff = ImageIO.read(input);
+		BufferedImage buff = validateImage(path);
 		return addImage(buff);
 	}
 	
@@ -116,4 +115,26 @@ public class ImagePool {
             return false;
         }
     }
+	
+	public BufferedImage validateImage(String path) throws IOException, ShapeException
+	{
+		BufferedImage img;
+		File file = new File(path);
+		if(!file.exists())
+		{
+			throw new IOException("File Not Found");
+		}
+		if(file.length() == 0) 
+		{
+			throw new IOException("File does not contain anything");
+		}
+		img = ImageIO.read(file);
+		if(img == null)
+		{
+			throw new ShapeException("Image is null");
+		}
+		return img;		
+	}
+	
+
 }

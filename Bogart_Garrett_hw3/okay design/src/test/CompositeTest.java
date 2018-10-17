@@ -5,11 +5,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import org.junit.Test;
 
@@ -260,5 +266,34 @@ public class CompositeTest {
 		assertEquals(input, comp.toString().toLowerCase());
     	OutputStream out = new FileOutputStream("composite.txt");
     	comp.saveShape(out);
+    }
+    
+    @Test
+    public void testRender() throws ShapeException, InterruptedException, NumberFormatException, IOException
+    {
+		ShapeFactory sf = new ShapeFactory();
+		Shape shape;
+		Composite comp;
+
+		String input = "composite,4;"
+				+ "line,0.0,0.0,10.0,10.0;"
+				+ "Embedded,0,0,200,200,okay design/src/resources/fancy_bulbasir.jpg;"
+				+ "composite,2;"
+					+ "composite,1;"
+						+ "triangle,0.0,100.0,100.0,0.0,100.0,100.0;"
+					+ "line,0.0,0.0,1.0,500.0;"
+				+ "Ellipse,0.0,0.0,200.7,50";
+		
+		shape = sf.makeShape(input);
+		comp = (Composite) shape;
+		
+    	BufferedImage image = new BufferedImage(500,600,BufferedImage.TYPE_INT_RGB);
+    	Graphics g = image.createGraphics();
+    	g.setColor(Color.WHITE);
+    	g.fillRect(0, 0, 500, 600);
+    	g.setColor(Color.BLACK);
+    	
+    	comp.render(g);
+    	assertTrue(ImageIO.write(image, "png", new File("okay design/src/resources/Composite")));
     }
 }

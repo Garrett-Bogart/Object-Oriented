@@ -58,6 +58,11 @@ public class TestShapeFactory {
 		assertEquals(6.25,shape.computeArea(),0);
 		shape.computeArea();
 		
+		shape = sf.makeShape("Embedded,0,0,5,5,okay design/src/resources/fancy_bulbasir.jpg");
+		assertTrue(shape instanceof EmbeddedImage);
+		EmbeddedImage ei = (EmbeddedImage) shape;
+		assertEquals(ei.getImage().getImagePath(),"okay design/src/resources/image0.jpg");
+		
 		shape = sf.makeShape("");
 		assertNull(shape);
 

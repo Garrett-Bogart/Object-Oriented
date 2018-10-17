@@ -1,6 +1,18 @@
 package shapes;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import draw.Draw;
+import draw.DrawEllipse;
+import draw.DrawLine;
+import draw.DrawRectangle;
+import draw.DrawTriangle;
 
 public class Composite extends Shape {
 	private ArrayList<Shape> shapes;
@@ -132,5 +144,13 @@ public class Composite extends Shape {
     		return true;
     	}
     	return this.toString().equals(shape.toString());
+	}
+	
+	public void render(Graphics g) throws ShapeException
+	{
+		for(Shape s: shapes)
+		{
+			s.render(g);
+		}	
 	}
 }

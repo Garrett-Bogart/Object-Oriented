@@ -90,12 +90,42 @@ public class ImagePoolTest {
 			EmbeddedImage e2 = new EmbeddedImage(0,0,5,5,bulb1);
 			EmbeddedImage e3 = new EmbeddedImage(0,0,5,5,bulb2);
 			
+			assertSame(e1.getImage(), e2.getImage());
+			
 			e1.getImage().setImagePath("sup");
 			assertEquals(e1.getImage().getImagePath(), e2.getImage().getImagePath());
+			assertEquals(e3.getImage().getImagePath(), e2.getImage().getImagePath());
+		}
+		
+		@Test
+		public void testValidation()
+		{
+			ImagePool pool = new ImagePool();
+			try
+			{
+				pool.addImage("");
+				fail("Expected exception not thrown");
+			}catch(Exception e)
+			{
+				//ignore
+			}
 			
+			try
+			{
+				pool.addImage("okay design/src/resources/empty.txt");
+				fail("Expected exception not thrown");
+			}catch(Exception e)
+			{
+				//ignore
+			}
 			
-			
-
-
+			try
+			{
+				pool.addImage("okay design/src/resources/empty.txt");
+				fail("Expected exception not thrown");
+			}catch(Exception e)
+			{
+				//ignore
+			}
 		}
 }

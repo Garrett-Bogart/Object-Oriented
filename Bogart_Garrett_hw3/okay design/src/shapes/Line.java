@@ -1,5 +1,12 @@
 package shapes;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JFrame;
+
+import draw.DrawLine;
+
 /**
  *
  *  Line
@@ -90,5 +97,10 @@ public class Line extends Shape {
 
 	@Override
 	public void scale(double scalingFactor) throws ShapeException {}
+	
+	public void render(Graphics g) throws ShapeException
+	{
+		g.drawLine((int)this.getPoint1().getX(), (int)this.getPoint1().getY(), (int)this.getPoint2().getX(), (int)this.getPoint2().getY());
+	}
 
 }

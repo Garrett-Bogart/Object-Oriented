@@ -25,7 +25,7 @@ public class FlyImage {
 	public BufferedImage getImage() {return image;}
 	public String getImagePath() {return imagePath;}
 	
-	public void setGraphic(BufferedImage image) {this.image = image;}
+	//public void setGraphic(BufferedImage image) {this.image = image;}
 	public void setImagePath(String path) {this.imagePath = path;}
 	
 	public boolean compareImages(BufferedImage bfa, BufferedImage bfb) {

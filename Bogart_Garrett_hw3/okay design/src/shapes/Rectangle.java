@@ -1,5 +1,12 @@
 package shapes;
 
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+import draw.DrawEllipse;
+import draw.DrawRectangle;
+
 public class Rectangle extends Shape {
 	protected double width;
 	protected double height;
@@ -122,6 +129,9 @@ public class Rectangle extends Shape {
     	return this.getPoint1().equals(r1.getPoint1()) && Double.compare(r1.getWidth(), this.width)==0 && Double.compare(r1.getHeight(), this.height)==0;
     }
 
-
+	public void render(Graphics g) throws ShapeException
+	{
+		g.drawRect((int)this.getPoint1().getX(), (int)this.getPoint1().getY(), (int) width,(int) height);
+	}
 
 }

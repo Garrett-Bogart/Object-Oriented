@@ -1,5 +1,12 @@
 package shapes;
 import static java.lang.Math.sqrt;
+
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+import draw.DrawRectangle;
+import draw.DrawTriangle;
 /**
  * 
  * Triangle
@@ -145,4 +152,18 @@ public class Triangle extends Shape{
 
     	return this.getPoint1().equals(t1.getPoint1()) && this.getPoint2().equals(t1.getPoint2()) && this.getPoint3().equals(t1.getPoint3());
     }
+	
+	public void render(Graphics g) throws ShapeException
+	{
+		int[] x = new int[3];
+		int[] y = new int[3];
+		int count = 0;
+		for(Point p : this.getPoints())
+		{
+			x[count] = (int) p.getX();
+			y[count] = (int) p.getY();
+			count++;
+		}
+		g.drawPolygon(x,y,count);	
+	}
 }

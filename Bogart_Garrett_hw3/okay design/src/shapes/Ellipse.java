@@ -1,5 +1,11 @@
 package shapes;
 
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+import draw.DrawEllipse;
+import draw.DrawLine;
 
 /**
  * Ellipse
@@ -112,4 +118,9 @@ public class Ellipse extends Shape {
     	
     	return this.getPoint1().equals(c1.getPoint1()) && Double.compare(c1.getRadius(), this.radius1)==0 && Double.compare(c1.getRadius2(), this.radius2)==0;
     }
+	
+	public void render(Graphics g) throws ShapeException
+	{
+		g.drawOval((int)this.getPoint1().getX(), (int)this.getPoint1().getY(), (int)this.getRadius(), (int)this.getRadius2());
+	}
 }

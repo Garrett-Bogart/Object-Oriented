@@ -4,9 +4,15 @@ import shapes.*;
 
 import org.junit.Test;
 
-import shapes.Point;
-
 import static org.junit.Assert.*;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class CircleTest {
 
@@ -266,5 +272,19 @@ public class CircleTest {
     	assertFalse(l1.equals(l2));
     	assertFalse(l1.equals(null));
     	assertTrue(l1.equals(l3));
+    }
+    
+    @Test
+    public void testRender() throws ShapeException, InterruptedException, IOException
+    {
+    	Circle l1 = new Circle(1, 2, 400);
+    	BufferedImage image = new BufferedImage(600,600,BufferedImage.TYPE_INT_RGB);
+    	Graphics g = image.createGraphics();
+    	g.setColor(Color.WHITE);
+    	g.fillRect(0, 0, 600, 600);
+    	g.setColor(Color.BLACK);
+    	l1.render(g);
+    	
+    	assertTrue(ImageIO.write(image, "png", new File("okay design/src/resources/Circle")));
     }
 }

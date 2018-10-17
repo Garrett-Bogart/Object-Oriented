@@ -59,7 +59,7 @@ public class ShapeFactory {
 			//System.out.println(parts[0]);
 			shape = new Square(convertString(parts[1]), convertString(parts[2]),convertString(parts[3]));
 		}
-		else if("Embedded".equals(parts[0]))//Embedded,x,y,w,h,filepath
+		else if("embedded".equals(parts[0]))//Embedded,x,y,w,h,filepath
 		{
 			//System.out.println(parts[0]);
 			shape = new EmbeddedImage(convertString(parts[1]), convertString(parts[2]),convertString(parts[3]),convertString(parts[4]), pool.addImage(parts[5].trim()));

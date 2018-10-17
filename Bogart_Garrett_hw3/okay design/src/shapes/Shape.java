@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.Graphics;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -39,7 +40,5 @@ abstract public class Shape {
 		out.print(this.toString());
 		out.close();	
 	}
-
-	
-	
+	abstract public void render(Graphics g) throws ShapeException;	
 }
