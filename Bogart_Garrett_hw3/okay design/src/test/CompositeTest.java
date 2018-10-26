@@ -8,10 +8,13 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
@@ -264,8 +267,15 @@ public class CompositeTest {
 		shape = sf.makeShape(input);
 		comp = (Composite) shape;
 		assertEquals(input, comp.toString().toLowerCase());
-    	OutputStream out = new FileOutputStream("composite.txt");
+    	OutputStream out = new FileOutputStream("okay design/src/resources/composite.txt");
     	comp.saveShape(out);
+    	
+    	
+    	BufferedReader buff = new BufferedReader(new FileReader( new File("okay design/src/resources/composite.txt")));
+    	input = buff.readLine();
+    	shape = sf.makeShape(input);
+    	comp = (Composite) shape;
+		assertEquals(input.toLowerCase(), comp.toString().toLowerCase());
     }
     
     @Test

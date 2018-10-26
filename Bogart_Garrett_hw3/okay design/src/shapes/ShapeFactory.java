@@ -23,8 +23,8 @@ public class ShapeFactory {
 	public Shape makeShape(String in) throws NumberFormatException, ShapeException //shape,x1,y1,x2,y2,x3,y3
 , IOException
 	{
-		InputStream inputStream = new ByteArrayInputStream(in.getBytes());
-		BufferedReader buff = new BufferedReader(new InputStreamReader(inputStream));
+		//InputStream inputStream = new ByteArrayInputStream(in.getBytes());
+		//BufferedReader buff = new BufferedReader(new InputStreamReader(inputStream));
 		String input = in.toLowerCase();
 		String[] parts = input.split(",");
 		Shape shape = null;

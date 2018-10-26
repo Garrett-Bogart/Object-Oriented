@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import draw.DrawLine;
 
 public class EmbeddedImage extends Rectangle {
 

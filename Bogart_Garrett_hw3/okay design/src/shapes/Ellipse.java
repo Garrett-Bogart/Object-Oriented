@@ -4,9 +4,6 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import draw.DrawEllipse;
-import draw.DrawLine;
-
 /**
  * Ellipse
  * 

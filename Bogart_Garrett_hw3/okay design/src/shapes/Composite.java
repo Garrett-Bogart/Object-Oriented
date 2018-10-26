@@ -8,11 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import draw.Draw;
-import draw.DrawEllipse;
-import draw.DrawLine;
-import draw.DrawRectangle;
-import draw.DrawTriangle;
 
 public class Composite extends Shape {
 	private ArrayList<Shape> shapes;
@@ -46,7 +41,6 @@ public class Composite extends Shape {
 		{
 			area+=shape.computeArea();
 		}
-		// TODO Auto-generated method stub
 		return area;
 	}
 

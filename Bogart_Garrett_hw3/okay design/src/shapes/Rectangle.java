@@ -4,8 +4,6 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import draw.DrawEllipse;
-import draw.DrawRectangle;
 
 public class Rectangle extends Shape {
 	protected double width;

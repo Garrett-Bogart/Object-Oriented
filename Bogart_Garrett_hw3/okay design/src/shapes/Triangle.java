@@ -5,8 +5,6 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import draw.DrawRectangle;
-import draw.DrawTriangle;
 /**
  * 
  * Triangle

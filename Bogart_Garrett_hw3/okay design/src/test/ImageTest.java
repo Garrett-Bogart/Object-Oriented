@@ -20,12 +20,11 @@ public class ImageTest {
 	@Test
 	public void testImageConstructor() throws IOException
 	{
-		String filePath = "okay design/src/resources/zzaKt.jpg";
 		FileInputStream file = new FileInputStream("okay design/src/resources/fancy_bulbasir.jpg");
 		BufferedImage image = ImageIO.read(file);
 		FlyImage img = new FlyImage("okay design/src/resources/fancy_bulbasir.jpg",image);
 		FlyImage img1 = new FlyImage("okay design/src/resources/fancy_bulbasir.jpg",image);
-		assertEquals(filePath, img.getImagePath());
+		assertEquals("okay design/src/resources/fancy_bulbasir.jpg", img.getImagePath());
 		assertTrue(img1.compareImages(image, img.getImage()));
 	}
 }
