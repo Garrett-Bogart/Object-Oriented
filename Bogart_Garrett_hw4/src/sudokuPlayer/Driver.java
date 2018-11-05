@@ -6,9 +6,11 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import sudokuAlgorithms.SolverManager;
 import sudokuBoard.SudokuBoard;
 public class Driver {
 	private static SudokuBoard board = null;
+	private static SolverManager solver = null;
 	
 	public static void makeBoard(String[] args)
 	{
@@ -64,5 +66,7 @@ public class Driver {
 	public static void main(String[] args) 
 	  {
 	    makeBoard(args);
+	    solver = new SolverManager(board);
+	    solver.solve();
 	  }
 }

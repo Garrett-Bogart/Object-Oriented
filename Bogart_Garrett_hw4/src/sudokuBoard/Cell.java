@@ -33,7 +33,7 @@ public class Cell {
 	public void setValue(String value) 
 	{
 		this.value = value;
-		set = null;
+		set = new HashSet<String>();
 	}
 	
 	public void setSet(HashSet<String> s)

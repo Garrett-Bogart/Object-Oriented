@@ -63,7 +63,7 @@ public class SudokuBoard {
 					set.removeAll(cols.getSet(j));
 					set.removeAll(boxes.getSet(location+box));
 					board[i][j].setSet(set);
-					board[i][j].setRow(j);
+					board[i][j].setRow(i);
 					board[i][j].setCol(j);
 					board[i][j].setRegion(location+box);
 					
@@ -182,6 +182,20 @@ public class SudokuBoard {
 		return location+(region*rows);
 	}
 	
+	public void updateCells(int row, int column, int region, String value)
+	{
+		for(int i = 0; i < size; i ++)
+		{
+			for(int j = 0; j<size; j++)
+			{
+				if(board[i][j].getRow() == row ||board[i][j].getCol() == column||board[i][j].getRegion() == region)
+				{
+					board[i][j].getSolutionSet().remove(value);
+				}
+			}
+		}
+		
+	}
 	
 	public void outputBoard()
 	{

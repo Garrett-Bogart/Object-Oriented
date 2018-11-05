@@ -39,9 +39,10 @@ public class SingleSolution extends SudokuSolver {
 	public void updateCells(SudokuBoard board, ArrayList<Cell> cells) {
 		for(Cell c : cells)
 		{
-			board.getRows().getSet(c.getRow()).remove(c.getValue());
-			board.getColumns().getSet(c.getCol()).remove(c.getValue());
-			board.getBoxes().getSet(c.getRegion()).remove(c.getValue());
+			board.getRows().getSet(c.getRow()).add(c.getValue());
+			board.getColumns().getSet(c.getCol()).add(c.getValue());
+			board.getBoxes().getSet(c.getRegion()).add(c.getValue());
+			board.updateCells(c.getRow(), c.getCol(), c.getRegion(), c.getValue());
 		}
 		
 	}
