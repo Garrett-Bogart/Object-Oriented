@@ -5,7 +5,6 @@ import sudokuBoard.*;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CellTest {
@@ -45,16 +44,14 @@ public class CellTest {
 	public void testSetSet()
 	{
 		Cell cell = new Cell("1");
-		ArrayList<String> set = new ArrayList<String>();
 		String[] setValues = new String[]{"1","2","3","4"};
 		cell.getSolutionSet().addAll(Arrays.asList(setValues));
 		assertEquals(cell.getSolutionSet().toString(), "[1, 2, 3, 4]");
-		set.add("5");
-		set.add("6");
-		set.add("7");
-		set.add("8");
-		//cell.setSet(set);
-		assertEquals(cell.getSolutionSet().toString(), "[5, 6, 7, 8]");
+		cell.getSolutionSet().add("5");
+		cell.getSolutionSet().add("6");
+		cell.getSolutionSet().add("7");
+		cell.getSolutionSet().add("8");
+		assertEquals(cell.getSolutionSet().toString(), "[1, 2, 3, 4, 5, 6, 7, 8]");
 	}
 	
 	@Test

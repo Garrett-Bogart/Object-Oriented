@@ -5,7 +5,9 @@ import sudokuBoard.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,37 +17,39 @@ public class SudokuBoardTest {
 	@Test
 	public void testConstructor() throws Exception
 	{
-		String path = "src/resources/Puzzle-4x4-0001.txt";
 		String file = "4\n"
 				+ "2 - 3 1 \n"
 				+ "1 3 - 4 \n"
 				+ "3 1 4 - \n"
 				+ "- 2 1 3 \n";
-		
-		SudokuBoard board = new SudokuBoard(path);
+		String input = "src/resources/Puzzle-4x4-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
 		assertEquals(board.toString(), file);		
 	}
 	
 	@Test
 	public void testMakeBoard() throws Exception
 	{
-		String path = "src/resources/Puzzle-4x4-0001.txt";
-		SudokuBoard board = new SudokuBoard("src/resources/Puzzle-4x4-0001.txt");
+		String input = "src/resources/Puzzle-4x4-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
 		String file = "4\n"
 				+ "2 - 3 1 \n"
 				+ "1 3 - 4 \n"
 				+ "3 1 4 - \n"
 				+ "- 2 1 3 \n";
 		board.setSize(-1);
-		board.makeBoard(path);
+		board.makeBoard(input);
 		assertEquals(board.toString(), file);		
 	}
 	
 	@Test
 	public void testGetters() throws Exception
 	{
-		String path = "src/resources/Puzzle-4x4-0001.txt";
-		SudokuBoard board = new SudokuBoard(path);
+		String input = "src/resources/Puzzle-4x4-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
 		String[] setValues = new String[]{"1","2","3","4", "-"};
 		Set<String> set = new HashSet<String>();
 		set.addAll(Arrays.asList(setValues));
@@ -56,26 +60,40 @@ public class SudokuBoardTest {
 	@Test
 	public void testInvalidConstructors() throws IOException
 	{
+		String input = "src/resources/Puzzle-4x4-test-****.txt";
+		final InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		assertThrows(IOException.class,()->{new SudokuBoard(iStream);});
 		
-		assertThrows(IOException.class,()->{new SudokuBoard("src/resources/Puzzle-4x4-test-****.txt");});
-		
-		assertThrows(IOException.class,()->{new SudokuBoard("src/resources/Puzzle-4x4-test-0001.txt");});
+		input = "src/resources/Puzzle-4x4-test-0001.txt";
+		final InputStream iStream1 = new ByteArrayInputStream(input.getBytes());
+		assertThrows(IOException.class,()->{new SudokuBoard(iStream1);});
 
-		assertThrows(IOException.class,()->{new SudokuBoard("src/resources/Puzzle-4x4-test-0002.txt");});
+		input = "src/resources/Puzzle-4x4-test-0002.txt";
+		final InputStream iStream2 = new ByteArrayInputStream(input.getBytes());
+		assertThrows(IOException.class,()->{new SudokuBoard(iStream2);});
 		
-		assertThrows(Exception.class,()->{new SudokuBoard("src/resources/Puzzle-4x4-test-0003.txt");});
+		input = "src/resources/Puzzle-4x4-test-0003.txt";
+		final InputStream iStream3 = new ByteArrayInputStream(input.getBytes());		
+		assertThrows(Exception.class,()->{new SudokuBoard(iStream3);});
 		
-		assertThrows(IllegalArgumentException.class,()->{new SudokuBoard("src/resources/Puzzle-4x4-test-0004.txt");});
+		input = "src/resources/Puzzle-4x4-test-0004.txt";
+		final InputStream iStream4 = new ByteArrayInputStream(input.getBytes());
+		assertThrows(IllegalArgumentException.class,()->{new SudokuBoard(iStream4);});
 		
-		assertThrows(IllegalArgumentException.class,()->{new SudokuBoard("src/resources/Puzzle-4x4-test-0005.txt");});
+		input = "src/resources/Puzzle-4x4-test-0005.txt";
+		final InputStream iStream5 = new ByteArrayInputStream(input.getBytes());
+		assertThrows(IllegalArgumentException.class,()->{new SudokuBoard(iStream5);});
 
 	}
 	
 	@Test
 	public void testGetBoard() throws Exception
 	{
-		SudokuBoard board = new SudokuBoard("src/resources/Puzzle-4x4-0001.txt");
-		SudokuBoard board1 = new SudokuBoard("src/resources/Puzzle-4x4-0001.txt");
+		String input = "src/resources/Puzzle-4x4-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		InputStream iStream1 = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
+		SudokuBoard board1 = new SudokuBoard(iStream1);
 		for(int i = 0; i < board.getSize();i++)
 		{
 			for(int j =0; j < board.getSize(); j++)
@@ -91,7 +109,9 @@ public class SudokuBoardTest {
 	@Test
 	public void testCellSet() throws Exception
 	{
-		SudokuBoard board = new SudokuBoard("src/resources/Puzzle-9x9-0001.txt");
+		String input = "src/resources/Puzzle-9x9-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
 		Cell[][] cells = board.getBoard();
 		/*assertEquals("[]", cells[2][2].getSolutionSet().toString());
 		assertEquals("[4]", cells[0][1].getSolutionSet().toString());
@@ -107,7 +127,9 @@ public class SudokuBoardTest {
 	@Test
 	public void testGetRegion() throws Exception
 	{
-		SudokuBoard board = new SudokuBoard("src/resources/Puzzle-9x9-0001.txt");
+		String input = "src/resources/Puzzle-9x9-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
 		assertEquals(0,board.getRegion(0, 0));
 		assertEquals(0,board.getRegion(1, 1));
 		assertEquals(0,board.getRegion(2, 2));

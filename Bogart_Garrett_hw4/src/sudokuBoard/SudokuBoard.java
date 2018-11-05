@@ -4,26 +4,47 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class SudokuBoard {
-	Cell[][] board;
-	int size;
-	Set<String> validSymbols;
-	RowSet rows;
-	ColumnSet cols;
-	BoxSet boxes;
+	private Cell[][] board;
+	private OutputStream out;
+	private int size;
+	private Set<String> validSymbols;
+	private RowSet rows;
+	private ColumnSet cols;
+	private BoxSet boxes;
+	private String output = "";
 	
-	public SudokuBoard(String path) throws Exception
+	public SudokuBoard(InputStream iStream, OutputStream oStream) throws Exception
 	{
+		out = oStream;
+		BufferedReader buff = new BufferedReader(new InputStreamReader(iStream));
+		String path = buff.readLine();
 		makeBoard(path);
 		rows = new RowSet(board, size);
 		cols = new ColumnSet(board, size);
 		boxes = new BoxSet(board, size);
 		cellSets();
-	}		
+	}	
+	
+	public SudokuBoard(InputStream iStream) throws Exception
+	{
+		out = System.out;
+		BufferedReader buff = new BufferedReader(new InputStreamReader(iStream));
+		String path = buff.readLine();
+		makeBoard(path);
+		rows = new RowSet(board, size);
+		cols = new ColumnSet(board, size);
+		boxes = new BoxSet(board, size);
+		cellSets();
+	}	
 	
 	public void cellSets()
 	{
@@ -36,12 +57,15 @@ public class SudokuBoard {
 			{
 				HashSet<String> set = new HashSet<String>(validSymbols);	
 				set.remove("-");
-				if("-".equals(board[i][j].value))
+				if("-".equals(board[i][j].getValue()))
 				{
 					set.removeAll(rows.getSet(i));
 					set.removeAll(cols.getSet(j));
 					set.removeAll(boxes.getSet(location+box));
 					board[i][j].setSet(set);
+					board[i][j].setRow(j);
+					board[i][j].setCol(j);
+					board[i][j].setRegion(location+box);
 					
 				}	
 				//System.out.print(location+box);	
@@ -108,7 +132,9 @@ public class SudokuBoard {
 							board[i][j] = cell;
 						}
 						else
+						{
 							throw new IllegalArgumentException(temp[j]+" is not a valid symbol. Valid Symbols: "+ validSymbols.toString());
+						}
 					}
 				}
 				
@@ -117,18 +143,26 @@ public class SudokuBoard {
 		} 
 		catch(FileNotFoundException e)
 		{
+			output = "SudokuBoard: "+ e.getMessage();
+			outputBoard();
 			throw new IOException("SudokuBoard: "+ e);
 		}
 		catch(IOException e)
 		{
+			output = "SudokuBoard: "+ e.getMessage();
+			outputBoard();
 			throw new IOException("SudokuBoard: "+e);
 		}
 		catch(IllegalArgumentException e)
 		{
+			output = "SudokuBoard: "+ e.getMessage();
+			outputBoard();
 			throw new IllegalArgumentException("SudokuBoard: "+e);
 		}
 		catch(Exception e)
 		{
+			output = "SudokuBoard: "+ e.getMessage();
+			outputBoard();
 			throw new Exception("SudokuBoard: Unknown error: "+e.getStackTrace());
 		}
 		finally
@@ -144,16 +178,39 @@ public class SudokuBoard {
 		int region = (int)Math.sqrt(size);
 		int cols = y/region;//determines what vertical region 5/3 = 1
 		int rows = x/region;//determines what horizontal region 5/3 = 1
-		int location = cols;
-		
-		for(int i = 0; i < rows; i+=region)
-		{
-			location+=i;
-		}
-		
-		
+		int location = cols;		
 		return location+(region*rows);
 	}
+	
+	
+	public void outputBoard()
+	{
+		PrintWriter out = new PrintWriter(this.out);
+		out.print(this.toString());
+		out.close();
+	}
+	
+	public String toString()
+	{
+		String temp = this.size+"\n";
+		for(int i = 0; i < this.size; i++)
+		{
+			for(int j = 0; j < this.size; j++)
+			{
+				if(board[i][j] == null)
+				{
+					temp+="*";
+				}
+				else
+					temp+=board[i][j].toString()+" ";
+			}
+			temp+="\n";
+		}
+		temp+=output;
+		return temp;
+	}
+	
+	
 	
 	public Cell[][] getBoard(){return board;}
 	public RowSet getRows() {return rows;}
@@ -164,18 +221,6 @@ public class SudokuBoard {
 	
 	public void setSize(int size) {this.size = size;}
 	
-	public String toString()
-	{
-		String temp = this.size+"\n";
-		for(int i = 0; i < this.size; i++)
-		{
-			for(int j = 0; j < this.size; j++)
-			{
-				temp+=board[i][j].toString()+" ";
-			}
-			temp+="\n";
-		}
-		return temp;
-	}
+
 	
 }

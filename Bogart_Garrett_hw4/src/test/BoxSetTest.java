@@ -2,6 +2,9 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +18,10 @@ public class BoxSetTest {
 	@Test
 	public void testRowSet() throws Exception
 	{
-		SudokuBoard board = new SudokuBoard("src/resources/Puzzle-4x4-0001.txt");
+		String input = "src/resources/Puzzle-4x4-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		OutputStream oStream = System.out;
+		SudokuBoard board = new SudokuBoard(iStream, oStream);
 		BoxSet rows = board.getBoxes();
 		String[] setValues = new String[]{"1","2","3"};
 		Set<String> set = new HashSet<String>();
