@@ -70,7 +70,7 @@ public class CellTest {
 		assertEquals(cell.toString(),"-");
 		cell.setValue("dfasdfa");
 		assertEquals(cell.toString(),"dfasdfa");
-		assertNull(cell.getSolutionSet());
+		assertEquals("[]", cell.getSolutionSet().toString());
 	}
 	
 }

@@ -6,8 +6,10 @@ import sudokuBoard.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -161,4 +163,83 @@ public class SudokuBoardTest {
 		assertEquals(8,board.getRegion(8, 8));
 	}
 	
+	@Test
+	public void testOutputFile() throws Exception
+	{
+		String input = "src/resources/Puzzle-4x4-test-****.txt";
+		//OutputStream out = new FileOutputStream("okay design/src/resources/composite.txt");
+		String output = "src/output/Puzzle-4x4-test-****.txt";
+		OutputStream oStream = new FileOutputStream("src/output/Puzzle-4x4-test.txt");
+		final InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		@SuppressWarnings("unused")
+		SudokuBoard board;
+		try
+		{
+			board = new SudokuBoard(iStream, oStream);
+		}catch(Exception e)
+		{
+			
+		}
+		
+		input = "src/resources/Puzzle-4x4-test-0001.txt";
+		output = "src/output/Puzzle-4x4-test-0001.txt";
+		oStream = new FileOutputStream(output);
+		final InputStream iStream1 = new ByteArrayInputStream(input.getBytes());
+		try
+		{
+			board = new SudokuBoard(iStream1, oStream);
+		}catch(Exception e)
+		{
+			
+		}
+
+		input = "src/resources/Puzzle-4x4-test-0002.txt";
+		output = "src/output/Puzzle-4x4-test-0002.txt";
+		oStream = new FileOutputStream(output);
+		final InputStream iStream2 = new ByteArrayInputStream(input.getBytes());
+		try
+		{
+			board = new SudokuBoard(iStream2, oStream);
+		}catch(Exception e)
+		{
+			
+		}
+		
+		input = "src/resources/Puzzle-4x4-test-0003.txt";
+		output = "src/output/Puzzle-4x4-test-0003.txt";
+		oStream = new FileOutputStream(output);
+		final InputStream iStream3 = new ByteArrayInputStream(input.getBytes());
+		try
+		{
+			board = new SudokuBoard(iStream3, oStream);
+		}catch(Exception e)
+		{
+			
+		}	
+		
+		input = "src/resources/Puzzle-4x4-test-0004.txt";
+		output = "src/output/Puzzle-4x4-test-0004.txt";
+		oStream = new FileOutputStream(output);
+		final InputStream iStream4 = new ByteArrayInputStream(input.getBytes());
+		try
+		{
+			board = new SudokuBoard(iStream4, oStream);
+		}catch(Exception e)
+		{
+			
+		}
+		
+		input = "src/resources/Puzzle-4x4-test-0005.txt";
+		output = "src/output/Puzzle-4x4-test-0005.txt";
+		oStream = new FileOutputStream(output);
+		final InputStream iStream5 = new ByteArrayInputStream(input.getBytes());
+		try
+		{
+			board = new SudokuBoard(iStream5, oStream);
+		}catch(Exception e)
+		{
+			
+		}
+
+	}
 }

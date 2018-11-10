@@ -5,6 +5,7 @@ import sudokuBoard.SudokuBoard;
 public class SolverManager {
 	private SudokuBoard board;
 	private SudokuSolver solver;
+	private SingleSolution single = new SingleSolution();
 	
 	public SolverManager(SudokuBoard board)
 	{

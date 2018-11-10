@@ -30,5 +30,10 @@ public class BoxSet extends SudokuSet {
 			solutionSet.add(set);
 		}
 	}
+	
+	public void updateSet(Cell c)
+	{
+		solutionSet.get(c.getRegion()).add(c.getValue());
+	}
 }
 

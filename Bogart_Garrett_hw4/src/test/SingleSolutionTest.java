@@ -44,7 +44,7 @@ public class SingleSolutionTest {
 		SudokuBoard board = new SudokuBoard(iStream);
 		SudokuSolver solver = new SingleSolution();
 		ArrayList<Cell> cells = solver.getCells(board.getBoard());
-		ArrayList<Cell>modified = solver.modifyCells(cells);
+		ArrayList<Cell>modified = solver.modifyCells(cells, board.getSize());
 		assertEquals(4, cells.size());
 		for(Cell c : modified)
 		{
@@ -67,7 +67,7 @@ public class SingleSolutionTest {
 		SudokuBoard board = new SudokuBoard(iStream);
 		SudokuSolver solver = new SingleSolution();
 		ArrayList<Cell> cells = solver.getCells(board.getBoard());
-		ArrayList<Cell>modified = solver.modifyCells(cells);
+		ArrayList<Cell>modified = solver.modifyCells(cells, board.getSize());
 		solver.updateCells(board, modified);
 		assertEquals(4, cells.size());
 		assertEquals(file,board.toString());

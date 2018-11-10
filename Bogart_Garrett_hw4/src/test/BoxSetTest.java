@@ -16,7 +16,7 @@ import sudokuBoard.SudokuBoard;
 
 public class BoxSetTest {
 	@Test
-	public void testRowSet() throws Exception
+	public void testBoxSet4x4() throws Exception
 	{
 		String input = "src/resources/Puzzle-4x4-0001.txt";
 		InputStream iStream = new ByteArrayInputStream(input.getBytes());
@@ -46,5 +46,32 @@ public class BoxSetTest {
 		set.addAll(Arrays.asList(setValues));
 		rows.getSet(3).removeAll(set);
 		assertEquals("[]",rows.getSet(3).toString());
+	}
+	
+	@Test
+	public void testRowSet9x9() throws Exception
+	{
+		String input = "src/resources/Puzzle-9x9-0001.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		OutputStream oStream = System.out;
+		SudokuBoard board = new SudokuBoard(iStream, oStream);
+		BoxSet rows = board.getBoxes();
+		String[] setValues = new String[]{"4","9","6","3","5"};
+		Set<String> set = new HashSet<String>();
+		set.addAll(Arrays.asList(setValues));
+		rows.getSet(0).removeAll(set);
+		assertEquals("[]",rows.getSet(0).toString());
+			
+		setValues = new String[]{"6","4","3","1"};
+		set = new HashSet<String>();
+		set.addAll(Arrays.asList(setValues));
+		rows.getSet(4).removeAll(set);
+		assertEquals("[]",rows.getSet(4).toString());
+		
+		setValues = new String[]{"2","5","8","3","7"};
+		set = new HashSet<String>();
+		set.addAll(Arrays.asList(setValues));
+		rows.getSet(8).removeAll(set);
+		assertEquals("[]",rows.getSet(8).toString());
 	}
 }

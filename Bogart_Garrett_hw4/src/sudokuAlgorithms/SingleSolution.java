@@ -24,7 +24,7 @@ public class SingleSolution extends SudokuSolver {
 	}
 
 	@Override
-	public ArrayList<Cell> modifyCells(ArrayList<Cell> cells) {
+	public ArrayList<Cell> modifyCells(ArrayList<Cell> cells, int size) {
 		ArrayList<Cell> test = new ArrayList<Cell>();
 		for(Cell c : cells)
 		{
@@ -39,10 +39,10 @@ public class SingleSolution extends SudokuSolver {
 	public void updateCells(SudokuBoard board, ArrayList<Cell> cells) {
 		for(Cell c : cells)
 		{
-			board.getRows().getSet(c.getRow()).add(c.getValue());
-			board.getColumns().getSet(c.getCol()).add(c.getValue());
-			board.getBoxes().getSet(c.getRegion()).add(c.getValue());
-			board.updateCells(c.getRow(), c.getCol(), c.getRegion(), c.getValue());
+			board.getRows().updateSet(c);
+			board.getColumns().updateSet(c);
+			board.getBoxes().updateSet(c);
+			board.updateCells(c);
 		}
 		
 	}

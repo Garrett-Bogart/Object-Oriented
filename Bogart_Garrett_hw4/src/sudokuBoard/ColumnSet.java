@@ -23,5 +23,10 @@ public class ColumnSet extends SudokuSet {
 			solutionSet.add(set);
 		}
 	}
+	
+	public void updateSet(Cell c)
+	{
+		solutionSet.get(c.getCol()).add(c.getValue());
+	}
 }
 

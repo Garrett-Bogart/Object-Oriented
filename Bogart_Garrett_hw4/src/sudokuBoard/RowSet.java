@@ -22,4 +22,9 @@ public class RowSet extends SudokuSet {
 			solutionSet.add(set);
 		}
 	}
+	
+	public void updateSet(Cell c)
+	{
+		solutionSet.get(c.getRow()).add(c.getValue());
+	}
 }

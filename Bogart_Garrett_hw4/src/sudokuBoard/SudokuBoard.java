@@ -36,14 +36,7 @@ public class SudokuBoard {
 	
 	public SudokuBoard(InputStream iStream) throws Exception
 	{
-		out = System.out;
-		BufferedReader buff = new BufferedReader(new InputStreamReader(iStream));
-		String path = buff.readLine();
-		makeBoard(path);
-		rows = new RowSet(board, size);
-		cols = new ColumnSet(board, size);
-		boxes = new BoxSet(board, size);
-		cellSets();
+		this(iStream, System.out);
 	}	
 	
 	public void cellSets()
@@ -182,15 +175,16 @@ public class SudokuBoard {
 		return location+(region*rows);
 	}
 	
-	public void updateCells(int row, int column, int region, String value)
+	public void updateCells(Cell c)
 	{
+
 		for(int i = 0; i < size; i ++)
 		{
 			for(int j = 0; j<size; j++)
 			{
-				if(board[i][j].getRow() == row ||board[i][j].getCol() == column||board[i][j].getRegion() == region)
+				if(board[i][j].getRow() == c.getRow() ||board[i][j].getCol() == c.getCol()||board[i][j].getRegion() == c.getRegion())
 				{
-					board[i][j].getSolutionSet().remove(value);
+					board[i][j].getSolutionSet().remove(c.getValue());
 				}
 			}
 		}
