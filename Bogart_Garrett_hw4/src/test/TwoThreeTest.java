@@ -11,20 +11,19 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import sudokuAlgorithms.SudokuReduction;
 import sudokuAlgorithms.SudokuSolver;
-import sudokuAlgorithms.TwoThreeReduction;
+import sudokuAlgorithms.Twins;
 import sudokuBoard.Cell;
 import sudokuBoard.SudokuBoard;
 
 public class TwoThreeTest {
-	@Test
+	/*@Test
 	public void testGetCells() throws Exception
 	{
 		String input = "src/resources/Puzzle-9x9-TwoThree.txt";
 		InputStream iStream = new ByteArrayInputStream(input.getBytes());
 		SudokuBoard board = new SudokuBoard(iStream);
-		SudokuReduction solver = new TwoThreeReduction();
+		SudokuSolver solver = new Twins();
 		ArrayList<Cell> cells = solver.getCells(board.getBoard());
 		assertEquals(35, cells.size());		
 	}
@@ -35,7 +34,7 @@ public class TwoThreeTest {
 		String input = "src/resources/Puzzle-9x9-TwoThree.txt";
 		InputStream iStream = new ByteArrayInputStream(input.getBytes());
 		SudokuBoard board = new SudokuBoard(iStream);
-		TwoThreeReduction solver = new TwoThreeReduction();
+		Twins solver = new Twins();
 		ArrayList<Cell> cells = solver.getCells(board.getBoard());
 		ArrayList<Cell> region = solver.makeRegionList(cells, 0);
 		assertEquals(2, region.size());
@@ -71,7 +70,7 @@ public class TwoThreeTest {
 		String input = "src/resources/Puzzle-9x9-TwoThree.txt";
 		InputStream iStream = new ByteArrayInputStream(input.getBytes());
 		SudokuBoard board = new SudokuBoard(iStream);
-		TwoThreeReduction solver = new TwoThreeReduction();
+		Twins solver = new Twins();
 		Cell[][] c = board.getBoard();
 		String[] setValues = new String[]{"3","8"};
 		String[] setValues1 = new String[]{"1","3","8"};
@@ -86,7 +85,22 @@ public class TwoThreeTest {
 		ArrayList<Cell> region = solver.makeRegionList(cells, 1);
 		
 		region = solver.makeRegionList(cells, 2);	
-		solver.updateCells(region);
+		solver.updateSubScript(region);
 		assertEquals("[1]",c[1][8].getSolutionSet().toString());
+	}*/
+	
+	@Test
+	public void testTwins() throws Exception
+	{
+		String input = "src/resources/Puzzle-9x9-nakedTwin-test.txt";
+		InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		SudokuBoard board = new SudokuBoard(iStream);
+		Twins solver = new Twins();
+		ArrayList<Cell> cells = solver.getCells(board.getBoard());
+		ArrayList<Cell> region = solver.makeRegionList(cells, 0);
+		solver.updateSubScript(region);
+		Cell[][] sBoard = board.getBoard();
+		assertEquals("[5]",sBoard[0][2].getSolutionSet().toString());
+
 	}
 }

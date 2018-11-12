@@ -1,6 +1,7 @@
 package sudokuAlgorithms;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import sudokuBoard.Cell;
 import sudokuBoard.SudokuBoard;
@@ -37,20 +38,23 @@ public class SingleSolution extends SudokuSolver {
 
 	@Override
 	public void updateCells(SudokuBoard board, ArrayList<Cell> cells) {
+		if(cells.size() > 0)
+			didWork = true;
 		for(Cell c : cells)
 		{
 			board.getRows().updateSet(c);
 			board.getColumns().updateSet(c);
 			board.getBoxes().updateSet(c);
 			board.updateCells(c);
-		}
-		
+		}	
 	}
 
 	@Override
-	public void newSolver() {
-		// TODO Auto-generated method stub
-		
-	}
+	public ArrayList<Cell> makeRegionList(ArrayList<Cell> cells, int region) {return null;}
 
+	@Override
+	public void updateSubScript(ArrayList<Cell> cells) {}
+
+	@Override
+	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}
 }

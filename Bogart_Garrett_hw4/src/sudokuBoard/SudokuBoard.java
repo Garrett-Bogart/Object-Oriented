@@ -219,13 +219,14 @@ public class SudokuBoard {
 	}
 	
 	
-	
+	public String getOutput() {return output;}
 	public Cell[][] getBoard(){return board;}
 	public RowSet getRows() {return rows;}
 	public ColumnSet getColumns() {return cols;}
 	public BoxSet getBoxes() {return boxes;}
 	public int getSize() {return size;}
 	public Set<String> getSet(){return validSymbols;}
+	public void addOutput(String out) {output+=out;}
 	
 	public void setSize(int size) {this.size = size;}
 	

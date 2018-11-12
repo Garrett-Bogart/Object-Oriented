@@ -4,4 +4,3 @@ B - C A
 A C - D
 C A D -
 - B A C
-

@@ -115,13 +115,6 @@ public class SudokuBoardTest {
 		InputStream iStream = new ByteArrayInputStream(input.getBytes());
 		SudokuBoard board = new SudokuBoard(iStream);
 		Cell[][] cells = board.getBoard();
-		/*assertEquals("[]", cells[2][2].getSolutionSet().toString());
-		assertEquals("[4]", cells[0][1].getSolutionSet().toString());
-		assertEquals("[2]", cells[1][2].getSolutionSet().toString());
-		assertEquals("[2]", cells[2][3].getSolutionSet().toString());
-		assertEquals("[4]", cells[3][0].getSolutionSet().toString());
-		
-		board = new SudokuBoard("src/resources/Puzzle-9x9-0001.txt");*/
 		cells = board.getBoard();
 		assertEquals("[5]", cells[0][7].getSolutionSet().toString());
 	}

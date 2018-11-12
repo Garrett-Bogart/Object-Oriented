@@ -1,0 +1,6 @@
+4
+4 ***
+****
+****
+****
+SudokuBoard: 9 is not a valid symbol. Valid Symbols: [1, 2, 3, 4, -]

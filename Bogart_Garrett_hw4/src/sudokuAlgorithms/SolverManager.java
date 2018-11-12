@@ -6,6 +6,7 @@ public class SolverManager {
 	private SudokuBoard board;
 	private SudokuSolver solver;
 	private SingleSolution single = new SingleSolution();
+	private Twins twoThree = new Twins();
 	
 	public SolverManager(SudokuBoard board)
 	{
@@ -15,11 +16,48 @@ public class SolverManager {
 	
 	public void solve()
 	{
-		solver = new SingleSolution();
-		while(!isSolved())
+		String output = "";
+		int singles = 0;
+		int twoThrees = 0;
+		boolean changes = true;
+		while(!isSolved() && changes)
 		{
-			solver.solve(board);
+			changes = false;
+			solver = single;
+			if(!solver.solve(board))
+			{
+				solver = twoThree;
+				if(!solver.solve(board))
+				{
+					//will contain guess or twins
+				}
+				else
+				{
+					changes = true;
+					if(twoThrees == 0)
+					{
+						output+= "Twin reductions were used\n";
+					}
+					twoThrees+=1;
+				}
+
+			}
+			else
+			{
+				changes = true;
+				if(singles == 0)
+				{
+					output+= "singles were used\n";
+				}
+				singles+=1;
+			}
+			
 		}
+		if(!changes)
+		{
+			output+="cannot solve the current puzzle\n";
+		}
+		board.addOutput(output);
 		board.outputBoard();
 	}
 	
