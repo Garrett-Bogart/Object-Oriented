@@ -1,1 +1,6 @@
-42 - 3 1 1 3 - 4 3 1 4 - - 2 1 *SudokuBoard: 5 is not a valid symbol. Valid Symbols: [1, 2, 3, 4, -]
+4
+2 - 3 1 
+1 3 - 4 
+3 1 4 - 
+- 2 1 *
+SudokuBoard: 5 is not a valid symbol. Valid Symbols: [1, 2, 3, 4, -]

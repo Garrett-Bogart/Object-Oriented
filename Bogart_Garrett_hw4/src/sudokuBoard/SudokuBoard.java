@@ -28,9 +28,9 @@ public class SudokuBoard {
 		BufferedReader buff = new BufferedReader(new InputStreamReader(iStream));
 		String path = buff.readLine();
 		makeBoard(path);
-		rows = new RowSet(board, size);
-		cols = new ColumnSet(board, size);
-		boxes = new BoxSet(board, size);
+		rows = new RowSet(board, size, validSymbols);
+		cols = new ColumnSet(board, size, validSymbols);
+		boxes = new BoxSet(board, size, validSymbols);
 		cellSets();
 	}	
 	
@@ -182,9 +182,17 @@ public class SudokuBoard {
 		{
 			for(int j = 0; j<size; j++)
 			{
-				if(board[i][j].getRow() == c.getRow() ||board[i][j].getCol() == c.getCol()||board[i][j].getRegion() == c.getRegion())
+				if("-".equals(board[i][j].getValue()))
 				{
-					board[i][j].getSolutionSet().remove(c.getValue());
+					Set<String> row = rows.getSet(board[i][j].getRow());
+					Set<String> col = cols.getSet(board[i][j].getCol());
+					Set<String>box = boxes.getSet(getRegion(i,j));
+					@SuppressWarnings("unused")
+					Set<String> temp = board[i][j].getSolutionSet();
+					board[i][j].getSolutionSet().removeAll(row);
+					board[i][j].getSolutionSet().removeAll(col);
+					board[i][j].getSolutionSet().removeAll(box);
+					temp = null;
 				}
 			}
 		}

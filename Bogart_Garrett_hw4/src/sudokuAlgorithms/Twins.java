@@ -2,7 +2,6 @@ package sudokuAlgorithms;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 import sudokuBoard.Cell;
 import sudokuBoard.SudokuBoard;
@@ -31,6 +30,32 @@ public class Twins extends SudokuSolver {
 		for(Cell c: cells)
 		{
 			if(c.getRegion() == region)//need rows and columns as well
+			{
+				regionCells.add(c);
+			}
+		}		
+		return regionCells;
+	}
+	
+	public ArrayList<Cell> makeRowList(ArrayList<Cell> cells, int region)
+	{
+		ArrayList<Cell> regionCells = new ArrayList<Cell>();
+		for(Cell c: cells)
+		{
+			if(c.getRow() == region)//need rows and columns as well
+			{
+				regionCells.add(c);
+			}
+		}		
+		return regionCells;
+	}
+	
+	public ArrayList<Cell> makeColumnList(ArrayList<Cell> cells, int region)
+	{
+		ArrayList<Cell> regionCells = new ArrayList<Cell>();
+		for(Cell c: cells)
+		{
+			if(c.getCol() == region)//need rows and columns as well
 			{
 				regionCells.add(c);
 			}
@@ -73,6 +98,7 @@ public class Twins extends SudokuSolver {
 	{
 		for(HashSet<String> pair : pairs)
 		{
+			//System.out.println("Pair found: "+pair.toString());
 			for(Cell c : cells)
 			{
 				HashSet<String> temp = new HashSet<String>(c.getSolutionSet());
@@ -81,7 +107,7 @@ public class Twins extends SudokuSolver {
 				if(!temp.isEmpty())
 				{
 					c.getSolutionSet().removeAll(pair);
-					System.out.println("Twins did work: ");
+					//System.out.println("Twins did work: ");
 					didWork = true;
 				}			
 			}
@@ -90,15 +116,15 @@ public class Twins extends SudokuSolver {
 	}
 	
 	@Override
-	public void updateSubScript(ArrayList<Cell> cells)//reduction: this is the update
+	public ArrayList<Cell> updateSubScript(ArrayList<Cell> cells)//reduction: this is the update
 	{
 		Cell[] cell = cells.toArray(new Cell[cells.size()]);
 		ArrayList<HashSet<String>> pairs = getPairs(cell);
 		if(pairs != null)
-		{
-			System.out.println("Pair found: ");
+		{		
 			removePair(cells, pairs);
 		}
+		return null;
 	}
 	
 	@Override
@@ -107,12 +133,18 @@ public class Twins extends SudokuSolver {
 		{
 			int r = i;
 			ArrayList<Cell> region = makeRegionList(cells, i);
+			ArrayList<Cell> rows = makeRowList(cells,i);
+			ArrayList<Cell> cols = makeColumnList(cells, i);
 			if(region.size() == 3)
 			{
 				updateSubScript(region);
+				updateSubScript(rows);
+				updateSubScript(cols);
 			}
 			
 			cells.removeIf(c ->(c.getRegion() == r));
+			cells.removeIf(c ->(c.getRow() == r));
+			cells.removeIf(c ->(c.getCol() == r));
 		}
 		return null;
 	}

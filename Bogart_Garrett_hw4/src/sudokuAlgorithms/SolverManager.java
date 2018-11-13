@@ -6,7 +6,8 @@ public class SolverManager {
 	private SudokuBoard board;
 	private SudokuSolver solver;
 	private SingleSolution single = new SingleSolution();
-	private Twins twoThree = new Twins();
+	private Loner loner = new Loner();
+	private Twins twins = new Twins();
 	
 	public SolverManager(SudokuBoard board)
 	{
@@ -19,6 +20,7 @@ public class SolverManager {
 		String output = "";
 		int singles = 0;
 		int twoThrees = 0;
+		int lone = 0;
 		boolean changes = true;
 		while(!isSolved() && changes)
 		{
@@ -26,10 +28,23 @@ public class SolverManager {
 			solver = single;
 			if(!solver.solve(board))
 			{
-				solver = twoThree;
+				solver = twins;
 				if(!solver.solve(board))
 				{
-					//will contain guess or twins
+					solver = loner;
+					if(!solver.solve(board))
+					{
+						//future algorithms
+					}
+					else
+					{
+						changes = true;
+						if(lone == 0)
+						{
+							output+="Loner reductions were used\n";
+						}
+						lone+=1;
+					}
 				}
 				else
 				{
@@ -57,6 +72,9 @@ public class SolverManager {
 		{
 			output+="cannot solve the current puzzle\n";
 		}
+		output+= "Single time: "+ single.getTotalTime()+"ms\n";
+		output+= "Twins time: "+ twins.getTotalTime()+"ms\n";
+		output+= "Loner time: "+ loner.getTotalTime()+"ms\n";
 		board.addOutput(output);
 		board.outputBoard();
 	}

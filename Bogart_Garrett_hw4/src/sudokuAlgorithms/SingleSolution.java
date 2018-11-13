@@ -53,7 +53,7 @@ public class SingleSolution extends SudokuSolver {
 	public ArrayList<Cell> makeRegionList(ArrayList<Cell> cells, int region) {return null;}
 
 	@Override
-	public void updateSubScript(ArrayList<Cell> cells) {}
+	public ArrayList<Cell> updateSubScript(ArrayList<Cell> cells) {return null;}
 
 	@Override
 	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}

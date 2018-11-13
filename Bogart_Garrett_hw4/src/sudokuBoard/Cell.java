@@ -1,4 +1,4 @@
-package sudokuBoard;
+	package sudokuBoard;
 
 import java.util.ArrayList;
 import java.util.HashSet;

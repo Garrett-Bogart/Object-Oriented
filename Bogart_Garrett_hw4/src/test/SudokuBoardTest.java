@@ -6,6 +6,7 @@ import sudokuBoard.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,9 +71,9 @@ public class SudokuBoardTest {
 		final InputStream iStream1 = new ByteArrayInputStream(input.getBytes());
 		assertThrows(IOException.class,()->{new SudokuBoard(iStream1);});
 
-		input = "src/resources/Puzzle-4x4-test-0002.txt";
+		/*input = "src/resources/Puzzle-4x4-test-0002.txt";
 		final InputStream iStream2 = new ByteArrayInputStream(input.getBytes());
-		assertThrows(IOException.class,()->{new SudokuBoard(iStream2);});
+		assertThrows(IOException.class,()->{new SudokuBoard(iStream2);});*/
 		
 		input = "src/resources/Puzzle-4x4-test-0003.txt";
 		final InputStream iStream3 = new ByteArrayInputStream(input.getBytes());		
@@ -234,5 +235,21 @@ public class SudokuBoardTest {
 			
 		}
 
+	}
+	
+	@Test
+	public void test9x9_0101() throws FileNotFoundException
+	{
+		String input = "src/resources/Puzzle-4x4-test-0005.txt";
+		String output = "src/output/Puzzle-4x4-test-0005.txt";
+		OutputStream oStream = new FileOutputStream(output);
+		final InputStream iStream = new ByteArrayInputStream(input.getBytes());
+		try
+		{
+			SudokuBoard board = new SudokuBoard(iStream, oStream);
+		}catch(Exception e)
+		{
+		}
+		
 	}
 }

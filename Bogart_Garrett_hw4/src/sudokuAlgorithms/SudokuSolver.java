@@ -4,23 +4,31 @@ import java.util.HashSet;
 
 import sudokuBoard.*;
 abstract public class SudokuSolver {
-	private long elapsedTime;
+	private long totalTime;
 	private long startTime;
 	private long endTime;
 	protected boolean didWork;
 	public boolean solve(SudokuBoard board)
 	{
+		startTime = System.currentTimeMillis();
 		didWork = false;
+		
+		
 		ArrayList<Cell> cells= getCells(board.getBoard());
 		ArrayList<Cell> modified = modifyCells(cells, board.getSize());
 		updateCells(board, modified);
+		
+		
+		endTime = System.currentTimeMillis();
+		totalTime+=(endTime - startTime);
 		return didWork;
 	}
-	abstract public ArrayList<Cell> getCells(Cell[][] cells);
-	abstract public ArrayList<Cell> modifyCells(ArrayList<Cell> cells,int size);
-	abstract public ArrayList<Cell> makeRegionList(ArrayList<Cell> cells, int region);
-	abstract public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair);
-	abstract public void updateCells(SudokuBoard board, ArrayList<Cell> cells);
-	abstract public void updateSubScript(ArrayList<Cell>cells);
+	public abstract ArrayList<Cell> getCells(Cell[][] cells);
+	public abstract ArrayList<Cell> modifyCells(ArrayList<Cell> cells,int size);
+	abstract protected ArrayList<Cell> makeRegionList(ArrayList<Cell> cells, int region);
+	protected void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}
+	public abstract void updateCells(SudokuBoard board, ArrayList<Cell> cells);
+	abstract protected ArrayList<Cell> updateSubScript(ArrayList<Cell>cells);
+	public long getTotalTime() {return totalTime;}
 	 
 }

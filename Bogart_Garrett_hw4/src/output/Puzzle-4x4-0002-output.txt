@@ -4,3 +4,6 @@ A C B D
 C A D B 
 D B A C 
 singles were used
+Single time: 0ms
+Twins time: 0ms
+Loner time: 0ms

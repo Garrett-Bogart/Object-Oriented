@@ -9,3 +9,6 @@
 2 4 7 6 5 1 8 3 9 
 3 5 9 4 8 2 6 7 1 
 singles were used
+Single time: 2ms
+Twins time: 0ms
+Loner time: 0ms

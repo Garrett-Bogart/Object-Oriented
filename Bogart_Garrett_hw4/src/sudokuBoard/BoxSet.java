@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class BoxSet extends SudokuSet {
 	
-	public BoxSet(Cell[][] board, int size)
+	public BoxSet(Cell[][] board, int size, Set<String> symbols)
 	{
 		solutionSet = new ArrayList<Set<String>>(); 
 		
@@ -15,6 +15,7 @@ public class BoxSet extends SudokuSet {
 		for(int i = 0; i < size; i++)
 		{
 			Set<String> set = new HashSet<String>();
+			Set<String> temp = new HashSet<String>(symbols);
 			if(i%regionSize ==0 && i !=0)
 				region +=regionSize;
 			for(int r = region; r < region+regionSize; r++)
@@ -24,7 +25,19 @@ public class BoxSet extends SudokuSet {
 					if("-".equals(board[r][c].getValue()))
 						continue;
 					else
-						set.add(board[r][c].getValue());
+					{
+						if(temp.contains(board[r][c].getValue()))
+						{
+							set.add(board[r][c].getValue());
+							temp.remove(board[r][c].getValue());
+						}
+						else
+						{
+							throw new IllegalArgumentException("BoxSet: Value is already in the row "+board[r][c].getValue());
+						}
+						
+					}
+						
 				}
 			}
 			solutionSet.add(set);

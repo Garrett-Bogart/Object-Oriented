@@ -1,1 +1,2 @@
-0SudokuBoard: src\resources\Puzzle-4x4-test-****.txt (The filename, directory name, or volume label syntax is incorrect)
+0
+SudokuBoard: src\resources\Puzzle-4x4-test-****.txt (The filename, directory name, or volume label syntax is incorrect)
