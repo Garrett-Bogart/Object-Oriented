@@ -12,7 +12,7 @@ public class Driver {
 	private static SudokuBoard board = null;
 	private static SolverManager solver = null;
 	
-	public static void makeBoard(String[] args)
+	public static void makeBoard(String[] args) throws FileNotFoundException
 	{
 		InputStream iStream;
 		//TODO add fileoutput to SodokuBoard
@@ -39,15 +39,7 @@ public class Driver {
 	    else if(args.length == 2)
 	    {
 	    	iStream = new ByteArrayInputStream(args[0].getBytes());
-	    	
-	    	try 
-	    	{
-				oStream = new FileOutputStream(args[1]);
-			} 
-	    	catch (FileNotFoundException e) 
-	    	{
-				System.out.println("Driver: outputStream could not find the file "+ e);
-			}
+			oStream = new FileOutputStream(args[1]);
 	    	
 	    	try {
 				board = new SudokuBoard(iStream, oStream);

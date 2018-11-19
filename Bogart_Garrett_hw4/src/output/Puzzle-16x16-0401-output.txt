@@ -16,7 +16,7 @@ D C 7 6 B G E A 8 9 4 F 2 3 5 1
 B F E 2 6 8 3 C 5 1 G A 9 D 7 4 
 4 5 1 G 2 F 9 7 D C 3 6 8 E A B 
 3 8 9 A 1 5 4 D E 7 B 2 C F 6 G 
-Single Solution: 5ms
-Lone Subscript: 20ms
-Twins: 2ms
-Guess: 9ms
+Single Solution: 0ms
+Lone Subscript: 0ms
+Twins: 0ms
+Guess: 46ms
