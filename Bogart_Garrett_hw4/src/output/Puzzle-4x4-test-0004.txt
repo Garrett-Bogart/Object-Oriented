@@ -1,2 +1,0 @@
-0
-SudokuBoard: SudokuBoard: Board size has to be 4,9,16,25,36: given -1

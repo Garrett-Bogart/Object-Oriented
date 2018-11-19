@@ -57,4 +57,6 @@ public class SingleSolution extends SudokuSolver {
 
 	@Override
 	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}
+	
+	public String getOutput() {return "Single Solution: "+getTotalTime()+"ms\n";}
 }

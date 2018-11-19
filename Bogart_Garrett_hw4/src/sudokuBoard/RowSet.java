@@ -36,6 +36,39 @@ public class RowSet extends SudokuSet {
 		}
 	}
 	
+	public boolean validateRows(Cell[][] board, int size, Set<String> symbols)
+	{
+		boolean isValid = true;
+		for(int i = 0; i < size; i++)
+		{
+			Set<String> set = new HashSet<String>();
+			Set<String> sym = new HashSet<String>(symbols);
+			for(int j = 0; j < size; j++)
+			{
+				if("-".equals(board[i][j].getValue()))
+					continue;
+				else
+				{
+					if(sym.contains(board[i][j].getValue()))
+					{
+						set.add(board[i][j].getValue());
+						sym.remove(board[i][j].getValue());
+					}
+					else
+					{
+						isValid=false;
+					}
+					
+				}
+				if(!isValid)
+					break;	
+			}
+			if(!isValid)
+				break;
+		}
+		return isValid;
+	}
+	
 	public void updateSet(Cell c)
 	{
 		/*Set<String> temp = solutionSet.get(c.getRow());

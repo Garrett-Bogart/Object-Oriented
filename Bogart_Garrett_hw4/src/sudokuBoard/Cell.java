@@ -16,14 +16,6 @@ public class Cell {
 		set = new HashSet<String>();
 		this.value = value;
 	}
-		
-	public void updateSolutionSet(ArrayList<String> toBeRemoved)//might change to a single string
-	{
-		for(String s : toBeRemoved) 
-		{
-			set.remove(s);
-		}
-	}
 	
 	public String toString()
 	{

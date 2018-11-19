@@ -94,27 +94,19 @@ public class Loner extends SudokuSolver {
 		ArrayList<Cell> modified = new ArrayList<Cell>();
 		for(int i = 0; i < size; i++)
 		{
-			int r = i;
 			ArrayList<Cell> region = makeRegionList(cells, i);
 			ArrayList<Cell> rows = makeRowList(cells,i);
 			ArrayList<Cell> cols = makeColumnList(cells, i);
 			modified.addAll(updateSubScript(region));
 			modified.addAll(updateSubScript(rows));
 			modified.addAll(updateSubScript(cols));
-
-			/*cells.removeIf(c ->(c.getRegion() == r));
-			cells.removeIf(c ->(c.getRow() == r));
-			cells.removeIf(c ->(c.getCol() == r));*/
 		}
 		return modified;
 	}
 
 
 	@Override
-	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}
 
 	@Override
 	public void updateCells(SudokuBoard board, ArrayList<Cell> cells) {
@@ -127,6 +119,6 @@ public class Loner extends SudokuSolver {
 		}	
 	}
 
-
+	public String getOutput() {return "Lone Subscript: "+getTotalTime()+"ms\n";}
 
 }

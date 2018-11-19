@@ -1,82 +1,69 @@
 package sudokuAlgorithms;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import sudokuBoard.SudokuBoard;
 
 public class SolverManager {
 	private SudokuBoard board;
-	private SudokuSolver solver;
+	ArrayList<SudokuSolver> solver;
 	private SingleSolution single = new SingleSolution();
 	private Loner loner = new Loner();
 	private Twins twins = new Twins();
+	private Guess guess = new Guess(board);
 	
 	public SolverManager(SudokuBoard board)
 	{
 		this.board = board;
-		solver = null;
+		solver = new ArrayList<SudokuSolver>();
+		solver.add(single);
+		solver.add(loner);
+		solver.add(twins);
+		solver.add(guess);
 	}
 	
-	public void solve()
+	public void solve() throws Exception
 	{
-		String output = "";
-		int singles = 0;
-		int twoThrees = 0;
-		int lone = 0;
 		boolean changes = true;
+		boolean isValid = true;
 		while(!isSolved() && changes)
 		{
-			changes = false;
-			solver = single;
-			if(!solver.solve(board))
-			{
-				solver = twins;
-				if(!solver.solve(board))
-				{
-					solver = loner;
-					if(!solver.solve(board))
-					{
-						//future algorithms
-					}
-					else
-					{
-						changes = true;
-						if(lone == 0)
-						{
-							output+="Loner reductions were used\n";
-						}
-						lone+=1;
-					}
-				}
-				else
-				{
-					changes = true;
-					if(twoThrees == 0)
-					{
-						output+= "Twin reductions were used\n";
-					}
-					twoThrees+=1;
-				}
 
-			}
-			else
+			for(SudokuSolver s: solver)
 			{
-				changes = true;
-				if(singles == 0)
+				changes = s.solve(board);
+				if(changes)
 				{
-					output+= "singles were used\n";
+					break;
 				}
-				singles+=1;
 			}
-			
+			if(isSolved())
+				break;
+			isValid = board.validBoard();
+			if(!isValid && guess.getDeque().size() > 0)
+			{
+				board = guess.getDeque().pop();
+				continue;
+			}
+			if(guess.getDeque().size() != 0 && !changes)
+			{
+				board = guess.getDeque().pop();
+			}
 		}
-		if(!changes)
-		{
-			output+="cannot solve the current puzzle\n";
-		}
-		output+= "Single time: "+ single.getTotalTime()+"ms\n";
-		output+= "Twins time: "+ twins.getTotalTime()+"ms\n";
-		output+= "Loner time: "+ loner.getTotalTime()+"ms\n";
-		board.addOutput(output);
+
+		board.addOutput(getOutput());
 		board.outputBoard();
+	}
+	
+	public String getOutput()
+	{
+		String output = "";
+		for(SudokuSolver s: solver)
+		{
+			output+=s.getOutput();
+		}
+		return output;
 	}
 	
 	public boolean isSolved()
@@ -84,12 +71,18 @@ public class SolverManager {
 		boolean isSolved = true;
 		int size = board.getSize();
 		for(int i = 0; i <size; i++)
-		{
-			if(board.getRows().getSet(i).size() !=size)
+		{	
+			Set<String> row = board.getRows().getSet(i);
+			Set<String> col = board.getRows().getSet(i);
+			Set<String> box = board.getRows().getSet(i);
+			row.remove("-");
+			col.remove("-");
+			box.remove("-");
+			if(row.size() !=size)
 				isSolved =false;
-			if(board.getColumns().getSet(i).size() != size)
+			if(col.size() != size)
 				isSolved =false;
-			if(board.getBoxes().getSet(i).size() != size)
+			if(box.size() != size)
 				isSolved =false;
 			if(isSolved == false)
 				break;

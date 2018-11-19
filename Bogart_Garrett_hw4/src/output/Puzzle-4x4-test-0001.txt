@@ -1,2 +1,0 @@
-0
-SudokuBoard: SudokuBoard: expected single number at start of the file. Got: 12 12

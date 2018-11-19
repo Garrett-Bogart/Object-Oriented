@@ -36,6 +36,38 @@ public class ColumnSet extends SudokuSet {
 		}
 	}
 	
+	public boolean validateColumns(Cell[][] board, int size, Set<String> symbols)
+	{
+		boolean isValid = true;
+		for(int i = 0; i < size; i++)
+		{
+			Set<String> set = new HashSet<String>();
+			Set<String> temp = new HashSet<String>(symbols);
+			for(int j = 0; j < size; j++)
+			{
+				if("-".equals(board[j][i].getValue()))
+					continue;
+				else
+				{
+					if(temp.contains(board[j][i].getValue()))
+					{
+						set.add(board[j][i].getValue());
+						temp.remove(board[j][i].getValue());
+					}
+					else
+					{
+						isValid=false;
+					}
+					
+				}
+					
+			}
+			if(!isValid)
+				break;
+		}
+		return isValid;
+	}
+	
 	public void updateSet(Cell c)
 	{
 		solutionSet.get(c.getCol()).add(c.getValue());

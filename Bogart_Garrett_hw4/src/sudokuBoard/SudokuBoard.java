@@ -21,6 +21,22 @@ public class SudokuBoard {
 	private ColumnSet cols;
 	private BoxSet boxes;
 	private String output = "";
+
+	public SudokuBoard(SudokuBoard board)
+	{
+		out = board.getOutputStream();
+		output = board.getOutput();
+		size = board.getSize();
+		this.board = new Cell[size][size];
+		copyBoard(board.getBoard());
+		
+		validSymbols = board.getSet();
+		rows = new RowSet(this.board, size, validSymbols);
+		cols = new ColumnSet(this.board, size, validSymbols);
+		boxes = new BoxSet(this.board, size, validSymbols);
+		cellSets();
+		
+	}
 	
 	public SudokuBoard(InputStream iStream, OutputStream oStream) throws Exception
 	{
@@ -38,6 +54,18 @@ public class SudokuBoard {
 	{
 		this(iStream, System.out);
 	}	
+	
+	public void copyBoard(Cell[][] oldBoard)
+	{
+		for(int i = 0; i < size; i++)
+		{
+			for(int j = 0; j < size; j++)
+			{
+				Cell cell = new Cell(oldBoard[i][j].getValue());
+				board[i][j] = cell;
+			}
+		}
+	}
 	
 	public void cellSets()
 	{
@@ -98,12 +126,15 @@ public class SudokuBoard {
 			buff = new BufferedReader(file);
 			while((data = buff.readLine()) != null)
 			{
-				if(data.length() == 1)
+				if(data.length() <= 2)
 				{
 					this.size = getBoardSize(data);
 				}
 				else
+				{
 					throw new IOException("SudokuBoard: expected single number at start of the file. Got: "+ data);
+				}
+					
 				
 				data = buff.readLine();
 				temp = data.split(" ");
@@ -208,7 +239,15 @@ public class SudokuBoard {
 	
 	public String toString()
 	{
+		Set<String> symbols = validSymbols;
+		symbols.remove("-");
+		String sym = "";
+		for(String s : symbols)
+		{
+			sym+=s+" ";
+		}
 		String temp = this.size+"\n";
+		temp+=sym.trim()+"\n";
 		for(int i = 0; i < this.size; i++)
 		{
 			for(int j = 0; j < this.size; j++)
@@ -226,7 +265,18 @@ public class SudokuBoard {
 		return temp;
 	}
 	
-	
+	public boolean validBoard()
+	{
+		boolean isValid = false;
+		boolean rows = this.rows.validateRows(board, size, validSymbols);
+		boolean cols = this.cols.validateColumns(board, size, validSymbols);
+		boolean boxes = this.boxes.validateBox(board, size, validSymbols);
+		if(rows && cols && boxes)
+			isValid = true;
+		return isValid;
+	}
+		 
+	public OutputStream getOutputStream() {return out; }
 	public String getOutput() {return output;}
 	public Cell[][] getBoard(){return board;}
 	public RowSet getRows() {return rows;}

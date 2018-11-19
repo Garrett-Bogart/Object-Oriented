@@ -1,9 +1,10 @@
 4
+A B C D
 B D C A 
 A C B D 
 C A D B 
 D B A C 
-singles were used
-Single time: 0ms
-Twins time: 0ms
-Loner time: 0ms
+Single Solution: 0ms
+Lone Subscript: 0ms
+Twins: 0ms
+Guess: 0ms

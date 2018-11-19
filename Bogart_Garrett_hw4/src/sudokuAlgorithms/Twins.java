@@ -106,9 +106,12 @@ public class Twins extends SudokuSolver {
 				temp.removeAll(pair);
 				if(!temp.isEmpty())
 				{
+					int size = c.getSolutionSet().size();
 					c.getSolutionSet().removeAll(pair);
+					if(!(size == c.getSolutionSet().size()))
+						didWork = true;
 					//System.out.println("Twins did work: ");
-					didWork = true;
+					
 				}			
 			}
 		}
@@ -151,4 +154,6 @@ public class Twins extends SudokuSolver {
 
 	@Override
 	public void updateCells(SudokuBoard board, ArrayList<Cell> cells) {}
+	
+	public String getOutput() {return "Twins: "+getTotalTime()+"ms\n";}
 }
