@@ -32,7 +32,7 @@ public class Driver {
 	    		try {
 					board = new SudokuBoard(iStream,oStream);
 				} catch (Exception e) {
-					System.out.println("Driver: "+e);
+					System.out.println("Driver: invalid file "+e);
 				}
 	    	}
 	    }

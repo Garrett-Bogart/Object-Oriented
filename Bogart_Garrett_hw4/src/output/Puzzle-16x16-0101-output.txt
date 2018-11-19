@@ -17,6 +17,6 @@ G B 6 E 3 1 4 9 8 D F C 2 5 7 A
 2 5 C D E 6 8 F 7 A 9 B 3 G 4 1 
 8 3 7 1 A B 5 D 4 G 2 E C 6 F 9 
 Single Solution: 5ms
-Lone Subscript: 9ms
+Lone Subscript: 3ms
 Twins: 0ms
 Guess: 0ms

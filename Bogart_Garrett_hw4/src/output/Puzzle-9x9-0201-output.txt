@@ -11,5 +11,5 @@
 9 8 4 3 2 1 7 6 5 
 Single Solution: 1ms
 Lone Subscript: 0ms
-Twins: 0ms
-Guess: 1ms
+Twins: 1ms
+Guess: 0ms

@@ -25,7 +25,7 @@ G H I J K L M N O P 2 3 4 5 1 7 8 9 A 6 C D E F B
 B C D E F G H I J K L M N O P 2 3 4 5 1 7 8 9 A 6 
 6 7 8 9 A B C D E F G H I J K L M N O P 2 3 4 5 1 
 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P 
-Single Solution: 27ms
-Lone Subscript: 25ms
+Single Solution: 37ms
+Lone Subscript: 39ms
 Twins: 2ms
 Guess: 1ms
