@@ -11,9 +11,7 @@ import sudokuBoard.SudokuBoard;
 
 public class Guess extends SudokuSolver {
 	Deque<SudokuBoard> deque = new LinkedList<SudokuBoard>();
-	
-	ArrayList<Cell> failed = new ArrayList<Cell>();
-	Cell worker;
+
 	
 	public Guess(SudokuBoard board)
 	{

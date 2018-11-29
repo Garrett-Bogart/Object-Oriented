@@ -106,9 +106,6 @@ public class Loner extends SudokuSolver {
 
 
 	@Override
-	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}
-
-	@Override
 	public void updateCells(SudokuBoard board, ArrayList<Cell> cells) {
 		for(Cell c : cells)
 		{

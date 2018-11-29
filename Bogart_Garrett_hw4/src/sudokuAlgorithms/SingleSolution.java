@@ -48,15 +48,11 @@ public class SingleSolution extends SudokuSolver {
 			board.updateCells(c);
 		}	
 	}
-
-	@Override
-	public ArrayList<Cell> makeRegionList(ArrayList<Cell> cells, int region) {return null;}
-
-	@Override
-	public ArrayList<Cell> updateSubScript(ArrayList<Cell> cells) {return null;}
-
-	@Override
-	public void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}
 	
 	public String getOutput() {return "Single Solution: "+getTotalTime()+"ms\n";}
+
+	@Override
+	protected ArrayList<Cell> updateSubScript(ArrayList<Cell> cells) {
+		return null;
+	}
 }

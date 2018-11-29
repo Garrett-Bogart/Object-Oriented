@@ -27,10 +27,7 @@ public class GuessTest {
 		for(Cell c : found)
 		{
 			assertEquals(4, c.getSolutionSet().size());
-		}
-	
-		
-		
+		}	
 	}
 	
 	@Test

@@ -27,9 +27,9 @@ abstract public class SudokuSolver {
 	}
 	public abstract ArrayList<Cell> getCells(Cell[][] cells);
 	public abstract ArrayList<Cell> modifyCells(ArrayList<Cell> cells,int size) throws Exception;
-	abstract public String getOutput();
 	public abstract void updateCells(SudokuBoard board, ArrayList<Cell> cells);
 	abstract protected ArrayList<Cell> updateSubScript(ArrayList<Cell>cells);
+	abstract public String getOutput();	
 	public long getTotalTime() {return totalTime;}
 	protected ArrayList<Cell> makeRegionList(ArrayList<Cell> cells, int region){ return null;};
 	protected void removePair(ArrayList<Cell> cells, ArrayList<HashSet<String>> pair) {}

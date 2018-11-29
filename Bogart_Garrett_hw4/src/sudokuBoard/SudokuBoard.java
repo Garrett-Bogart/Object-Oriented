@@ -237,6 +237,25 @@ public class SudokuBoard {
 		out.close();
 	}
 	
+	public String printBoard()
+	{
+		String temp = "";
+		for(int i = 0; i < this.size; i++)
+		{
+			for(int j = 0; j < this.size; j++)
+			{
+				if(board[i][j] == null)
+				{
+					temp+="*";
+				}
+				else
+					temp+=board[i][j].toString()+" ";
+			}
+			temp+="\n";
+		}
+		return temp;
+	}
+	
 	public String toString()
 	{
 		Set<String> symbols = validSymbols;
@@ -275,7 +294,12 @@ public class SudokuBoard {
 			isValid = true;
 		return isValid;
 	}
-		 
+	
+	public Cell getCell(int row, int col)
+	{
+		return board[row][col];
+	}
+	
 	public OutputStream getOutputStream() {return out; }
 	public String getOutput() {return output;}
 	public Cell[][] getBoard(){return board;}
