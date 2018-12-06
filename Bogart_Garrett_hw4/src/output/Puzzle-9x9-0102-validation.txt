@@ -9,4 +9,4 @@
 3 8 7 6 4 9 5 2 1 
 6 2 9 7 1 5 8 3 4 
 1 5 4 8 3 2 6 9 7 
-SudokuBoard: SudokuBoard: expected single number at start of the file. Got: Single Solution: 1ms
+SudokuBoard: SudokuBoard: expected single number at start of the file. Got: Single Solution: 78ms

@@ -5,6 +5,6 @@
 2 1 4 3 
 4 3 2 1 
 Single Solution: 0ms
-Lone Subscript: 6ms
+Lone Subscript: 2ms
 Twins: 5ms
-Guess: 3ms
+Guess: 6ms

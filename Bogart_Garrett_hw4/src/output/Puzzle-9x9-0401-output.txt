@@ -10,6 +10,6 @@
 4 6 9 1 2 7 3 8 5 
 3 2 8 5 6 9 4 7 1 
 Single Solution: 0ms
-Lone Subscript: 2ms
+Lone Subscript: 0ms
 Twins: 0ms
 Guess: 0ms

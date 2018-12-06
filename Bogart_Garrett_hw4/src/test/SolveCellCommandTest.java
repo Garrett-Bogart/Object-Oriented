@@ -33,6 +33,17 @@ public class SolveCellCommandTest {
 		SolveCellCommand solve = new SolveCellCommand(playerBoard,0, 1, "4");
 		solve.execute();
 		assertEquals("4", board[0][1].getValue());	
+		solve = new SolveCellCommand(playerBoard,0,0,"4");
+		solve.execute();
+		assertEquals("2", board[0][0].getValue());
+		solve = new SolveCellCommand(playerBoard,-1,-4,"z");
+		solve = new SolveCellCommand(playerBoard,0,-4,"z");
+		solve = new SolveCellCommand(playerBoard,0,1,"z");
+		assertEquals("4", board[0][1].getValue());
+		solve = new SolveCellCommand(playerBoard,9,9,"z");
+		solve = new SolveCellCommand(playerBoard,0,9,"z");
+		solve = new SolveCellCommand(playerBoard,0,1,"z");
+		assertEquals("4", board[0][1].getValue());
 	}
 	
 	@Test

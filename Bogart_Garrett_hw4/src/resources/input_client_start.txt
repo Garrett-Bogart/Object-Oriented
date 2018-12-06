@@ -1,0 +1,7 @@
+solve
+0
+2
+2
+undo
+dfafa
+hint

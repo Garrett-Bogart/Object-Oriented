@@ -6,16 +6,19 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import commands.Client;
 import sudokuAlgorithms.SolverManager;
 import sudokuBoard.SudokuBoard;
 public class Driver {
 	private static SudokuBoard board = null;
 	private static SolverManager solver = null;
+	private static SudokuBoard playerBoard = null;
+	private static Client client = null;
+	private static boolean madeBoard = false;
 	
 	public static void makeBoard(String[] args) throws FileNotFoundException
 	{
 		InputStream iStream;
-		//TODO add fileoutput to SodokuBoard
 	    OutputStream oStream = System.out;
 	    if(args.length == 1)
 	    {
@@ -31,6 +34,7 @@ public class Driver {
 	    		iStream = new ByteArrayInputStream(args[0].getBytes());
 	    		try {
 					board = new SudokuBoard(iStream,oStream);
+					madeBoard = true;
 				} catch (Exception e) {
 					System.out.println("Driver: invalid file "+e);
 				}
@@ -43,6 +47,7 @@ public class Driver {
 	    	
 	    	try {
 				board = new SudokuBoard(iStream, oStream);
+				madeBoard = true;
 			} catch (Exception e) {
 				System.out.println("Driver: "+e);
 			}
@@ -50,7 +55,6 @@ public class Driver {
 	    else
 	    {
 	    	System.out.println("Driver: the parameters enterd are invalid");
-	    	System.exit(1);
 	    }
 	    
 }
@@ -58,7 +62,16 @@ public class Driver {
 	public static void main(String[] args) throws Exception 
 	  {
 	    makeBoard(args);
-	    solver = new SolverManager(board);
-	    solver.solve();
+	    if(madeBoard)
+	    {
+		    playerBoard = new SudokuBoard(board);
+		    solver = new SolverManager(board);
+		    solver.solve();
+		    client = new Client(playerBoard, board);
+			while(!client.start()) {}
+			System.out.println("\nSolved board\n"+client.toString());
+	    }
+
+
 	  }
 }

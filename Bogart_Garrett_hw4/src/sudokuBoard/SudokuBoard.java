@@ -61,7 +61,8 @@ public class SudokuBoard {
 		{
 			for(int j = 0; j < size; j++)
 			{
-				Cell cell = new Cell(oldBoard[i][j].getValue());
+				Cell cell = new Cell(oldBoard[i][j].getValue(), oldBoard[i][j].getOriginal());
+				
 				board[i][j] = cell;
 			}
 		}
@@ -153,7 +154,19 @@ public class SudokuBoard {
 						if(validSymbols.contains(temp[j]))
 						{
 							Cell cell = new Cell(temp[j]);
+							if(!"-".equals(temp[j]))
+							{
+								cell.setOriginal(true);
+							}
+							else
+							{
+								cell.setOriginal(false);
+							}
 							board[i][j] = cell;
+							if(!"-".equals(temp[j]))
+							{
+								
+							}
 						}
 						else
 						{
